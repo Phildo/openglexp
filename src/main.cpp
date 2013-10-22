@@ -1,35 +1,34 @@
 
-#include <GLUT/GLUT.h>
+#include <GLFW/glfw3.h>
 
-void display(void)
+void display()
 {
   glClearColor(255,255,255,0);
-  glColor3d(0,0,0);
+  glColor3d(0.0f,0.0f,0.0f);
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  glBegin(GL_QUADS);
+  glBegin(GL_TRIANGLES);
   glVertex2i(0,0);
   glVertex2i(0,128);
   glVertex2i(128,128);
-  glVertex2i(128,0);
   glEnd();
 
-  glRecti(200,200,250,250);
   glutSwapBuffers();
 }
 
 void reshape(int width, int height)
 {
   glViewport(0,0,width, height);
+
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-
   gluOrtho2D(0,width,height,0);
+
   glMatrixMode(GL_MODELVIEW);
 }
 
-void idle(void)
+void idle()
 {
   glutPostRedisplay();
 }

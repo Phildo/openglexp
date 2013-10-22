@@ -2,7 +2,7 @@
 OUT = test
 OBJS = main.o
 CC = g++
-GL = -framework glut -framework opengl
+GL = -lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
 DEBUG = -g
 DEBUGGER = gdb
 CFLAGS = -Wall -c $(DEBUG)
