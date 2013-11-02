@@ -1,52 +1,57 @@
-
 #include <GLFW/glfw3.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-void display()
+void err(int error, const char* description)
 {
-  glClearColor(255,255,255,0);
-  glColor3d(0.0f,0.0f,0.0f);
-
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  glBegin(GL_TRIANGLES);
-  glVertex2i(0,0);
-  glVertex2i(0,128);
-  glVertex2i(128,128);
-  glEnd();
-
-  glutSwapBuffers();
+  fprintf(stderr, "Error: %s\n", description);
 }
 
-void reshape(int width, int height)
+void resize(GLFWwindow* window, int width, int height)
 {
-  glViewport(0,0,width, height);
-
+  glViewport(0, 0, width, height);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluOrtho2D(0,width,height,0);
-
+  glOrtho(-1.f, 1.f, -1.f, 1.f, 1.f, -1.f);
   glMatrixMode(GL_MODELVIEW);
 }
 
-void idle()
+void keyPress(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-  glutPostRedisplay();
+  //if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 }
 
 int main(int argc, char **argv)
 {
-  glutInit(&argc, argv);
+  glfwSetErrorCallback(err);
+  glfwInit();
+  GLFWwindow* window = glfwCreateWindow(640,480,"",NULL,NULL);
+  //glfwTerminate();
+  glfwMakeContextCurrent(window);
+  glfwSwapInterval(0);
+  glfwSetWindowTitle(window, "yo");
 
-  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-  glutInitWindowSize(640, 480);
+  glfwSetFramebufferSizeCallback(window, resize);
+  glfwSetKeyCallback(window, keyPress);
 
-  glutCreateWindow("TEST");
+  glClearColor(255,255,255,0);
+  glColor3d(0.0f,0.0f,0.0f);
+  while(!glfwWindowShouldClose(window))
+  {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  glutDisplayFunc(display);
-  glutReshapeFunc(reshape);
-  glutIdleFunc(idle);
+    glBegin(GL_TRIANGLES);
+    glVertex2i(0,0);
+    glVertex2i(0,128);
+    glVertex2i(128,128);
+    glEnd();
 
-  glutMainLoop();
-  return 0;
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  glfwTerminate();
+  exit(EXIT_SUCCESS);
 }
 

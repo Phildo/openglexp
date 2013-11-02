@@ -2,11 +2,10 @@
 OUT = test
 OBJS = main.o
 CC = g++
-GL = -lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
 DEBUG = -g
 DEBUGGER = gdb
-CFLAGS = -Wall -c $(DEBUG)
-LFLAGS = -Wall $(GL) $(DEBUG)
+CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
+LFLAGS = -Wall -v `pkg-config --static --libs glfw3` $(DEBUG)
 
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)
@@ -21,7 +20,7 @@ clean :
 	\rm -rf *.o *.out $(OUT)
 
 tar : $(OUT)
-	tar -czvf $(OUT).tar.gz $(OUT) assets
+	tar -czvf $(OUT).tar.gz $(OUT)
 
 untar : $(OUT).tar.gz
 	tar -xzvf $(OUT).tar.gz
