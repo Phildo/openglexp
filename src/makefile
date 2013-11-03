@@ -1,23 +1,29 @@
-
-OUT = test
-OBJS = main.o
+ODR = out
+OUT = $(ODR)/app
+OBJS = $(ODR)/main.o $(ODR)/game.o $(ODR)/graphics.o
 CC = g++
 DEBUG = -g
 DEBUGGER = gdb
 CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
-LFLAGS = -Wall -v `pkg-config --static --libs glfw3` $(DEBUG)
+LFLAGS = -Wall `pkg-config --static --libs glfw3` $(DEBUG)
 
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)
 
-main.o : main.cpp
-	$(CC) $(CFLAGS) main.cpp
+$(ODR)/main.o : main.cpp game.h
+	$(CC) $(CFLAGS) main.cpp -o $(ODR)/main.o
+
+$(ODR)/game.o : game.cpp game.h graphics.h
+	$(CC) $(CFLAGS) game.cpp -o $(ODR)/game.o
+
+$(ODR)/graphics.o : graphics.cpp graphics.h
+	$(CC) $(CFLAGS) graphics.cpp -o $(ODR)/graphics.o
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)
 
 clean :
-	\rm -rf *.o *.out $(OUT)
+	\rm -rf $(ODR)/*.o $(OUT)
 
 tar : $(OUT)
 	tar -czvf $(OUT).tar.gz $(OUT)
