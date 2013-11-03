@@ -1,5 +1,6 @@
 .DS_Store
-test
+out
+app
 *.o
 *.out
 *.tar.gz
