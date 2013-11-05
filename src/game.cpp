@@ -20,8 +20,8 @@ void Game::run()
       i = 0;
       graphics->render();
     }
+    glfwPollEvents();
     i++;
-    //glfwPollEvents();
   }
 }
 
