@@ -7,8 +7,11 @@ class Graphics
 {
   private:
     GLFWwindow* window;
+    GLuint vertBufferID;
+    GLuint vertArrayID;
   public:
     Graphics(GLFWwindow* win);
+    ~Graphics();
     void render();
 };
 

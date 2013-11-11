@@ -1,6 +1,6 @@
 ODR = out
 OUT = $(ODR)/app
-OBJS = $(ODR)/main.o $(ODR)/game.o $(ODR)/graphics.o
+OBJS = $(ODR)/main.o $(ODR)/game.o $(ODR)/shader.o $(ODR)/graphics.o 
 CC = g++
 DEBUG = -g
 DEBUGGER = gdb
@@ -16,8 +16,11 @@ $(ODR)/main.o : main.cpp game.h
 $(ODR)/game.o : game.cpp game.h graphics.h
 	$(CC) $(CFLAGS) game.cpp -o $(ODR)/game.o
 
-$(ODR)/graphics.o : graphics.cpp graphics.h
+$(ODR)/graphics.o : graphics.cpp graphics.h shader.h
 	$(CC) $(CFLAGS) graphics.cpp -o $(ODR)/graphics.o
+
+$(ODR)/shader.o : shader.cpp shader.h
+	$(CC) $(CFLAGS) shader.cpp -o $(ODR)/shader.o
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)
