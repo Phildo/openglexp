@@ -1,15 +1,7 @@
 #include "graphics.h"
 
 #include <GLFW/glfw3.h>
-
-void resize(GLFWwindow* window, int width, int height)
-{
-  glViewport(0, 0, width, height);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glOrtho(-1.f, 1.f, -1.f, 1.f, 1.f, -1.f);
-  glMatrixMode(GL_MODELVIEW);
-}
+void resize(GLFWwindow* window, int width, int height);
 
 Graphics::Graphics(GLFWwindow* win)
 {
@@ -19,6 +11,15 @@ Graphics::Graphics(GLFWwindow* win)
   glfwSetFramebufferSizeCallback(window, resize);
   glClearColor(255,255,255,0);
   glColor3d(0.0f,0.0f,0.0f);
+}
+
+void resize(GLFWwindow* window, int width, int height)
+{
+  glViewport(0, 0, width, height);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glOrtho(-1.f, 1.f, -1.f, 1.f, 1.f, -1.f);
+  glMatrixMode(GL_MODELVIEW);
 }
 
 void Graphics::render()

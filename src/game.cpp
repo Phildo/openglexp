@@ -12,15 +12,22 @@ Game::Game()
 void Game::run()
 {
   //glfwSetKeyCallback(window, keyPress);
+
+  //move to input handler
+  glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
   int i = 0;
-  while(!glfwWindowShouldClose(window))
+  while(!glfwWindowShouldClose(window) && (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS))
   {
     if(i > 50000)
     {
       i = 0;
       graphics->render();
     }
+
+    //move to input handler
     glfwPollEvents();
+
     i++;
   }
 }
