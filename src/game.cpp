@@ -1,11 +1,12 @@
 #include "game.h"
 
-#include <GLFW/glfw3.h>
 #include "graphics.h"
 
 Game::Game()
 {
   window = glfwCreateWindow(640,480,"hello world",NULL,NULL);
+  glewExperimental = true;
+  glewInit();
   graphics = new Graphics(window);
 }
 

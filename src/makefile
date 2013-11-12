@@ -5,7 +5,7 @@ CC = g++
 DEBUG = -g
 DEBUGGER = gdb
 CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
-LFLAGS = -Wall `pkg-config --static --libs glfw3` $(DEBUG)
+LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEBUG)
 
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)

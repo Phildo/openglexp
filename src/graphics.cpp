@@ -1,8 +1,6 @@
 #include "graphics.h"
 
 #include "shader.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 void resize(GLFWwindow* window, int width, int height);
 
@@ -65,10 +63,6 @@ void Graphics::render()
   glDisableVertexAttribArray(0);
 
 
-
-
-
-
   glfwSwapBuffers(window);
 }
 
@@ -78,3 +72,4 @@ Graphics::~Graphics()
   glDeleteBuffers(1, &vertBufferID);
   glDeleteVertexArrays(1, &vertArrayID);
 }
+
