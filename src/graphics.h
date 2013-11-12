@@ -3,8 +3,6 @@
 
 #include "gl_include.h"
 
-struct GLFWwindow;
-
 class Graphics
 {
   private:

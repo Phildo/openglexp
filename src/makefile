@@ -10,16 +10,16 @@ LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEB
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)
 
-$(ODR)/main.o : main.cpp game.h
+$(ODR)/main.o : main.cpp game.h gl_include.h
 	$(CC) $(CFLAGS) main.cpp -o $(ODR)/main.o
 
-$(ODR)/game.o : game.cpp game.h graphics.h
+$(ODR)/game.o : game.cpp game.h graphics.h gl_include.h
 	$(CC) $(CFLAGS) game.cpp -o $(ODR)/game.o
 
-$(ODR)/graphics.o : graphics.cpp graphics.h shader.h
+$(ODR)/graphics.o : graphics.cpp graphics.h shader.h gl_include.h
 	$(CC) $(CFLAGS) graphics.cpp -o $(ODR)/graphics.o
 
-$(ODR)/shader.o : shader.cpp shader.h
+$(ODR)/shader.o : shader.cpp shader.h gl_include.h
 	$(CC) $(CFLAGS) shader.cpp -o $(ODR)/shader.o
 
 debug : $(OUT)

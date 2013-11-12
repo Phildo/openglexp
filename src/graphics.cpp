@@ -1,5 +1,4 @@
 #include "graphics.h"
-
 #include "shader.h"
 
 void resize(GLFWwindow* window, int width, int height);
@@ -13,6 +12,7 @@ Graphics::Graphics(GLFWwindow* win)
   glClearColor(255,255,255,0);
   glColor3d(0.0f,0.0f,0.0f);
 
+  vertArrayID = 0;
   glGenVertexArrays(1, &vertArrayID);
   glBindVertexArray(vertArrayID);
 
@@ -24,11 +24,11 @@ Graphics::Graphics(GLFWwindow* win)
            0.0f,  1.0f, 0.0f,
   };
 
+  vertBufferID = 0;
   glGenBuffers(1, &vertBufferID);
   glBindBuffer(GL_ARRAY_BUFFER, vertBufferID);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertBuffData), vertBuffData, GL_STATIC_DRAW);
 
-  // Use our shader
   glUseProgram(programID);
 }
 
@@ -45,7 +45,6 @@ void Graphics::render()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // 1rst attribute buffer : vertices
   glEnableVertexAttribArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, vertBufferID);
   glVertexAttribPointer(
@@ -56,19 +55,14 @@ void Graphics::render()
           0,                  // stride
           (void*)0            // array buffer offset
   );
-
-  // Draw the triangle !
-  glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
-
+  glDrawArrays(GL_TRIANGLES, 0, 3);
   glDisableVertexAttribArray(0);
-
 
   glfwSwapBuffers(window);
 }
 
 Graphics::~Graphics()
 {
-  // Cleanup VBO
   glDeleteBuffers(1, &vertBufferID);
   glDeleteVertexArrays(1, &vertArrayID);
 }

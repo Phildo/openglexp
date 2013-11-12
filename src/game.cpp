@@ -1,21 +1,19 @@
 #include "game.h"
-
 #include "graphics.h"
 
 Game::Game()
 {
   window = glfwCreateWindow(640,480,"hello world",NULL,NULL);
-  glewExperimental = true;
+  glewExperimental = GL_TRUE;
   glewInit();
   graphics = new Graphics(window);
 }
 
 void Game::run()
 {
-  //glfwSetKeyCallback(window, keyPress);
-
   //move to input handler
-  glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+  //glfwSetKeyCallback(window, keyPress);
+  //glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
   int i = 0;
   while(!glfwWindowShouldClose(window) && (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS))

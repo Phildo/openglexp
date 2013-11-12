@@ -1,7 +1,8 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-struct GLFWwindow;
+#include "gl_include.h"
+
 class Graphics;
 
 class Game
