@@ -6,7 +6,6 @@ void resize(GLFWwindow* window, int width, int height);
 Graphics::Graphics(GLFWwindow* win)
 {
   window = win;
-  glfwMakeContextCurrent(window);
   glfwSwapInterval(0);
   glfwSetFramebufferSizeCallback(window, resize);
   glClearColor(255,255,255,0);

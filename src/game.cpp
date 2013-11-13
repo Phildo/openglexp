@@ -4,6 +4,7 @@
 Game::Game()
 {
   window = glfwCreateWindow(640,480,"hello world",NULL,NULL);
+  glfwMakeContextCurrent(window);
   glewExperimental = GL_TRUE;
   glewInit();
   graphics = new Graphics(window);
@@ -11,7 +12,7 @@ Game::Game()
 
 void Game::run()
 {
-  //move to input handler
+  //move to input handler later
   //glfwSetKeyCallback(window, keyPress);
   //glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
