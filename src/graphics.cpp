@@ -8,6 +8,7 @@ Graphics::Graphics(GLFWwindow* win)
   window = win;
   glfwSwapInterval(0);
   glfwSetFramebufferSizeCallback(window, resize);
+
   glClearColor(255,255,255,0);
   glColor3d(0.0f,0.0f,0.0f);
 

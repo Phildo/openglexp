@@ -34,9 +34,6 @@ tar : $(OUT)
 untar : $(OUT).tar.gz
 	tar -xzvf $(OUT).tar.gz
 
-pull :
-	scp phildo@phildogames.com:/var/www/html/games/ogam/mazer/$(OUT).tar.gz .
-
 run : $(OUT)
 	./$(OUT)
 

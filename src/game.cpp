@@ -1,5 +1,8 @@
 #include "game.h"
 #include "graphics.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 Game::Game()
 {
@@ -7,6 +10,8 @@ Game::Game()
   glfwMakeContextCurrent(window);
   glewExperimental = GL_TRUE;
   glewInit();
+
+  printf("shader lang: %s\n",glGetString(GL_SHADING_LANGUAGE_VERSION));
   graphics = new Graphics(window);
 }
 
