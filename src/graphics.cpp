@@ -16,7 +16,8 @@ Graphics::Graphics(GLFWwindow* win)
   glGenVertexArrays(1, &vertArrayID);
   glBindVertexArray(vertArrayID);
 
-  GLuint programID = LoadShaders("shader.vs", "shader.fs");
+  //note to get rid of hardcoding bs 
+  GLuint programID = LoadShaders("src/shaders/shader.vs", "src/shaders/shader.fs");
 
   GLfloat vertBuffData[] = { 
           -1.0f, -1.0f, 0.0f,
