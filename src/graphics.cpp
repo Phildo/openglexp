@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "include.h"
 #include "shader.h"
 
 void resize(GLFWwindow* window, int width, int height);
@@ -16,8 +17,7 @@ Graphics::Graphics(GLFWwindow* win)
   glGenVertexArrays(1, &vertArrayID);
   glBindVertexArray(vertArrayID);
 
-  //note to get rid of hardcoding bs 
-  GLuint programID = LoadShaders("src/shaders/shader.vs", "src/shaders/shader.fs");
+  GLuint programID = LoadShaders(V_SHADER_FILE, F_SHADER_FILE);
 
   GLfloat vertBuffData[] = { 
           -1.0f, -1.0f, 0.0f,
@@ -36,10 +36,6 @@ Graphics::Graphics(GLFWwindow* win)
 void resize(GLFWwindow* window, int width, int height)
 {
   glViewport(0, 0, width, height);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glOrtho(-1.f, 1.f, -1.f, 1.f, 1.f, -1.f);
-  glMatrixMode(GL_MODELVIEW);
 }
 
 void Graphics::render()

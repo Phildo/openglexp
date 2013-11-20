@@ -1,6 +1,7 @@
-SRCDIR = src
-ODIR = out
-BINDIR = bin
+TOP = ~/Desktop/experimenting_with_open_gl
+SRCDIR = $(TOP)/src
+ODIR = $(TOP)/out
+BINDIR = $(TOP)/bin
 OUT = $(BINDIR)/app
 OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/shader.o $(ODIR)/graphics.o 
 CC = g++
@@ -27,17 +28,11 @@ $(ODIR)/shader.o : $(SRCDIR)/shader.cpp $(SRCDIR)/shader.h $(SRCDIR)/gl_include.
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)
 
-clean :
+clean : 
 	\rm -rf $(ODIR)/*.o $(OUT)
 
-tar : $(OUT)
-	tar -czvf $(OUT).tar.gz $(OUT)
-
-untar : $(OUT).tar.gz
-	tar -xzvf $(OUT).tar.gz
-
 run : $(OUT)
-	./$(OUT)
+	$(OUT)
 
 scratch : clean run
 	
