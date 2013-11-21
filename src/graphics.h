@@ -9,6 +9,9 @@ class Graphics
     GLFWwindow* window;
     GLuint vertBufferID;
     GLuint vertArrayID;
+    GLuint ModelMatrixID;
+    GLuint ViewMatrixID;
+    GLuint ProjMatrixID;
   public:
     Graphics(GLFWwindow* win);
     ~Graphics();

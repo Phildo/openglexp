@@ -19,10 +19,20 @@ Graphics::Graphics(GLFWwindow* win)
 
   GLuint programID = LoadShaders(V_SHADER_FILE, F_SHADER_FILE);
 
+  /////////////
+  ProjMatrixID = glGetUniformLocation(programID, "ProjMat");
+  ViewMatrixID = glGetUniformLocation(programID, "ViewMat");
+  ModelMatrixID = glGetUniformLocation(programID, "ModelMat");
+
+  glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+  glm::mat4 View       = glm::lookAt(glm::vec3(4,3,3),glm::vec3(0,0,0),glm::vec3(0,1,0));
+  glm::mat4 Model      = glm::mat4(1.0f);
+  /////////////
+
   GLfloat vertBuffData[] = { 
-          -1.0f, -1.0f, 0.0f,
-           1.0f, -1.0f, 0.0f,
-           0.0f,  1.0f, 0.0f,
+    -1.0f, -1.0f, 0.0f,
+    1.0f, -1.0f, 0.0f,
+    0.0f,  1.0f, 0.0f,
   };
 
   vertBufferID = 0;
@@ -52,6 +62,13 @@ void Graphics::render()
           0,                  // stride
           (void*)0            // array buffer offset
   );
+
+  //
+  glUniformMatrix4fv(ProjMatrixID, 1, GL_FALSE, &ProjMat[0][0]);
+  glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMat[0][0]);
+  glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMat[0][0]);
+  //
+
   glDrawArrays(GL_TRIANGLES, 0, 3);
   glDisableVertexAttribArray(0);
 
