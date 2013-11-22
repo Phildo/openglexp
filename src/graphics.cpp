@@ -32,8 +32,7 @@ Graphics::Graphics(GLFWwindow* win)
 
   //gen IDs
   programID = LoadShaders(V_SHADER_FILE, F_SHADER_FILE);
-  glGenVertexArrays(1, &vertArrayID); //I DONT UNDERSTAND
-  glBindVertexArray(vertArrayID); //THESE TWO LINES
+  glGenVertexArrays(1, &vertArrayID);
   glGenBuffers(1, &vertBufferID);
   glGenBuffers(1, &colorBufferID);
   ProjMatrixID = glGetUniformLocation(programID, "ProjMat");
@@ -41,6 +40,9 @@ Graphics::Graphics(GLFWwindow* win)
   ModelMatrixID = glGetUniformLocation(programID, "ModelMat");
 
   //populate buffers
+  glBindVertexArray(vertArrayID);
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, vertBufferID);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertBuffData), vertBuffData, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, colorBufferID);
@@ -58,7 +60,6 @@ void Graphics::render()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  glEnableVertexAttribArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, vertBufferID);
 // attribute 0. No particular reason for 0, but must match the layout in the shader.
 // size
@@ -68,7 +69,6 @@ void Graphics::render()
 // array buffer offset
   glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
-  glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, colorBufferID);
   glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
@@ -78,17 +78,14 @@ void Graphics::render()
 
   glDrawArrays(GL_TRIANGLES, 0, 3);
 
-  glDisableVertexAttribArray(0);
-  glDisableVertexAttribArray(1);
-
   glfwSwapBuffers(window);
 }
 
 Graphics::~Graphics()
 {
+  glDeleteVertexArrays(1, &vertArrayID);
   glDeleteBuffers(1, &vertBufferID);
   glDeleteBuffers(1, &colorBufferID);
   glDeleteProgram(programID);
-  glDeleteVertexArrays(1, &vertArrayID);
 }
 
