@@ -9,9 +9,12 @@ class Graphics
     GLFWwindow* window;
     GLuint vertBufferID;
     GLuint vertArrayID;
-    GLuint ModelMatrixID;
-    GLuint ViewMatrixID;
     GLuint ProjMatrixID;
+    GLuint ViewMatrixID;
+    GLuint ModelMatrixID;
+    glm::mat4 ProjMat;
+    glm::mat4 ViewMat;
+    glm::mat4 ModelMat;
   public:
     Graphics(GLFWwindow* win);
     ~Graphics();
