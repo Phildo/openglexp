@@ -7,8 +7,10 @@ class Graphics
 {
   private:
     GLFWwindow* window;
-    GLuint vertBufferID;
+    GLuint programID;
     GLuint vertArrayID;
+    GLuint vertBufferID;
+    GLuint colorBufferID;
     GLuint ProjMatrixID;
     GLuint ViewMatrixID;
     GLuint ModelMatrixID;
