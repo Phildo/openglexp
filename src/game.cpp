@@ -37,7 +37,7 @@ void Game::run()
   int i = 0;
   while(!glfwWindowShouldClose(window) && (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS))
   {
-    if(i > 50000)
+    if(i > 5000)
     {
       i = 0;
       graphics->render();

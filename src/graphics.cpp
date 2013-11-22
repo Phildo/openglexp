@@ -60,6 +60,13 @@ void Graphics::render()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+  //REMOVE THIS
+  ModelMat = glm::rotate(ModelMat, 1.0f, glm::vec3(0, 1, 0));
+
+
+
+
   glBindBuffer(GL_ARRAY_BUFFER, vertBufferID);
 // attribute 0. No particular reason for 0, but must match the layout in the shader.
 // size
