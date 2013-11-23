@@ -3,7 +3,7 @@ SRCDIR = $(TOP)/src
 ODIR = $(TOP)/out
 BINDIR = $(TOP)/bin
 OUT = $(BINDIR)/app
-OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/shader.o $(ODIR)/graphics.o 
+OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/shader.o 
 CC = g++
 DEBUG = -g
 DEBUGGER = gdb
@@ -16,8 +16,11 @@ $(OUT) : $(OBJS)
 $(ODIR)/main.o : $(SRCDIR)/main.cpp $(SRCDIR)/game.h $(SRCDIR)/gl_include.h
 	$(CC) $(CFLAGS) $(SRCDIR)/main.cpp -o $(ODIR)/main.o
 
-$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/graphics.h $(SRCDIR)/gl_include.h
+$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h $(SRCDIR)/gl_include.h
 	$(CC) $(CFLAGS) $(SRCDIR)/game.cpp -o $(ODIR)/game.o
+
+$(ODIR)/input.o : $(SRCDIR)/input.cpp $(SRCDIR)/input.h
+	$(CC) $(CFLAGS) $(SRCDIR)/input.cpp -o $(ODIR)/input.o
 
 $(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/shader.h $(SRCDIR)/gl_include.h
 	$(CC) $(CFLAGS) $(SRCDIR)/graphics.cpp -o $(ODIR)/graphics.o

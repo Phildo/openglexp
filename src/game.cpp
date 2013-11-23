@@ -1,5 +1,6 @@
 #include "game.h"
 #include "gl_include.h"
+#include "input.h"
 #include "graphics.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,33 +26,29 @@ Game::Game()
   glewExperimental = GL_TRUE;
   glewInit();
 
+  input = new Input(window);
   graphics = new Graphics(window);
 }
 
 void Game::run()
 {
-  //move to input handler later
-  //glfwSetKeyCallback(window, keyPress);
-  //glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
   int i = 0;
   while(!glfwWindowShouldClose(window) && (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS))
   {
+    input->poll();
     if(i > 5000)
     {
       i = 0;
       graphics->render();
     }
-
-    //move to input handler
-    glfwPollEvents();
-
     i++;
   }
 }
 
 Game::~Game()
 {
+  delete graphics;
+  delete input;
   glfwTerminate();
 }
 
