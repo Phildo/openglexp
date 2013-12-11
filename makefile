@@ -1,7 +1,6 @@
-TOP = ~/Desktop/experimenting_with_open_gl
-SRCDIR = $(TOP)/src
-ODIR = $(TOP)/out
-BINDIR = $(TOP)/bin
+SRCDIR = src
+ODIR = out
+BINDIR = bin
 OUT = $(BINDIR)/app
 OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/shader.o 
 CC = g++
