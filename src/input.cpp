@@ -3,7 +3,6 @@
 Input::Input(GLFWwindow* win)
 {
   window = win;
-  //glfwSetKeyCallback(window, keyPress);
   glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 }
 

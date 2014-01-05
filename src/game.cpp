@@ -36,7 +36,7 @@ void Game::run()
   while(!glfwWindowShouldClose(window) && (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS))
   {
     input->poll();
-    if(i > 5000)
+    if(i > 5)
     {
       i = 0;
       graphics->render();
