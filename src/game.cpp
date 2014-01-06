@@ -1,39 +1,25 @@
 #include "game.h"
 #include "gl_include.h"
+#include "mygl.h"
 #include "input.h"
 #include "graphics.h"
+#include "world.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void err(int error, const char* description)
-{
-  fprintf(stderr, "Error: %s\n", description);
-}
-
 Game::Game()
 {
-  glfwSetErrorCallback(err);
-  glfwInit();
-
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-  window = glfwCreateWindow(640,480,"hello world",NULL,NULL);
-  glfwMakeContextCurrent(window);
-  glewExperimental = GL_TRUE;
-  glewInit();
-
-  input = new Input(window);
-  graphics = new Graphics(window);
+  myGL = new MyGL();
+  input = new Input(myGL->window);
+  graphics = new Graphics(myGL->window);
+  world = new World();
 }
 
 void Game::run()
 {
   int i = 0;
-  while(!glfwWindowShouldClose(window) && (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS))
+  while(!glfwWindowShouldClose(myGL->window) && (glfwGetKey(myGL->window, GLFW_KEY_ESCAPE) != GLFW_PRESS))
   {
     input->poll();
     if(i > 5)
@@ -47,8 +33,9 @@ void Game::run()
 
 Game::~Game()
 {
+  delete myGL;
   delete graphics;
   delete input;
-  glfwTerminate();
+  delete world;
 }
 

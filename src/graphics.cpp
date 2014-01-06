@@ -16,7 +16,7 @@ Graphics::Graphics(GLFWwindow* win)
   glDepthFunc(GL_LESS);
 
   //cpu Data
-  ProjMat  = glm::mat4(1.0f);//glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+  ProjMat  = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
   ViewMat  = glm::lookAt(glm::vec3(4,3,3),glm::vec3(0,0,0),glm::vec3(0,1,0));
   ModelMat = glm::mat4(1.0f);
   GLfloat vertBuffData[] = { 

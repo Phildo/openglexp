@@ -1,16 +1,18 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-struct GLFWwindow;
+class MyGL;
 class Input;
 class Graphics;
+class World;
 
 class Game
 {
   private:
-    GLFWwindow* window;
+    MyGL* myGL;
     Input* input;
     Graphics* graphics;
+    World* world;
   public:
     Game();
     ~Game();
