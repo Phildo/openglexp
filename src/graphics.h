@@ -7,16 +7,16 @@ class Graphics
 {
   private:
     GLFWwindow* window;
-    GLuint programID;
-    GLuint vertArrayID;
-    GLuint vertBufferID;
-    GLuint colorBufferID;
-    GLuint ProjMatrixID;
-    GLuint ViewMatrixID;
-    GLuint ModelMatrixID;
-    glm::mat4 ProjMat;
-    glm::mat4 ViewMat;
-    glm::mat4 ModelMat;
+    GLuint gl_programID;
+    GLuint gl_vertArrayID;
+    GLuint gl_vertBufferID;
+    GLuint gl_colorBufferID;
+    GLuint gl_projMatrixID;
+    GLuint gl_viewMatrixID;
+    GLuint gl_modelMatrixID;
+    glm::mat4 projMat;
+    glm::mat4 viewMat;
+    glm::mat4 modelMat;
   public:
     Graphics(GLFWwindow* win);
     ~Graphics();

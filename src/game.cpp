@@ -4,6 +4,7 @@
 #include "input.h"
 #include "graphics.h"
 #include "world.h"
+#include "world_renderer.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,6 +15,7 @@ Game::Game()
   input = new Input(myGL->window);
   graphics = new Graphics(myGL->window);
   world = new World();
+  worldRenderer = new WorldRenderer();
 }
 
 void Game::run()
@@ -33,9 +35,10 @@ void Game::run()
 
 Game::~Game()
 {
-  delete myGL;
-  delete graphics;
-  delete input;
+  delete worldRenderer;
   delete world;
+  delete input;
+  delete graphics;
+  delete myGL;
 }
 

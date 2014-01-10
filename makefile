@@ -2,7 +2,7 @@ SRCDIR = src
 ODIR = out
 BINDIR = bin
 OUT = $(BINDIR)/app
-OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/shader.o $(ODIR)/world.o
+OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/world.o $(ODIR)/world_renderer.o
 CC = g++
 DEBUG = -g
 DEBUGGER = gdb
@@ -21,17 +21,17 @@ $(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/
 $(ODIR)/mygl.o : $(SRCDIR)/mygl.cpp $(SRCDIR)/mygl.h $(SRCDIR)/gl_include.h $(SRCDIR)/include.h
 	$(CC) $(CFLAGS) $(SRCDIR)/mygl.cpp -o $(ODIR)/mygl.o
 
-$(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/shader.h $(SRCDIR)/gl_include.h $(SRCDIR)/include.h
+$(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/gl_include.h $(SRCDIR)/include.h
 	$(CC) $(CFLAGS) $(SRCDIR)/graphics.cpp -o $(ODIR)/graphics.o
 
 $(ODIR)/input.o : $(SRCDIR)/input.cpp $(SRCDIR)/input.h
 	$(CC) $(CFLAGS) $(SRCDIR)/input.cpp -o $(ODIR)/input.o
 
-$(ODIR)/shader.o : $(SRCDIR)/shader.cpp $(SRCDIR)/shader.h $(SRCDIR)/gl_include.h $(SRCDIR)/include.h
-	$(CC) $(CFLAGS) $(SRCDIR)/shader.cpp -o $(ODIR)/shader.o
-
 $(ODIR)/world.o : $(SRCDIR)/world.cpp $(SRCDIR)/world.h
 	$(CC) $(CFLAGS) $(SRCDIR)/world.cpp -o $(ODIR)/world.o
+
+$(ODIR)/world_renderer.o : $(SRCDIR)/world_renderer.cpp $(SRCDIR)/world_renderer.h $(SRCDIR)/renderer.h
+	$(CC) $(CFLAGS) $(SRCDIR)/world_renderer.cpp -o $(ODIR)/world_renderer.o
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)

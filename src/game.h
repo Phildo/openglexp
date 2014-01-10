@@ -5,6 +5,7 @@ class MyGL;
 class Input;
 class Graphics;
 class World;
+class WorldRenderer;
 
 class Game
 {
@@ -13,6 +14,7 @@ class Game
     Input* input;
     Graphics* graphics;
     World* world;
+    WorldRenderer* worldRenderer;
   public:
     Game();
     ~Game();
