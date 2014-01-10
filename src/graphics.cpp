@@ -1,22 +1,32 @@
 #include "graphics.h"
 #include "include.h"
-
-#include <stdio.h>
-#include <string>
-#include <iostream>
-#include <fstream>
+#include "utils.h"
 
 void resize(GLFWwindow* window, int width, int height);
 
-const std::string stringFromFile(const char *fileName)
+GLuint loadShader(const char *vs_filename, const char *fs_filename)
 {
-  std::string line = "";
-  std::string resultString;
-  std::ifstream fileStream(fileName, std::ios::in);
-  while(getline(fileStream, line))
-    resultString += "\n" + line;
-  fileStream.close();
-  return resultString;
+  GLuint gl_programID;
+  GLuint gl_vsID = glCreateShader(GL_VERTEX_SHADER);
+  GLuint gl_fsID = glCreateShader(GL_FRAGMENT_SHADER);
+
+  const char *vscp = FLATUtils::stringFromFile(vs_filename).c_str();
+  glShaderSource(gl_vsID, 1, &vscp, NULL);
+  glCompileShader(gl_vsID);
+
+  const char *fscp = FLATUtils::stringFromFile(fs_filename).c_str();
+  glShaderSource(gl_fsID, 1, &fscp, NULL);
+  glCompileShader(gl_fsID);
+
+  gl_programID = glCreateProgram();
+  glAttachShader(gl_programID, gl_vsID);
+  glAttachShader(gl_programID, gl_fsID);
+  glLinkProgram(gl_programID);
+
+  glDeleteShader(gl_vsID);
+  glDeleteShader(gl_fsID);
+
+  return gl_programID;
 }
 
 Graphics::Graphics(GLFWwindow* win)
@@ -44,28 +54,8 @@ Graphics::Graphics(GLFWwindow* win)
     0.5f, 0.5f, 0.5f,
     0.5f, 0.5f, 0.0f,
   };
-
-  //gen Shaders
-  GLuint VertexShaderID   = glCreateShader(GL_VERTEX_SHADER);
-  GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
-  const char *vscp = stringFromFile(V_SHADER_FILE).c_str();
-  glShaderSource(VertexShaderID, 1, &vscp, NULL);
-  glCompileShader(VertexShaderID);
-
-  const char *fscp = stringFromFile(F_SHADER_FILE).c_str();
-  glShaderSource(FragmentShaderID, 1, &fscp, NULL);
-  glCompileShader(FragmentShaderID);
-
-  gl_programID = glCreateProgram();
-  glAttachShader(gl_programID, VertexShaderID);
-  glAttachShader(gl_programID, FragmentShaderID);
-  glLinkProgram(gl_programID);
-
-  glDeleteShader(VertexShaderID);
-  glDeleteShader(FragmentShaderID);
-
   //gen IDs
+  gl_programID = loadShader(V_SHADER_FILE, F_SHADER_FILE);
   glGenVertexArrays(1, &gl_vertArrayID);
   glGenBuffers(1, &gl_vertBufferID);
   glGenBuffers(1, &gl_colorBufferID);
