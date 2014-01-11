@@ -2,6 +2,10 @@
 #include "include.h"
 #include "utils.h"
 
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
 void resize(GLFWwindow* window, int width, int height);
 
 GLuint loadShader(const char *vs_filename, const char *fs_filename)
@@ -10,11 +14,14 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
   GLuint gl_vsID = glCreateShader(GL_VERTEX_SHADER);
   GLuint gl_fsID = glCreateShader(GL_FRAGMENT_SHADER);
 
-  const char *vscp = FLATUtils::stringFromFile(vs_filename).c_str();
+  std::string fileContents;
+  FLATUtils::stringFromFile(vs_filename, fileContents);
+  const char *vscp = fileContents.c_str();
   glShaderSource(gl_vsID, 1, &vscp, NULL);
   glCompileShader(gl_vsID);
 
-  const char *fscp = FLATUtils::stringFromFile(fs_filename).c_str();
+  FLATUtils::stringFromFile(fs_filename, fileContents);
+  const char *fscp = fileContents.c_str();
   glShaderSource(gl_fsID, 1, &fscp, NULL);
   glCompileShader(gl_fsID);
 

@@ -2,6 +2,6 @@
 
 namespace FLATUtils
 {
-  const std::string stringFromFile(const char *fileName);
+  void stringFromFile(const char *fileName, std::string& contentString);
 }
 

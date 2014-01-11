@@ -4,14 +4,13 @@
 #include <iostream>
 #include <fstream>
 
-const std::string FLATUtils::stringFromFile(const char *fileName)
+void FLATUtils::stringFromFile(const char *fileName, std::string& contentString)
 {
+  contentString = "";
   std::string line = "";
-  std::string resultString;
   std::ifstream fileStream(fileName, std::ios::in);
   while(getline(fileStream, line))
-    resultString += "\n" + line;
+    contentString += "\n" + line;
   fileStream.close();
-  return resultString;
 }
 
