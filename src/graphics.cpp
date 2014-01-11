@@ -6,6 +6,11 @@
 #include <iostream>
 #include <fstream>
 
+#include <stdlib.h>
+
+#define WIDTH 4
+#define LENGTH 4
+
 void resize(GLFWwindow* window, int width, int height);
 
 GLuint loadShader(const char *vs_filename, const char *fs_filename)
@@ -36,6 +41,94 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
   return gl_programID;
 }
 
+struct pt
+{
+  GLfloat x,y,z;
+};
+
+struct tri
+{
+  pt p0,p1,p2;
+};
+
+float randf()
+{
+  return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}
+
+void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
+{
+  pt p0,p1,p2,p3;
+  pt c0,c1,c2,c3;
+  tri t;
+
+  for(int x = 0; x < widthx; x++)
+  {
+    for(int z = 0; z < lengthz; z++)
+    {
+      p0.x = ((x+0)* 1.0f)+(randf()-0.5f);
+      p0.y =               (randf()-0.5f);
+      p0.z = ((z+0)*-1.0f)+(randf()-0.5f);
+      c0.x = (randf()/2.0f+0.5f);
+      c0.y = (randf()/2.0f+0.5f);
+      c0.z = (randf()/2.0f+0.5f);
+
+      p1.x = ((x+0)* 1.0f)+(randf()-0.5f);
+      p1.y =               (randf()-0.5f);
+      p1.z = ((z+1)*-1.0f)+(randf()-0.5f);
+      c1.x = (randf()/2.0f+0.5f);
+      c1.y = (randf()/2.0f+0.5f);
+      c1.z = (randf()/2.0f+0.5f);
+
+      p2.x = ((x+1)* 1.0f)+(randf()-0.5f);
+      p2.y =               (randf()-0.5f);
+      p2.z = ((z+1)*-1.0f)+(randf()-0.5f);
+      c2.x = (randf()/2.0f+0.5f);
+      c2.y = (randf()/2.0f+0.5f);
+      c2.z = (randf()/2.0f+0.5f);
+
+      p3.x = ((x+1)* 1.0f)+(randf()-0.5f);
+      p3.y =               (randf()-0.5f);
+      p3.z = ((z+0)*-1.0f)+(randf()-0.5f);
+      c3.x = (randf()/2.0f+0.5f);
+      c3.y = (randf()/2.0f+0.5f);
+      c3.z = (randf()/2.0f+0.5f);
+
+/*
+      std::cout << p0.x << "," << p0.y << "," << p0.z << std::endl;
+      std::cout << p1.x << "," << p1.y << "," << p1.z << std::endl;
+      std::cout << p2.x << "," << p2.y << "," << p2.z << std::endl;
+      std::cout << p3.x << "," << p3.y << "," << p3.z << std::endl;
+
+      std::cout << std::endl;
+
+      std::cout << c0.x << "," << c0.y << "," << c0.z << std::endl;
+      std::cout << c1.x << "," << c1.y << "," << c1.z << std::endl;
+      std::cout << c2.x << "," << c2.y << "," << c2.z << std::endl;
+      std::cout << c3.x << "," << c3.y << "," << c3.z << std::endl;
+*/
+
+      t.p0 = p0;
+      t.p1 = p1;
+      t.p2 = p2;
+      verts[2*((x*lengthz)+z)+0] = t;
+      t.p0 = c0;
+      t.p1 = c1;
+      t.p2 = c2;
+      colors[2*((x*lengthz)+z)+0] = t;
+
+      t.p0 = p2;
+      t.p1 = p3;
+      t.p2 = p0;
+      verts[2*((x*lengthz)+z)+1] = t;
+      t.p0 = c2;
+      t.p1 = c3;
+      t.p2 = c0;
+      colors[2*((x*lengthz)+z)+1] = t;
+    }
+  }
+}
+
 Graphics::Graphics(GLFWwindow* win)
 {
   window = win;
@@ -51,6 +144,11 @@ Graphics::Graphics(GLFWwindow* win)
   projMat  = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
   viewMat  = glm::lookAt(glm::vec3(4,3,3),glm::vec3(0,0,0),glm::vec3(0,1,0));
   modelMat = glm::mat4(1.0f);
+  //modelMat = glm::translate(modelMat, glm::vec3(0, 0, -20));
+  tri vertBuffData[WIDTH*LENGTH*2];
+  tri colorBuffData[WIDTH*LENGTH*2];
+  genBumpyPlane(WIDTH,LENGTH,vertBuffData,colorBuffData);
+  /*
   GLfloat vertBuffData[] = { 
     -1.0f, -1.0f, 0.0f,
     1.0f, -1.0f, 0.0f,
@@ -61,6 +159,13 @@ Graphics::Graphics(GLFWwindow* win)
     0.5f, 0.5f, 0.5f,
     0.5f, 0.5f, 0.0f,
   };
+  */
+  /*
+  -0.5,-0.5,-0.5
+  -0.5,-0.5,-1.5
+  0.5,-0.5,-1.5
+  0.5,-0.5,-0.5
+  */
 
   //gen IDs
   gl_programID = loadShader(V_SHADER_FILE, F_SHADER_FILE);
@@ -77,15 +182,14 @@ Graphics::Graphics(GLFWwindow* win)
   glEnableVertexAttribArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, gl_vertBufferID);
   glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertBuffData), vertBuffData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertBuffData), (GLfloat *)vertBuffData, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, gl_colorBufferID);
   glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuffData), colorBuffData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuffData), (GLfloat *)colorBuffData, GL_STATIC_DRAW);
 
   glUseProgram(gl_programID);
-
 }
 
 void resize(GLFWwindow* window, int width, int height)
@@ -97,15 +201,15 @@ void Graphics::render()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  //REMOVE THIS
   modelMat = glm::rotate(modelMat, 0.01f, glm::vec3(0, 1, 0));
+
+  glBindVertexArray(gl_vertArrayID);
 
   glUniformMatrix4fv(gl_projMatrixID, 1, GL_FALSE, &projMat[0][0]);
   glUniformMatrix4fv(gl_viewMatrixID, 1, GL_FALSE, &viewMat[0][0]);
   glUniformMatrix4fv(gl_modelMatrixID, 1, GL_FALSE, &modelMat[0][0]);
 
-  glBindVertexArray(gl_vertArrayID);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  glDrawArrays(GL_TRIANGLES, 0, 3*2*(WIDTH*LENGTH));
 
   glfwSwapBuffers(window);
 }
