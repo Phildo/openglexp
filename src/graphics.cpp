@@ -61,6 +61,7 @@ Graphics::Graphics(GLFWwindow* win)
     0.5f, 0.5f, 0.5f,
     0.5f, 0.5f, 0.0f,
   };
+
   //gen IDs
   gl_programID = loadShader(V_SHADER_FILE, F_SHADER_FILE);
   glGenVertexArrays(1, &gl_vertArrayID);
@@ -72,14 +73,19 @@ Graphics::Graphics(GLFWwindow* win)
 
   //populate buffers
   glBindVertexArray(gl_vertArrayID);
+
   glEnableVertexAttribArray(0);
-  glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, gl_vertBufferID);
+  glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertBuffData), vertBuffData, GL_STATIC_DRAW);
+
+  glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, gl_colorBufferID);
+  glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuffData), colorBuffData, GL_STATIC_DRAW);
 
   glUseProgram(gl_programID);
+
 }
 
 void resize(GLFWwindow* window, int width, int height)
@@ -92,24 +98,13 @@ void Graphics::render()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   //REMOVE THIS
-  modelMat = glm::rotate(modelMat, 1.0f, glm::vec3(0, 1, 0));
-
-  glBindBuffer(GL_ARRAY_BUFFER, gl_vertBufferID);
-// attribute 0. No particular reason for 0, but must match the layout in the shader.
-// size
-// type
-// normalized?
-// stride
-// array buffer offset
-  glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
-
-  glBindBuffer(GL_ARRAY_BUFFER, gl_colorBufferID);
-  glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+  modelMat = glm::rotate(modelMat, 0.01f, glm::vec3(0, 1, 0));
 
   glUniformMatrix4fv(gl_projMatrixID, 1, GL_FALSE, &projMat[0][0]);
   glUniformMatrix4fv(gl_viewMatrixID, 1, GL_FALSE, &viewMat[0][0]);
   glUniformMatrix4fv(gl_modelMatrixID, 1, GL_FALSE, &modelMat[0][0]);
 
+  glBindVertexArray(gl_vertArrayID);
   glDrawArrays(GL_TRIANGLES, 0, 3);
 
   glfwSwapBuffers(window);
