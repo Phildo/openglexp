@@ -8,8 +8,8 @@
 
 #include <stdlib.h>
 
-#define WIDTH 4
-#define LENGTH 4
+#define WIDTH 64
+#define LENGTH 64
 
 void resize(GLFWwindow* window, int width, int height);
 
@@ -66,30 +66,30 @@ void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
   {
     for(int z = 0; z < lengthz; z++)
     {
-      p0.x = ((x+0)* 1.0f)+(randf()-0.5f);
+      p0.x = ((x+0)* 1.0f)+(randf()-0.5f)-(widthx/2.0f);
       p0.y =               (randf()-0.5f);
-      p0.z = ((z+0)*-1.0f)+(randf()-0.5f);
+      p0.z = ((z+0)*-1.0f)+(randf()-0.5f)+(lengthz/2.0f);
       c0.x = (randf()/2.0f+0.5f);
       c0.y = (randf()/2.0f+0.5f);
       c0.z = (randf()/2.0f+0.5f);
 
-      p1.x = ((x+0)* 1.0f)+(randf()-0.5f);
+      p1.x = ((x+0)* 1.0f)+(randf()-0.5f)-(widthx/2.0f);
       p1.y =               (randf()-0.5f);
-      p1.z = ((z+1)*-1.0f)+(randf()-0.5f);
+      p1.z = ((z+1)*-1.0f)+(randf()-0.5f)+(lengthz/2.0f);
       c1.x = (randf()/2.0f+0.5f);
       c1.y = (randf()/2.0f+0.5f);
       c1.z = (randf()/2.0f+0.5f);
 
-      p2.x = ((x+1)* 1.0f)+(randf()-0.5f);
+      p2.x = ((x+1)* 1.0f)+(randf()-0.5f)-(widthx/2.0f);
       p2.y =               (randf()-0.5f);
-      p2.z = ((z+1)*-1.0f)+(randf()-0.5f);
+      p2.z = ((z+1)*-1.0f)+(randf()-0.5f)+(lengthz/2.0f);
       c2.x = (randf()/2.0f+0.5f);
       c2.y = (randf()/2.0f+0.5f);
       c2.z = (randf()/2.0f+0.5f);
 
-      p3.x = ((x+1)* 1.0f)+(randf()-0.5f);
+      p3.x = ((x+1)* 1.0f)+(randf()-0.5f)-(widthx/2.0f);
       p3.y =               (randf()-0.5f);
-      p3.z = ((z+0)*-1.0f)+(randf()-0.5f);
+      p3.z = ((z+0)*-1.0f)+(randf()-0.5f)+(lengthz/2.0f);
       c3.x = (randf()/2.0f+0.5f);
       c3.y = (randf()/2.0f+0.5f);
       c3.z = (randf()/2.0f+0.5f);
@@ -142,9 +142,8 @@ Graphics::Graphics(GLFWwindow* win)
 
   //cpu Data
   projMat  = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-  viewMat  = glm::lookAt(glm::vec3(4,3,3),glm::vec3(0,0,0),glm::vec3(0,1,0));
+  viewMat  = glm::lookAt(glm::vec3(0,15,15),glm::vec3(0,0,0),glm::vec3(0,1,0));
   modelMat = glm::mat4(1.0f);
-  //modelMat = glm::translate(modelMat, glm::vec3(0, 0, -20));
   tri vertBuffData[WIDTH*LENGTH*2];
   tri colorBuffData[WIDTH*LENGTH*2];
   genBumpyPlane(WIDTH,LENGTH,vertBuffData,colorBuffData);
