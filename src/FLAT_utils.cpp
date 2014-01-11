@@ -1,10 +1,10 @@
-#include "utils.h"
+#include "FLAT_utils.h"
 
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
 
-void FLATUtils::stringFromFile(const char *fileName, std::string& contentString)
+void FLAT_Utils::stringFromFile(const char *fileName, std::string& contentString)
 {
   contentString = "";
   std::string line = "";
@@ -12,5 +12,10 @@ void FLATUtils::stringFromFile(const char *fileName, std::string& contentString)
   while(getline(fileStream, line))
     contentString += "\n" + line;
   fileStream.close();
+}
+
+float FLAT_Utils::randf()
+{
+  return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 }
 

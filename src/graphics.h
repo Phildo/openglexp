@@ -14,8 +14,6 @@ class Graphics
     GLuint gl_projMatrixID;
     GLuint gl_viewMatrixID;
     GLuint gl_modelMatrixID;
-    glm::mat4 projMat;
-    glm::mat4 viewMat;
     glm::mat4 modelMat;
   public:
     Graphics(GLFWwindow* win);
