@@ -1,8 +1,11 @@
 SRCDIR = src
+TESTDIR = tests
 ODIR = out
 BINDIR = bin
 OUT = $(BINDIR)/app
+TOUT = $(BINDIR)/test
 OBJS = $(ODIR)/main.o $(ODIR)/FLAT_utils.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/world.o $(ODIR)/world_renderer.o
+TESTS = $(ODIR)/tests.o $(ODIR)/fixed_vector_test.o
 CC = g++
 DEBUG = -g
 DEBUGGER = gdb
@@ -47,4 +50,16 @@ run : $(OUT)
 
 scratch : clean run
 	
+
+test: $(TESTS)
+	$(CC) $(LFLAGS) $(TESTS) -o $(TOUT)
+
+rtest : $(TOUT)
+	$(TOUT)
+
+$(ODIR)/tests.o : $(TESTDIR)/tests.cpp $(TESTDIR)/fixed_vector_test.h
+	$(CC) $(CFLAGS) $(TESTDIR)/tests.cpp -o $(ODIR)/tests.o
+
+$(ODIR)/fixed_vector_test.o : $(TESTDIR)/fixed_vector_test.cpp $(TESTDIR)/fixed_vector_test.h $(SRCDIR)/fixed_vector.h
+	$(CC) $(CFLAGS) $(TESTDIR)/fixed_vector_test.cpp -o $(ODIR)/fixed_vector_test.o
 
