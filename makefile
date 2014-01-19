@@ -21,6 +21,9 @@ $(ODIR)/main.o : $(SRCDIR)/main.cpp $(SRCDIR)/game.h $(SRCDIR)/gl_include.h
 $(ODIR)/FLAT_utils.o : $(SRCDIR)/FLAT_utils.cpp $(SRCDIR)/FLAT_utils.h
 	$(CC) $(CFLAGS) $(SRCDIR)/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
 
+$(ODIR)/fixed_vector.o : $(SRCDIR)/fixed_vector.cpp $(SRCDIR)/fixed_vector.h
+	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.oo
+
 $(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/graphics.h $(SRCDIR)/input.h $(SRCDIR)/world.h $(SRCDIR)/gl_include.h $(SRCDIR)/FLAT_include.h
 	$(CC) $(CFLAGS) $(SRCDIR)/game.cpp -o $(ODIR)/game.o
 
@@ -51,13 +54,14 @@ run : $(OUT)
 scratch : clean run
 	
 
-#test: $(TESTS) $(OBJS)
-#	$(CC) $(LFLAGS) $(TESTS) $(OBJS) -o $(TOUT)
-test: $(TESTS)
-	$(CC) $(LFLAGS) $(TESTS) -o $(TOUT)
+test: $(TOUT)
+	
 
 rtest : $(TOUT)
 	$(TOUT)
+
+$(TOUT): $(TESTS) $(ODIR)/fixed_vector.o
+	$(CC) $(LFLAGS) $(TESTS) -o $(TOUT)
 
 $(ODIR)/tests.o : $(TESTDIR)/tests.cpp $(TESTDIR)/fixed_vector_test.h
 	$(CC) $(CFLAGS) $(TESTDIR)/tests.cpp -o $(ODIR)/tests.o
