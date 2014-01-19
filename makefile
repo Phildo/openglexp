@@ -51,6 +51,8 @@ run : $(OUT)
 scratch : clean run
 	
 
+#test: $(TESTS) $(OBJS)
+#	$(CC) $(LFLAGS) $(TESTS) $(OBJS) -o $(TOUT)
 test: $(TESTS)
 	$(CC) $(LFLAGS) $(TESTS) -o $(TOUT)
 

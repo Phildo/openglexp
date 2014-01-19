@@ -4,6 +4,7 @@ int main(int argc, char **argv)
 {
   FixedVectorTest fv;
   fv.runTests();
+
   return 0;
 }
 

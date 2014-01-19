@@ -13,9 +13,9 @@ class Game
     Graphics graphics;
   public:
     Game():
-      myGL{MyGL()},
-      input{Input(myGL)},
-      graphics{Graphics(myGL)},
+      myGL(),
+      input(myGL),
+      graphics(myGL),
       {};
     ~Game();
     void run();
