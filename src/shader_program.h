@@ -4,11 +4,13 @@
 class ShaderProgram
 {
   private:
+    GLuint loadShader(const char *vs_filename, const char *fs_filename);
   public:
     GLuint gl_program_id;
+    GLuint gl_vertArray_id;
 
-    ShaderProgram(const char* vs_filename, const char* fs_filename);
-    ~ShaderProgram();
+    virtual ShaderProgram(const char* vs_filename, const char* fs_filename);
+    virtual ~ShaderProgram();
 
     void useProgram();
 };

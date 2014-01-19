@@ -115,7 +115,6 @@ Graphics::Graphics(GLFWwindow* win)
 
   //gen IDs
   myShader(V_SHADER_FILE, F_SHADER_FILE);
-  glGenVertexArrays(1, &gl_vertArray_id);
   glGenBuffers(1, &gl_vertBuffer_id);
   glGenBuffers(1, &gl_colorBuffer_id);
   gl_projMatrix_id = glGetUniformLocation(myShader.gl_program_id, "projMat");

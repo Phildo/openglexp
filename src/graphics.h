@@ -7,8 +7,6 @@ class Graphics
 {
   private:
     GLFWwindow* window;
-    GLuint gl_programID;
-    GLuint gl_vertArrayID;
     GLuint gl_vertBufferID;
     GLuint gl_colorBufferID;
     GLuint gl_projMatrixID;

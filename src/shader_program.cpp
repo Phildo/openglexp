@@ -1,6 +1,6 @@
 #include "shader_program.h"
 
-GLuint loadShader(const char *vs_filename, const char *fs_filename)
+GLuint ShaderProgram::loadShader(const char *vs_filename, const char *fs_filename)
 {
   GLuint gl_program_id;
   GLuint gl_vs_id = glCreateShader(GL_VERTEX_SHADER);
@@ -31,6 +31,7 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
 ShaderProgram::ShaderProgram(const char* vs_filename, const char* fs_filename)
 {
   gl_program_id = loadShader(vs_filename, fs_filename);
+  glGenVertexArrays(1, &gl_vertArray_id);
 }
 
 ShaderProgram::~ShaderProgram()
@@ -41,5 +42,6 @@ ShaderProgram::~ShaderProgram()
 void ShaderProgram::useProgram()
 {
   glUseProgram(gl_program_id);
+  glBindVertexArray(gl_vertArray_id);
 }
 
