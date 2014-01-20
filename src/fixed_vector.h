@@ -6,15 +6,15 @@ class FixedVector
 {
   private:
     char elements[(N * sizeof(T))];
-    int size;
   public:
     FixedVector();
     ~FixedVector();
 
+    int size;
     T& make();
     void pop();
     void remove(int i);
-    T const& operator[](int i) const;
+    T& operator[](int i) const;
 };
 
 template <typename T, int N>
@@ -38,17 +38,17 @@ T& FixedVector<T, N>::make()
 template <typename T, int N>
 void FixedVector<T, N>::pop()
 {
-  (T*)(&elements[(size-- - 1) * sizeof(T)])->~T();
+  ((T*)(&elements[(size-- - 1) * sizeof(T)]))->~T();
 }
 
 template <typename T, int N>
 void FixedVector<T, N>::remove(int i)
 {
-  (T*)(&elements[i * sizeof(T)])->~T(); memmove((&elements[i * sizeof(T)]),(&elements[(size-- - 1) * sizeof(T)]), sizeof(T));
+  ((T*)(&elements[i * sizeof(T)]))->~T(); memmove((&elements[i * sizeof(T)]),(&elements[(size-- - 1) * sizeof(T)]), sizeof(T));
 }
 
 template <typename T, int N>
-T const& FixedVector<T, N>::operator[](int i) const
+T& FixedVector<T, N>::operator[](int i) const
 {
   return *((T*)(&elements[i * sizeof(T)]));
 }
