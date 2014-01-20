@@ -4,7 +4,8 @@ ODIR = out
 BINDIR = bin
 OUT = $(BINDIR)/app
 TOUT = $(BINDIR)/test
-OBJS = $(ODIR)/main.o $(ODIR)/FLAT_utils.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/world.o $(ODIR)/world_renderer.o
+#OBJS = $(ODIR)/main.o $(ODIR)/FLAT_utils.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/world.o $(ODIR)/world_renderer.o
+OBJS = $(ODIR)/main.o $(ODIR)/game.o
 TESTS = $(ODIR)/tests.o $(ODIR)/fixed_vector_test.o
 CC = g++
 DEBUG = -g
@@ -24,7 +25,8 @@ $(ODIR)/FLAT_utils.o : $(SRCDIR)/FLAT_utils.cpp $(SRCDIR)/FLAT_utils.h
 $(ODIR)/fixed_vector.o : $(SRCDIR)/fixed_vector.cpp $(SRCDIR)/fixed_vector.h
 	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.oo
 
-$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/graphics.h $(SRCDIR)/input.h $(SRCDIR)/world.h $(SRCDIR)/gl_include.h $(SRCDIR)/FLAT_include.h
+#$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/graphics.h $(SRCDIR)/input.h $(SRCDIR)/world.h $(SRCDIR)/gl_include.h $(SRCDIR)/FLAT_include.h
+$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h
 	$(CC) $(CFLAGS) $(SRCDIR)/game.cpp -o $(ODIR)/game.o
 
 $(ODIR)/mygl.o : $(SRCDIR)/mygl.cpp $(SRCDIR)/mygl.h $(SRCDIR)/gl_include.h $(SRCDIR)/FLAT_include.h
