@@ -1,6 +1,4 @@
 #include "graphics.h"
-#include "include.h"
-#include "FLAT_utils.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -23,6 +21,7 @@ struct tri
   pt p0,p1,p2;
 };
 
+/*
 void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
 {
   pt p0,p1,p2,p3;
@@ -73,7 +72,6 @@ void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
       std::cout << c1.x << "," << c1.y << "," << c1.z << std::endl;
       std::cout << c2.x << "," << c2.y << "," << c2.z << std::endl;
       std::cout << c3.x << "," << c3.y << "," << c3.z << std::endl;
-*/
 
       t.p0 = p0;
       t.p1 = p1;
@@ -95,14 +93,16 @@ void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
     }
   }
 }
+*/
 
-Graphics::Graphics(GLFWwindow* win)
+Graphics::Graphics(MyGL& mygl)
 {
-  window = win;
+  window = mygl.window;
 
   glfwSwapInterval(0);
   glfwSetFramebufferSizeCallback(window, resize);
 
+/*
   glClearColor(255,255,255,0);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -135,6 +135,7 @@ Graphics::Graphics(GLFWwindow* win)
   glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuffData), (GLfloat *)colorBuffData, GL_STATIC_DRAW);
 
   glUseProgram(gl_program_id);
+  */
 }
 
 void resize(GLFWwindow* window, int width, int height)
@@ -144,6 +145,7 @@ void resize(GLFWwindow* window, int width, int height)
 
 void Graphics::render()
 {
+/*
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   modelMat = glm::rotate(modelMat, 0.01f, glm::vec3(0, 1, 0));
@@ -157,12 +159,15 @@ void Graphics::render()
   glDrawArrays(GL_TRIANGLES, 0, 3*2*(WIDTH*LENGTH));
 
   glfwSwapBuffers(window);
+  */
 }
 
 Graphics::~Graphics()
 {
+/*
   glDeleteVertexArrays(1, &gl_vertArray_id);
   glDeleteBuffers(1, &gl_vertBuffer_id);
   glDeleteBuffers(1, &gl_colorBuffer_id);
+*/
 }
 

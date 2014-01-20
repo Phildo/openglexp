@@ -3,12 +3,14 @@
 
 #include "gl_include.h"
 
+class MyGL;
+
 class Input
 {
   private:
     GLFWwindow* window;
   public:
-    Input(GLFWwindow* win);
+    Input(MyGL& mygl);
     void poll();
 };
 

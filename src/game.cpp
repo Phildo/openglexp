@@ -1,8 +1,5 @@
 #include "game.h"
-//#include "gl_include.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "gl_include.h"
 
 void Game::run()
 {
@@ -10,13 +7,13 @@ void Game::run()
   bool run = true;
   while(run)
   {
-    //input.poll();
+    input.poll();
     if(i > 5)
     {
       i = 0;
-      //graphics.render();
+      graphics.render();
     }
-    //run = (!glfwWindowShouldClose(myGL->window) && (glfwGetKey(myGL.window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
+    run = (!glfwWindowShouldClose(myGL.window) && (glfwGetKey(myGL.window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
     i++;
   }
 }

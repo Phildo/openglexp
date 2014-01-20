@@ -1,8 +1,10 @@
 #include "input.h"
 
-Input::Input(GLFWwindow* win)
+#include "mygl.h"
+
+Input::Input(MyGL& mygl)
 {
-  window = win;
+  window = mygl.window;
   glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 }
 
@@ -10,3 +12,4 @@ void Input::poll()
 {
     glfwPollEvents();
 }
+

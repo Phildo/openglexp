@@ -1,7 +1,7 @@
 #ifndef _MYGL_H_
 #define _MYGL_H_
 
-struct GLFWwindow;
+#include "gl_include.h"
 
 class MyGL
 {

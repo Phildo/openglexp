@@ -1,7 +1,7 @@
 #ifndef _GRAPHICS_H_
 #define _GRAPHICS_H_
 
-#include "gl_include.h"
+#include "mygl.h"
 
 class Graphics
 {
@@ -14,7 +14,7 @@ class Graphics
     GLuint gl_modelMatrixID;
     glm::mat4 modelMat;
   public:
-    Graphics(GLFWwindow* win);
+    Graphics(MyGL& mygl);
     ~Graphics();
     void render();
 };
