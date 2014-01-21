@@ -1,5 +1,13 @@
 #include "game.h"
-#include "gl_include.h"
+
+Game::Game():myGL(MyGL()),input(Input(myGL)),graphics(Graphics(myGL))
+{
+}
+
+Game::~Game()
+{
+
+}
 
 void Game::run()
 {

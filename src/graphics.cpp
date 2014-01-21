@@ -95,7 +95,7 @@ void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
 }
 */
 
-Graphics::Graphics(MyGL& mygl)
+Graphics::Graphics(const MyGL& mygl)
 {
   window = mygl.window;
 

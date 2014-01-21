@@ -14,7 +14,7 @@ class Graphics
     GLuint gl_modelMatrixID;
     glm::mat4 modelMat;
   public:
-    Graphics(MyGL& mygl);
+    Graphics(const MyGL& mygl);
     ~Graphics();
     void render();
 };

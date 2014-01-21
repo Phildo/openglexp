@@ -12,8 +12,8 @@ class Game
     Input input;
     Graphics graphics;
   public:
-    Game():input(Input(myGL)),graphics(Graphics(myGL)) {};
-    ~Game(){};
+    Game();
+    ~Game();
     void run();
 };
 
