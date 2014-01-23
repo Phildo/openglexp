@@ -23,7 +23,7 @@ $(ODIR)/FLAT_utils.o : $(SRCDIR)/FLAT_utils.cpp $(SRCDIR)/FLAT_utils.h
 	$(CC) $(CFLAGS) $(SRCDIR)/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
 
 $(ODIR)/fixed_vector.o : $(SRCDIR)/fixed_vector.cpp $(SRCDIR)/fixed_vector.h
-	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.oo
+	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.o
 
 #$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/graphics.h $(SRCDIR)/input.h $(SRCDIR)/world.h $(SRCDIR)/gl_include.h $(SRCDIR)/FLAT_include.h
 $(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h
