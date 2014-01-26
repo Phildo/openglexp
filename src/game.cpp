@@ -1,7 +1,6 @@
 #include "game.h"
 
-//Game::Game():myGL(MyGL()),input(Input(myGL)),graphics(Graphics(myGL))
-Game::Game():myGL()
+Game::Game():myGL(MyGL()),input(Input(myGL)),graphics(Graphics(myGL))
 {
 }
 
@@ -12,9 +11,9 @@ Game::~Game()
 
 void Game::run()
 {
-/*
   int i = 0;
   bool run = true;
+  /*
   while(run)
   {
     input.poll();

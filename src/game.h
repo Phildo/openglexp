@@ -2,15 +2,15 @@
 #define _GAME_H_
 
 #include "mygl.h"
-//#include "input.h"
-//#include "graphics.h"
+#include "input.h"
+#include "graphics.h"
 
 class Game
 {
   private:
     MyGL myGL;
-    //Input input;
-    //Graphics graphics;
+    Input input;
+    Graphics graphics;
   public:
     Game();
     ~Game();

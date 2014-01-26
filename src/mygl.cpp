@@ -9,7 +9,6 @@ MyGL::MyGL()
 {
   glfwSetErrorCallback(err);
   glfwInit();
-/*
 
   //Get mac's "experimental" crap
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -23,14 +22,11 @@ MyGL::MyGL()
   //must come after glfwCreateWindow
   glewExperimental = GL_TRUE;
   glewInit();
-  */
 }
 
 MyGL::~MyGL()
 {
-/*
   glfwDestroyWindow(window);
   glfwTerminate();
-  */
 }
 
