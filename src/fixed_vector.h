@@ -5,6 +5,7 @@ template <typename T, int N>
 class FixedVector
 {
   private:
+    //alignas(T) char elements[(N * sizeof(T))];
     char elements[(N * sizeof(T))];
   public:
     FixedVector();

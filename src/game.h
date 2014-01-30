@@ -4,6 +4,7 @@
 #include "mygl.h"
 #include "input.h"
 #include "graphics.h"
+#include "entity_system.h"
 
 class Game
 {
@@ -11,6 +12,8 @@ class Game
     MyGL myGL;
     Input input;
     Graphics graphics;
+
+    EntitySystem entitySystem;
   public:
     Game();
     ~Game();

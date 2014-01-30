@@ -1,7 +1,5 @@
 #include "input.h"
 
-#include "mygl.h"
-
 Input::Input(const MyGL& mygl)
 {
   window = mygl.window;

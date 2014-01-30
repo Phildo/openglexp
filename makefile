@@ -4,8 +4,7 @@ ODIR = out
 BINDIR = bin
 OUT = $(BINDIR)/app
 TOUT = $(BINDIR)/test
-#OBJS = $(ODIR)/main.o $(ODIR)/FLAT_utils.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/world.o $(ODIR)/world_renderer.o
-OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/input.o $(ODIR)/graphics.o
+OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/entity_system.o $(ODIR)/entity_pool.o $(ODIR)/entity_factory.o $(ODIR)/entity.o $(ODIR)/fixed_vector.o
 TESTS = $(ODIR)/tests.o $(ODIR)/fixed_vector_test.o
 CC = g++
 DEBUG = -g
@@ -19,14 +18,10 @@ $(OUT) : $(OBJS)
 $(ODIR)/main.o : $(SRCDIR)/main.cpp $(SRCDIR)/game.h
 	$(CC) $(CFLAGS) $(SRCDIR)/main.cpp -o $(ODIR)/main.o
 
-$(ODIR)/FLAT_utils.o : $(SRCDIR)/FLAT_utils.cpp $(SRCDIR)/FLAT_utils.h
-	$(CC) $(CFLAGS) $(SRCDIR)/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
-
 $(ODIR)/fixed_vector.o : $(SRCDIR)/fixed_vector.cpp $(SRCDIR)/fixed_vector.h
 	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.o
 
-#$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/graphics.h $(SRCDIR)/input.h $(SRCDIR)/world.h $(SRCDIR)/gl_include.h $(SRCDIR)/FLAT_include.h
-$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h
+$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h $(SRCDIR)/entity_system.h
 	$(CC) $(CFLAGS) $(SRCDIR)/game.cpp -o $(ODIR)/game.o
 
 $(ODIR)/mygl.o : $(SRCDIR)/mygl.cpp $(SRCDIR)/mygl.h $(SRCDIR)/gl_include.h
@@ -38,11 +33,23 @@ $(ODIR)/input.o : $(SRCDIR)/input.cpp $(SRCDIR)/input.h $(SRCDIR)/mygl.h
 $(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/mygl.h
 	$(CC) $(CFLAGS) $(SRCDIR)/graphics.cpp -o $(ODIR)/graphics.o
 
-$(ODIR)/world.o : $(SRCDIR)/world.cpp $(SRCDIR)/world.h
-	$(CC) $(CFLAGS) $(SRCDIR)/world.cpp -o $(ODIR)/world.o
+$(ODIR)/entity_system.o : $(SRCDIR)/entity_system.cpp $(SRCDIR)/entity_system.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity_factory.h 
+	$(CC) $(CFLAGS) $(SRCDIR)/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/world_renderer.o : $(SRCDIR)/world_renderer.cpp $(SRCDIR)/world_renderer.h $(SRCDIR)/renderer.h
-	$(CC) $(CFLAGS) $(SRCDIR)/world_renderer.cpp -o $(ODIR)/world_renderer.o
+$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/render_component.h
+	$(CC) $(CFLAGS) $(SRCDIR)/entity_pool.cpp -o $(ODIR)/entity_pool.o
+
+$(ODIR)/entity_factory.o : $(SRCDIR)/entity_factory.cpp $(SRCDIR)/entity_factory.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/component.h
+	$(CC) $(CFLAGS) $(SRCDIR)/entity_factory.cpp -o $(ODIR)/entity_factory.o
+
+$(ODIR)/entity.o : $(SRCDIR)/entity.cpp $(SRCDIR)/entity.h
+	$(CC) $(CFLAGS) $(SRCDIR)/entity.cpp -o $(ODIR)/entity.o
+
+$(ODIR)/component.o : $(SRCDIR)/component.cpp $(SRCDIR)/component.h
+	$(CC) $(CFLAGS) $(SRCDIR)/component.cpp -o $(ODIR)/component.o
+
+$(ODIR)/render_component.o : $(SRCDIR)/render_component.cpp $(SRCDIR)/render_component.h $(SRCDIR)/component.h
+	$(CC) $(CFLAGS) $(SRCDIR)/render_component.cpp -o $(ODIR)/render_component.o
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)
@@ -50,10 +57,10 @@ debug : $(OUT)
 clean : 
 	\rm -rf $(ODIR)/*.o $(OUT)
 
-run : $(OUT)
+go : $(OUT)
 	$(OUT)
 
-scratch : clean run
+scratch : clean go
 	
 
 test: $(TOUT)

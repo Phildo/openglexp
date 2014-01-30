@@ -1,19 +1,17 @@
 #include "game.h"
 
-Game::Game():myGL(MyGL()),input(Input(myGL)),graphics(Graphics(myGL))
+Game::Game():myGL(),input(Input(myGL)),graphics(Graphics(myGL)),entitySystem()
 {
 }
 
 Game::~Game()
 {
-
 }
 
 void Game::run()
 {
   int i = 0;
   bool run = true;
-  /*
   while(run)
   {
     input.poll();
@@ -25,6 +23,5 @@ void Game::run()
     run = (!glfwWindowShouldClose(myGL.window) && (glfwGetKey(myGL.window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
     i++;
   }
-  */
 }
 
