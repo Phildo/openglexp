@@ -36,7 +36,7 @@ $(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/mygl.
 $(ODIR)/entity_system.o : $(SRCDIR)/entity_system.cpp $(SRCDIR)/entity_system.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity_factory.h 
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/render_component.h
+$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/render_component.h $(SRCDIR)/fixed_vector.h
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
 $(ODIR)/entity_factory.o : $(SRCDIR)/entity_factory.cpp $(SRCDIR)/entity_factory.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/component.h
