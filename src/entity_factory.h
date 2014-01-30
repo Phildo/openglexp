@@ -8,7 +8,7 @@ class EntityFactory
   private:
   public:
     virtual ~EntityFactory() = 0;
-    virtual void produce(EntityPool* ep) = 0;
+    virtual void produce(EntityPool& ep) = 0;
 };
 
 #endif

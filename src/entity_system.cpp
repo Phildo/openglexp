@@ -12,6 +12,6 @@ EntitySystem::~EntitySystem()
 
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
 {
-  ef.produce(pool);
+  ef->produce(pool);
 }
 
