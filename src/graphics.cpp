@@ -143,9 +143,9 @@ void resize(GLFWwindow* window, int width, int height)
   glViewport(0, 0, width, height);
 }
 
+/*
 void Graphics::render()
 {
-/*
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   modelMat = glm::rotate(modelMat, 0.01f, glm::vec3(0, 1, 0));
@@ -159,8 +159,8 @@ void Graphics::render()
   glDrawArrays(GL_TRIANGLES, 0, 3*2*(WIDTH*LENGTH));
 
   glfwSwapBuffers(window);
-  */
 }
+  */
 
 Graphics::~Graphics()
 {

@@ -16,7 +16,6 @@ class Graphics
   public:
     Graphics(const MyGL& mygl);
     ~Graphics();
-    void render();
 };
 
 #endif
