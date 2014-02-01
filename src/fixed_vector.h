@@ -1,6 +1,10 @@
 #ifndef _FIXED_VECTOR_H_
 #define _FIXED_VECTOR_H_
 
+#include <stdio.h>
+#include <string.h>
+#include <new>
+
 template <typename T, int N>
 class FixedVector
 {
@@ -45,7 +49,8 @@ void FixedVector<T, N>::pop()
 template <typename T, int N>
 void FixedVector<T, N>::remove(int i)
 {
-  ((T*)(&elements[i * sizeof(T)]))->~T(); memmove((&elements[i * sizeof(T)]),(&elements[(size-- - 1) * sizeof(T)]), sizeof(T));
+  ((T*)(&elements[i * sizeof(T)]))->~T();
+  memmove((&elements[i * sizeof(T)]),(&elements[(size-- - 1) * sizeof(T)]), sizeof(T));
 }
 
 template <typename T, int N>

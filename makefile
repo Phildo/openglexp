@@ -4,7 +4,7 @@ ODIR = out
 BINDIR = bin
 OUT = $(BINDIR)/app
 TOUT = $(BINDIR)/test
-OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/entity_system.o $(ODIR)/entity_pool.o $(ODIR)/entity_factory.o $(ODIR)/entity.o $(ODIR)/fixed_vector.o
+OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/entity_system.o $(ODIR)/entity_pool.o $(ODIR)/entity_factory.o $(ODIR)/basic_entity_factory.o $(ODIR)/entity.o $(ODIR)/component.o $(ODIR)/physics_component.o $(ODIR)/render_component.o $(ODIR)/fixed_vector.o
 TESTS = $(ODIR)/tests.o $(ODIR)/fixed_vector_test.o
 CC = g++
 DEBUG = -g
@@ -36,17 +36,23 @@ $(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/mygl.
 $(ODIR)/entity_system.o : $(SRCDIR)/entity_system.cpp $(SRCDIR)/entity_system.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity_factory.h 
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/render_component.h $(SRCDIR)/fixed_vector.h
+$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/physics_component.h $(SRCDIR)/render_component.h $(SRCDIR)/fixed_vector.h
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
 $(ODIR)/entity_factory.o : $(SRCDIR)/entity_factory.cpp $(SRCDIR)/entity_factory.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/component.h
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_factory.cpp -o $(ODIR)/entity_factory.o
+
+$(ODIR)/basic_entity_factory.o : $(SRCDIR)/basic_entity_factory.cpp $(SRCDIR)/basic_entity_factory.h $(SRCDIR)/entity_factory.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/component.h
+	$(CC) $(CFLAGS) $(SRCDIR)/basic_entity_factory.cpp -o $(ODIR)/basic_entity_factory.o
 
 $(ODIR)/entity.o : $(SRCDIR)/entity.cpp $(SRCDIR)/entity.h
 	$(CC) $(CFLAGS) $(SRCDIR)/entity.cpp -o $(ODIR)/entity.o
 
 $(ODIR)/component.o : $(SRCDIR)/component.cpp $(SRCDIR)/component.h
 	$(CC) $(CFLAGS) $(SRCDIR)/component.cpp -o $(ODIR)/component.o
+
+$(ODIR)/physics_component.o : $(SRCDIR)/physics_component.cpp $(SRCDIR)/physics_component.h $(SRCDIR)/component.h
+	$(CC) $(CFLAGS) $(SRCDIR)/physics_component.cpp -o $(ODIR)/physics_component.o
 
 $(ODIR)/render_component.o : $(SRCDIR)/render_component.cpp $(SRCDIR)/render_component.h $(SRCDIR)/component.h
 	$(CC) $(CFLAGS) $(SRCDIR)/render_component.cpp -o $(ODIR)/render_component.o

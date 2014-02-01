@@ -1,8 +1,9 @@
 #include "entity.h"
 
-Entity::Entity()
+Entity::Entity() : 
+  renderComponentIndex (-1), 
+  physicsComponentIndex(-1)
 {
-
 }
 
 Entity::~Entity()

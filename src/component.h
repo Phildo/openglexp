@@ -5,6 +5,7 @@ class Component
 {
   private:
   public:
+    int entityIndex;
     virtual ~Component() = 0;
 };
 

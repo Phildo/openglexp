@@ -1,6 +1,10 @@
 #include "game.h"
 
-Game::Game():myGL(),input(Input(myGL)),graphics(Graphics(myGL)),entitySystem()
+Game::Game() :
+  myGL(),
+  input(Input(myGL)),
+  graphics(Graphics(myGL)),
+  entitySystem()
 {
 }
 

@@ -5,6 +5,9 @@ class Entity
 {
   private:
   public:
+    int renderComponentIndex;
+    int physicsComponentIndex;
+
     Entity();
     ~Entity();
 };
