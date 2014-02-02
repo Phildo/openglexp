@@ -21,7 +21,7 @@ $(ODIR)/main.o : $(SRCDIR)/main.cpp $(SRCDIR)/game.h
 $(ODIR)/fixed_vector.o : $(SRCDIR)/fixed_vector.cpp $(SRCDIR)/fixed_vector.h
 	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.o
 
-$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h $(SRCDIR)/entity_system.h
+$(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h $(SRCDIR)/entity_system.h $(SRCDIR)/basic_entity_factory.h
 	$(CC) $(CFLAGS) $(SRCDIR)/game.cpp -o $(ODIR)/game.o
 
 $(ODIR)/mygl.o : $(SRCDIR)/mygl.cpp $(SRCDIR)/mygl.h $(SRCDIR)/gl_include.h

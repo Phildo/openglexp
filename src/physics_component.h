@@ -6,6 +6,12 @@
 class PhysicsComponent : public Component
 {
   private:
+    float x;
+    float y;
+    float z;
+    float velX;
+    float velY;
+    float velZ;
   public:
     PhysicsComponent();
     ~PhysicsComponent();

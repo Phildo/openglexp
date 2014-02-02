@@ -8,8 +8,6 @@
 
 #define MAX_ENTITIES 100
 
-class EntityFactory;
-
 class EntityPool
 {
   private:

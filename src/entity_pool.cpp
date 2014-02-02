@@ -13,6 +13,7 @@ EntityPool::~EntityPool()
 //This is so not thread safe it isn't even funny
 int EntityPool::createEntity(bool physics, bool render)
 {
+/*
   Entity& e = entities.make();
 
   if(physics)
@@ -30,11 +31,14 @@ int EntityPool::createEntity(bool physics, bool render)
   }
 
   return entities.size - 1;
+*/
+return 0;
 }
 
 //Again- not thread safe at all. I'm a terrible person.
 void EntityPool::deleteEntity(int index)
 {
+/*
   Entity& e = entities[index];
 
   //Remove components and re-wire entities' component positions
@@ -61,5 +65,6 @@ void EntityPool::deleteEntity(int index)
     if(e.renderComponentIndex > -1)
       renderComponents[e.renderComponentIndex].entityIndex = index;
   }
+*/
 }
 

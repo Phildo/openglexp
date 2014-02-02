@@ -6,6 +6,7 @@
 class RenderComponent : public Component
 {
   private:
+    int modelId; // total bs
   public:
     RenderComponent();
     ~RenderComponent();

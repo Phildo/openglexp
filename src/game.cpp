@@ -1,4 +1,8 @@
 #include "game.h"
+#include "basic_entity_factory.h"
+
+//temporary
+#include "fixed_vector.h"
 
 Game::Game() :
   myGL(),
@@ -6,6 +10,9 @@ Game::Game() :
   graphics(Graphics(myGL)),
   entitySystem()
 {
+  BasicEntityFactory *bef = new BasicEntityFactory();
+  entitySystem.produceEntityFromFactory(bef);
+  delete bef;
 }
 
 Game::~Game()

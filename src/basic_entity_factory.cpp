@@ -14,6 +14,6 @@ BasicEntityFactory::~BasicEntityFactory()
 
 void BasicEntityFactory::produce(EntityPool& ep)
 {
-  
+  ep.createEntity(false, true);  
 }
 
