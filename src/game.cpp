@@ -1,9 +1,6 @@
 #include "game.h"
 #include "basic_entity_factory.h"
 
-//temporary
-#include "fixed_vector.h"
-
 Game::Game() :
   myGL(),
   input(Input(myGL)),
