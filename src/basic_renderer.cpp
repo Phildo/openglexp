@@ -60,16 +60,24 @@ BasicRenderer::BasicRenderer()
   glBindBuffer(GL_ARRAY_BUFFER, gl_color_buff_id);
   glBufferData(GL_ARRAY_BUFFER, sizeof(colorBuffData), (GLfloat *)colorBuffData, GL_STATIC_DRAW);
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+
+  glUniformMatrix4fv(gl_projMatrix_id,  1, GL_FALSE, &projMat[0][0]);
+  glUniformMatrix4fv(gl_viewMatrix_id,  1, GL_FALSE, &viewMat[0][0]);
+  glUniformMatrix4fv(gl_modelMatrix_id, 1, GL_FALSE, &modelMat[0][0]);
 }
 
 BasicRenderer::~BasicRenderer()
 {
+  glDeleteVertexArrays(1, &gl_vert_array_id);
+  glDeleteBuffers(1, &gl_vert_buff_id);
+  glDeleteBuffers(1, &gl_color_buff_id);
   glDeleteProgram(gl_program_id);
 }
 
 void BasicRenderer::render()
 {
   glUseProgram(gl_program_id);
-  glBindVertexArray(gl_vertArray_id);
+  glBindVertexArray(gl_vert_array_id);
+  glDrawArrays(GL_TRIANGLES, 0, 3*2*(WIDTH*LENGTH));
 }
 
