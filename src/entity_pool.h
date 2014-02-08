@@ -11,9 +11,9 @@
 class EntityPool
 {
   private:
-    Vector<Entity>           entities;
-    Vector<PhysicsComponent> physicsComponents;
-    Vector<RenderComponent>  renderComponents;
+    std::vector<Entity>           entities;
+    std::vector<PhysicsComponent> physicsComponents;
+    std::vector<RenderComponent>  renderComponents;
   public:
     EntityPool();
     ~EntityPool();

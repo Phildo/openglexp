@@ -13,51 +13,50 @@ EntityPool::~EntityPool()
 //This is so not thread safe it isn't even funny
 int EntityPool::createEntity(bool physics, bool render)
 {
-/*
-  Entity& e = entities.make();
+  Entity e;
 
   if(physics)
   {
-    PhysicsComponent& pc = physicsComponents.make();
-    e.physicsComponentIndex = physicsComponents.size - 1;
-    pc.entityIndex = entities.size - 1;
+    PhysicsComponent pc;
+    e.physicsComponentIndex = physicsComponents.size();
+    pc.entityIndex = entities.size();
+    physicsComponents.push_back(std::move(pc));
   }
 
   if(render)
   {
-    RenderComponent& rc = renderComponents.make();
-    e.renderComponentIndex = renderComponents.size - 1;
-    rc.entityIndex = entities.size - 1;
+    RenderComponent rc;
+    e.renderComponentIndex = renderComponents.size();
+    rc.entityIndex = entities.size();
+    renderComponents.push_back(std::move(rc));
   }
 
-  return entities.size - 1;
-*/
-return 0;
+  entities.push_back(std::move(e));
+  return entities.size() - 1;
 }
 
 //Again- not thread safe at all. I'm a terrible person.
 void EntityPool::deleteEntity(int index)
 {
-/*
   Entity& e = entities[index];
 
   //Remove components and re-wire entities' component positions
   if(e.physicsComponentIndex > -1)
   {
-    physicsComponents.remove(e.physicsComponentIndex);
-    if(e.physicsComponentIndex != physicsComponents.size)
+    physicsComponents.erase(physicsComponents.begin()+e.physicsComponentIndex);
+    if(e.physicsComponentIndex != physicsComponents.size())
       entities[physicsComponents[e.physicsComponentIndex].entityIndex].physicsComponentIndex = e.physicsComponentIndex;
   }
   if(e.renderComponentIndex > -1)
   {
-    renderComponents.remove(e.renderComponentIndex);
-    if(e.renderComponentIndex != renderComponents.size)
+    renderComponents.erase(renderComponents.begin()+e.renderComponentIndex);
+    if(e.renderComponentIndex != renderComponents.size())
       entities[renderComponents[e.renderComponentIndex].entityIndex].renderComponentIndex = e.renderComponentIndex;
   }
 
   //Remove entity and re-wire components' entity positions
-  entities.remove(index);
-  if(index != entities.size)
+  entities.erase(entities.begin()+index);
+  if(index != entities.size())
   {
     e = entities[index];
     if(e.physicsComponentIndex > -1)
@@ -65,6 +64,5 @@ void EntityPool::deleteEntity(int index)
     if(e.renderComponentIndex > -1)
       renderComponents[e.renderComponentIndex].entityIndex = index;
   }
-*/
 }
 
