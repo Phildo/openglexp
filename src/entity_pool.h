@@ -8,6 +8,10 @@
 
 #define MAX_ENTITIES 100
 
+typedef long component_signature;
+const component_signature ComponentSig_Physics = 1;
+const component_signature ComponentSig_Render  = 2;
+
 class EntityPool
 {
   private:
@@ -18,7 +22,7 @@ class EntityPool
     EntityPool();
     ~EntityPool();
 
-    int createEntity(bool physics, bool render);
+    int createEntity(component_signature csig);
     void deleteEntity(int index);
 };
 

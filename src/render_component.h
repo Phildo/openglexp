@@ -1,8 +1,6 @@
 #ifndef _RENDER_COMPONENT_H_
 #define _RENDER_COMPONENT_H_
 
-#include "component.h"
-
 #define MAX_VERTS 100
 
 struct Vert
@@ -15,12 +13,13 @@ struct Vert
   Vert(float xx, float yy, float zz, float ww = 1.0f) : x(xx), y(yy), z(zz), w(ww) {}
 };
 
-class RenderComponent : public Component
+class RenderComponent
 {
   private:
     Vert verts[MAX_VERTS];
     int numVerts;
   public:
+    int entityIndex;
     RenderComponent();
     ~RenderComponent();
 };

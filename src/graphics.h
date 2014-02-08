@@ -7,12 +7,6 @@ class Graphics
 {
   private:
     GLFWwindow* window;
-    GLuint gl_vertBufferID;
-    GLuint gl_colorBufferID;
-    GLuint gl_projMatrixID;
-    GLuint gl_viewMatrixID;
-    GLuint gl_modelMatrixID;
-    glm::mat4 modelMat;
   public:
     Graphics(const MyGL& mygl);
     ~Graphics();

@@ -11,11 +11,11 @@ EntityPool::~EntityPool()
 }
 
 //This is so not thread safe it isn't even funny
-int EntityPool::createEntity(bool physics, bool render)
+int EntityPool::createEntity(component_signature csig)
 {
   Entity e;
 
-  if(physics)
+  if(csig & ComponentSig_Physics)
   {
     PhysicsComponent pc;
     e.physicsComponentIndex = physicsComponents.size();
@@ -23,7 +23,7 @@ int EntityPool::createEntity(bool physics, bool render)
     physicsComponents.push_back(std::move(pc));
   }
 
-  if(render)
+  if(csig & ComponentSig_Render)
   {
     RenderComponent rc;
     e.renderComponentIndex = renderComponents.size();
