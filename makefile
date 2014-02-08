@@ -4,7 +4,7 @@ ODIR = out
 BINDIR = bin
 OUT = $(BINDIR)/app
 TOUT = $(BINDIR)/test
-OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/entity_system.o $(ODIR)/entity_pool.o $(ODIR)/entity_factory.o $(ODIR)/basic_entity_factory.o $(ODIR)/entity.o $(ODIR)/component.o $(ODIR)/physics_component.o $(ODIR)/render_component.o $(ODIR)/fixed_vector.o
+OBJS = $(ODIR)/main.o $(ODIR)/game.o $(ODIR)/mygl.o $(ODIR)/input.o $(ODIR)/graphics.o $(ODIR)/entity_system.o $(ODIR)/entity_pool.o $(ODIR)/entity_factory.o $(ODIR)/basic_entity_factory.o $(ODIR)/entity.o $(ODIR)/component.o $(ODIR)/physics_component.o $(ODIR)/render_component.o
 TESTS = $(ODIR)/tests.o $(ODIR)/fixed_vector_test.o
 CC = g++
 DEBUG = -g
@@ -17,9 +17,6 @@ $(OUT) : $(OBJS)
 
 $(ODIR)/main.o : $(SRCDIR)/main.cpp $(SRCDIR)/game.h
 	$(CC) $(CFLAGS) $(SRCDIR)/main.cpp -o $(ODIR)/main.o
-
-$(ODIR)/fixed_vector.o : $(SRCDIR)/fixed_vector.cpp $(SRCDIR)/fixed_vector.h
-	$(CC) $(CFLAGS) $(SRCDIR)/fixed_vector.cpp -o $(ODIR)/fixed_vector.o
 
 $(ODIR)/game.o : $(SRCDIR)/game.cpp $(SRCDIR)/game.h $(SRCDIR)/mygl.h $(SRCDIR)/input.h $(SRCDIR)/graphics.h $(SRCDIR)/entity_system.h $(SRCDIR)/basic_entity_factory.h
 	$(CC) $(CFLAGS) $(SRCDIR)/game.cpp -o $(ODIR)/game.o
@@ -36,7 +33,7 @@ $(ODIR)/graphics.o : $(SRCDIR)/graphics.cpp $(SRCDIR)/graphics.h $(SRCDIR)/mygl.
 $(ODIR)/entity_system.o : $(SRCDIR)/entity_system.cpp $(SRCDIR)/entity_system.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity_factory.h 
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/physics_component.h $(SRCDIR)/render_component.h $(SRCDIR)/fixed_vector.h
+$(ODIR)/entity_pool.o : $(SRCDIR)/entity_pool.cpp $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/physics_component.h $(SRCDIR)/render_component.h
 	$(CC) $(CFLAGS) $(SRCDIR)/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
 $(ODIR)/entity_factory.o : $(SRCDIR)/entity_factory.cpp $(SRCDIR)/entity_factory.h $(SRCDIR)/entity_pool.h $(SRCDIR)/entity.h $(SRCDIR)/component.h
@@ -75,12 +72,9 @@ test: $(TOUT)
 rtest : $(TOUT)
 	$(TOUT)
 
-$(TOUT): $(TESTS) $(ODIR)/fixed_vector.o
+$(TOUT): $(TESTS)
 	$(CC) $(LFLAGS) $(TESTS) -o $(TOUT)
 
-$(ODIR)/tests.o : $(TESTDIR)/tests.cpp $(TESTDIR)/fixed_vector_test.h
+$(ODIR)/tests.o : $(TESTDIR)/tests.cpp
 	$(CC) $(CFLAGS) $(TESTDIR)/tests.cpp -o $(ODIR)/tests.o
-
-$(ODIR)/fixed_vector_test.o : $(TESTDIR)/fixed_vector_test.cpp $(TESTDIR)/fixed_vector_test.h $(SRCDIR)/fixed_vector.h
-	$(CC) $(CFLAGS) $(TESTDIR)/fixed_vector_test.cpp -o $(ODIR)/fixed_vector_test.o
 

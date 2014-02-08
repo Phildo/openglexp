@@ -1,7 +1,7 @@
 #ifndef _ENTITY_POOL_H_
 #define _ENTITY_POOL_H_
 
-#include "fixed_vector.h"
+#include <vector>
 #include "entity.h"
 #include "render_component.h"
 #include "physics_component.h"
@@ -11,9 +11,9 @@
 class EntityPool
 {
   private:
-    FixedVector<Entity,           MAX_ENTITIES> entities;
-    FixedVector<PhysicsComponent, MAX_ENTITIES> physicsComponents;
-    FixedVector<RenderComponent,  MAX_ENTITIES> renderComponents;
+    Vector<Entity>           entities;
+    Vector<PhysicsComponent> physicsComponents;
+    Vector<RenderComponent>  renderComponents;
   public:
     EntityPool();
     ~EntityPool();
