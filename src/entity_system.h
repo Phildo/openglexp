@@ -6,6 +6,7 @@
 #include "camera.h"
 
 class EntityFactory;
+struct GLFWwindow;
 
 class EntitySystem
 {
@@ -17,7 +18,7 @@ class EntitySystem
     EntitySystem();
     ~EntitySystem();
     void produceEntityFromFactory(EntityFactory* ef);
-    void render();
+    void render(GLFWwindow* window);
 };
 
 #endif

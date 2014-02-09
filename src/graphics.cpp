@@ -93,6 +93,11 @@ void genBumpyPlane(int widthx, int lengthz, tri* verts, tri* colors)
 }
 */
 
+void resize(GLFWwindow* window, int width, int height)
+{
+  glViewport(0, 0, width, height);
+}
+
 Graphics::Graphics(const MyGL& mygl)
 {
   window = mygl.window;
@@ -105,10 +110,12 @@ Graphics::Graphics(const MyGL& mygl)
   glDepthFunc(GL_LESS);
 }
 
+/*
 void Graphics::resize(GLFWwindow* window, int width, int height)
 {
   glViewport(0, 0, width, height);
 }
+*/
 
 Graphics::~Graphics()
 {

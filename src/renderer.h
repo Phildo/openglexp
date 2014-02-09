@@ -8,8 +8,8 @@ class Renderer
 {
   private:
   public:
-    virtual ~Renderer() = 0;
-    virtual void render(Camera& c, RenderComponent& rc);
+    virtual ~Renderer() {};
+    virtual void render(Camera& c, RenderComponent& rc) = 0;
 };
 
 #endif

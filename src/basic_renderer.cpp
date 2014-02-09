@@ -1,4 +1,6 @@
 #include "basic_renderer.h"
+#include "FLAT_utils.h"
+#include <string>
 
 GLuint loadShader(const char *vs_filename, const char *fs_filename)
 {
@@ -7,12 +9,12 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
   GLuint gl_fs_id = glCreateShader(GL_FRAGMENT_SHADER);
 
   std::string fileContents;
-  FLATUtils::stringFromFile(vs_filename, fileContents);
+  FLAT_Utils::stringFromFile(vs_filename, fileContents);
   const char *vscp = fileContents.c_str();
   glShaderSource(gl_vs_id, 1, &vscp, NULL);
   glCompileShader(gl_vs_id);
 
-  FLATUtils::stringFromFile(fs_filename, fileContents);
+  FLAT_Utils::stringFromFile(fs_filename, fileContents);
   const char *fscp = fileContents.c_str();
   glShaderSource(gl_fs_id, 1, &fscp, NULL);
   glCompileShader(gl_fs_id);
@@ -30,7 +32,7 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
 
 BasicRenderer::BasicRenderer()
 {
-  gl_program_id = loadShader(vs_filename, fs_filename);
+  gl_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");//vs_filename, fs_filename);
 
   //gen IDs
   glGenVertexArrays(1, &gl_vert_array_id);
@@ -58,7 +60,7 @@ BasicRenderer::BasicRenderer()
 BasicRenderer::~BasicRenderer()
 {
   glDeleteVertexArrays(1, &gl_vert_array_id);
-  glDeleteBuffers(1, &gl_vert_buff_id);
+  glDeleteBuffers(1, &gl_pos_buff_id);
   glDeleteBuffers(1, &gl_color_buff_id);
   glDeleteProgram(gl_program_id);
 }
@@ -74,13 +76,13 @@ void BasicRenderer::loadVertData(RenderComponent& rc)
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
 }
 
-void BasicRenderer::render(Camera& c, RenderComponent& rc)
+void BasicRenderer::render(Camera& cam, RenderComponent& rc)
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
-  glUniformMatrix4fv(gl_projMatrix_id,  1, GL_FALSE, &cam.projMat[0][0]);
-  glUniformMatrix4fv(gl_viewMatrix_id,  1, GL_FALSE, &cam.viewMat[0][0]);
-  glUniformMatrix4fv(gl_modelMatrix_id, 1, GL_FALSE, &rc.modelMat[0][0]);
+  glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam.projMat[0][0]);
+  glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam.viewMat[0][0]);
+  glUniformMatrix4fv(gl_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts);
 }
 

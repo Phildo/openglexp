@@ -7,7 +7,7 @@ class EntityFactory
 {
   private:
   public:
-    virtual ~EntityFactory() = 0;
+    virtual ~EntityFactory() {};
     virtual void produce(EntityPool& ep) = 0;
 };
 

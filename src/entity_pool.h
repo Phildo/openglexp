@@ -15,10 +15,10 @@ const component_signature ComponentSig_Render  = 2;
 class EntityPool
 {
   private:
+  public:
     std::vector<Entity>           entities;
     std::vector<PhysicsComponent> physicsComponents;
     std::vector<RenderComponent>  renderComponents;
-  public:
     EntityPool();
     ~EntityPool();
 

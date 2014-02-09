@@ -1,6 +1,6 @@
 #include "render_component.h"
 
-RenderComponent::RenderComponent(): modelMat(1.0);
+RenderComponent::RenderComponent(): modelMat(1.0)
 {
   numVerts = 3;
 
