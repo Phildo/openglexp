@@ -8,7 +8,8 @@ Game::Game() :
   entitySystem()
 {
   BasicEntityFactory *bef = new BasicEntityFactory();
-  entitySystem.produceEntityFromFactory(bef);
+  for(int i = 0; i < 100; i++)
+    entitySystem.produceEntityFromFactory(bef);
   delete bef;
 }
 
@@ -22,6 +23,7 @@ void Game::run()
   while(run)
   {
     input.poll();
+    entitySystem.render(myGL.window);
     run = (!glfwWindowShouldClose(myGL.window) && (glfwGetKey(myGL.window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
   }
 }

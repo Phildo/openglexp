@@ -24,7 +24,7 @@ class BasicRenderer : public Renderer
     BasicRenderer();
     ~BasicRenderer();
 
-    void render();
+    void render(Camera& c, RenderComponent& rc);
 };
 
 #endif

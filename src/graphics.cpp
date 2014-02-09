@@ -100,27 +100,14 @@ Graphics::Graphics(const MyGL& mygl)
   glfwSwapInterval(0);
   glfwSetFramebufferSizeCallback(window, resize);
 
-/*
   glClearColor(255,255,255,0);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
-
-  */
 }
 
 void Graphics::resize(GLFWwindow* window, int width, int height)
 {
   glViewport(0, 0, width, height);
-}
-
-void Graphics::render()
-{
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-/*
-  */
-
-  glfwSwapBuffers(window);
 }
 
 Graphics::~Graphics()
