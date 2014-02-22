@@ -65,7 +65,7 @@ BasicRenderer::~BasicRenderer()
   glDeleteProgram(gl_program_id);
 }
 
-void BasicRenderer::loadVertData(RenderComponent& rc)
+void BasicRenderer::loadVertData(const RenderComponent& rc) const
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
@@ -76,7 +76,7 @@ void BasicRenderer::loadVertData(RenderComponent& rc)
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
 }
 
-void BasicRenderer::render(Camera& cam, RenderComponent& rc)
+void BasicRenderer::render(const Camera& cam, const RenderComponent& rc) const
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);

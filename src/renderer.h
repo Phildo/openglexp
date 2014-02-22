@@ -9,7 +9,7 @@ class Renderer
   private:
   public:
     virtual ~Renderer() {};
-    virtual void render(Camera& c, RenderComponent& rc) = 0;
+    virtual void render(const Camera& c, const RenderComponent& rc) const = 0;
 };
 
 #endif

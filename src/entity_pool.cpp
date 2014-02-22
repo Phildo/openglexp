@@ -66,3 +66,15 @@ void EntityPool::deleteEntity(int index)
   }
 }
 
+//can't guarantee exists on other end
+PhysicsComponent& EntityPool::physicsComponentForEntityIndex(int ei)
+{
+  return physicsComponents[entities[ei].physicsComponentIndex];
+}
+
+//can't guarantee exists on other end
+RenderComponent& EntityPool::renderComponentForEntityIndex(int ei)
+{
+  return renderComponents[entities[ei].renderComponentIndex];
+}
+

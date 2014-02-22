@@ -24,6 +24,9 @@ class EntityPool
 
     int createEntity(component_signature csig);
     void deleteEntity(int index);
+
+    PhysicsComponent& physicsComponentForEntityIndex(int ei);
+    RenderComponent& renderComponentForEntityIndex(int ei);
 };
 
 #endif

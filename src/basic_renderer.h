@@ -24,8 +24,8 @@ class BasicRenderer : public Renderer
     BasicRenderer();
     ~BasicRenderer();
 
-    void loadVertData(RenderComponent& rc);
-    void render(Camera& cam, RenderComponent& rc);
+    void loadVertData(const RenderComponent& rc) const;
+    void render(const Camera& cam, const RenderComponent& rc) const;
 };
 
 #endif

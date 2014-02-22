@@ -18,7 +18,7 @@ class EntitySystem
     EntitySystem();
     ~EntitySystem();
     void produceEntityFromFactory(EntityFactory* ef);
-    void render(GLFWwindow* window);
+    void render(GLFWwindow* window) const;
 };
 
 #endif
