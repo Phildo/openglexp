@@ -4,16 +4,24 @@
 class PhysicsComponent
 {
   private:
+  public:
+    PhysicsComponent();
+    ~PhysicsComponent();
+
+    int entityIndex;
+
     float x;
     float y;
     float z;
     float velX;
     float velY;
     float velZ;
-  public:
-    int entityIndex;
-    PhysicsComponent();
-    ~PhysicsComponent();
+    float rotPitch;
+    float rotYaw;
+    float rotRoll;
+    float rotVelPitch;
+    float rotVelYaw;
+    float rotVelRoll;
 };
 
 #endif

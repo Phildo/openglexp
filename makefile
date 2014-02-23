@@ -11,8 +11,14 @@ DEBUGGER = gdb
 CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
 LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEBUG)
 
+makemake : 
+	makemake $(SRCDIR)/*.cpp
+
+tags : 
+	ctags $(SRCDIR)/*.cpp
+
 #MAKEMAKE<
-OBJS=$(ODIR)/FLAT_utils.o $(ODIR)/basic_entity_factory.o $(ODIR)/basic_renderer.o $(ODIR)/camera.o $(ODIR)/entity.o $(ODIR)/entity_pool.o $(ODIR)/entity_system.o $(ODIR)/game.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/main.o $(ODIR)/mygl.o $(ODIR)/physics_component.o $(ODIR)/render_component.o $(ODIR)/scene.o 
+OBJS=$(ODIR)/FLAT_utils.o $(ODIR)/basic_entity_factory.o $(ODIR)/basic_reconciler.o $(ODIR)/basic_renderer.o $(ODIR)/basic_solver.o $(ODIR)/camera.o $(ODIR)/entity.o $(ODIR)/entity_pool.o $(ODIR)/entity_system.o $(ODIR)/game.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/main.o $(ODIR)/mygl.o $(ODIR)/physics_component.o $(ODIR)/render_component.o $(ODIR)/scene.o 
 
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)
@@ -23,8 +29,14 @@ $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h
 $(ODIR)/basic_entity_factory.o: src/basic_entity_factory.cpp src/basic_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/render_component.h src/gl_include.h src/physics_component.h
 	$(CC) $(CFLAGS) src/basic_entity_factory.cpp -o $(ODIR)/basic_entity_factory.o
 
+$(ODIR)/basic_reconciler.o: src/basic_reconciler.cpp src/basic_reconciler.h src/reconciler.h src/entity.h
+	$(CC) $(CFLAGS) src/basic_reconciler.cpp -o $(ODIR)/basic_reconciler.o
+
 $(ODIR)/basic_renderer.o: src/basic_renderer.cpp src/basic_renderer.h src/renderer.h src/camera.h src/gl_include.h src/render_component.h src/mygl.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/basic_renderer.cpp -o $(ODIR)/basic_renderer.o
+
+$(ODIR)/basic_solver.o: src/basic_solver.cpp src/basic_solver.h src/solver.h src/physics_component.h
+	$(CC) $(CFLAGS) src/basic_solver.cpp -o $(ODIR)/basic_solver.o
 
 $(ODIR)/camera.o: src/camera.cpp src/camera.h src/gl_include.h
 	$(CC) $(CFLAGS) src/camera.cpp -o $(ODIR)/camera.o
@@ -35,10 +47,10 @@ $(ODIR)/entity.o: src/entity.cpp src/entity.h
 $(ODIR)/entity_pool.o: src/entity_pool.cpp src/entity_pool.h src/entity.h src/render_component.h src/gl_include.h src/physics_component.h
 	$(CC) $(CFLAGS) src/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
-$(ODIR)/entity_system.o: src/entity_system.cpp src/entity_system.h src/entity_pool.h src/entity.h src/render_component.h src/gl_include.h src/physics_component.h src/basic_renderer.h src/renderer.h src/camera.h src/mygl.h src/entity_factory.h
+$(ODIR)/entity_system.o: src/entity_system.cpp src/entity_system.h src/entity_pool.h src/entity.h src/render_component.h src/gl_include.h src/physics_component.h src/basic_solver.h src/solver.h src/basic_reconciler.h src/reconciler.h src/basic_renderer.h src/renderer.h src/camera.h src/mygl.h src/entity_factory.h
 	$(CC) $(CFLAGS) src/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/game.o: src/game.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/graphics.h src/entity_system.h src/entity_pool.h src/entity.h src/render_component.h src/physics_component.h src/basic_renderer.h src/renderer.h src/camera.h src/basic_entity_factory.h src/entity_factory.h
+$(ODIR)/game.o: src/game.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/graphics.h src/entity_system.h src/entity_pool.h src/entity.h src/render_component.h src/physics_component.h src/basic_solver.h src/solver.h src/basic_reconciler.h src/reconciler.h src/basic_renderer.h src/renderer.h src/camera.h src/basic_entity_factory.h src/entity_factory.h
 	$(CC) $(CFLAGS) src/game.cpp -o $(ODIR)/game.o
 
 $(ODIR)/graphics.o: src/graphics.cpp src/graphics.h src/mygl.h src/gl_include.h
@@ -47,7 +59,7 @@ $(ODIR)/graphics.o: src/graphics.cpp src/graphics.h src/mygl.h src/gl_include.h
 $(ODIR)/input.o: src/input.cpp src/input.h src/mygl.h src/gl_include.h
 	$(CC) $(CFLAGS) src/input.cpp -o $(ODIR)/input.o
 
-$(ODIR)/main.o: src/main.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/graphics.h src/entity_system.h src/entity_pool.h src/entity.h src/render_component.h src/physics_component.h src/basic_renderer.h src/renderer.h src/camera.h
+$(ODIR)/main.o: src/main.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/graphics.h src/entity_system.h src/entity_pool.h src/entity.h src/render_component.h src/physics_component.h src/basic_solver.h src/solver.h src/basic_reconciler.h src/reconciler.h src/basic_renderer.h src/renderer.h src/camera.h
 	$(CC) $(CFLAGS) src/main.cpp -o $(ODIR)/main.o
 
 $(ODIR)/mygl.o: src/mygl.cpp src/mygl.h src/gl_include.h

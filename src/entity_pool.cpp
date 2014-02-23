@@ -11,7 +11,7 @@ EntityPool::~EntityPool()
 }
 
 //This is so not thread safe it isn't even funny
-int EntityPool::createEntity(component_signature csig)
+Entity& EntityPool::createEntity(component_signature csig)
 {
   Entity e;
 
@@ -32,7 +32,7 @@ int EntityPool::createEntity(component_signature csig)
   }
 
   entities.push_back(std::move(e));
-  return entities.size() - 1;
+  return entities[entities.size() - 1];
 }
 
 //Again- not thread safe at all. I'm a terrible person.
@@ -66,15 +66,13 @@ void EntityPool::deleteEntity(int index)
   }
 }
 
-//can't guarantee exists on other end
-PhysicsComponent& EntityPool::physicsComponentForEntityIndex(int ei)
+PhysicsComponent& EntityPool::physicsComponentForEntity(Entity& e)
 {
-  return physicsComponents[entities[ei].physicsComponentIndex];
+  return physicsComponents[e.physicsComponentIndex];
 }
 
-//can't guarantee exists on other end
-RenderComponent& EntityPool::renderComponentForEntityIndex(int ei)
+RenderComponent& EntityPool::renderComponentForEntity(Entity& e)
 {
-  return renderComponents[entities[ei].renderComponentIndex];
+  return renderComponents[e.renderComponentIndex];
 }
 

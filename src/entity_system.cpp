@@ -1,7 +1,7 @@
 #include "entity_system.h"
 #include "entity_factory.h"
 
-EntitySystem::EntitySystem():pool(),b_renderer(),cam()
+EntitySystem::EntitySystem():pool(),b_solver(),b_reconciler(),b_renderer(),cam()
 {
 }
 
@@ -12,6 +12,22 @@ EntitySystem::~EntitySystem()
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
 {
   ef->produce(pool);
+}
+
+void EntitySystem::solve()
+{
+  for(int i = 0; i < pool.physicsComponents.size(); i++)
+  {
+    b_solver.solve(pool.physicsComponents[i]);
+  }
+}
+
+void EntitySystem::reconcile() 
+{
+  for(int i = 0; i < pool.entities.size(); i++)
+  {
+    b_reconciler.reconcile(pool.entities[i], pool);
+  }
 }
 
 void EntitySystem::render(GLFWwindow* window) const

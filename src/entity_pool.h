@@ -22,11 +22,11 @@ class EntityPool
     EntityPool();
     ~EntityPool();
 
-    int createEntity(component_signature csig);
+    Entity& createEntity(component_signature csig);
     void deleteEntity(int index);
 
-    PhysicsComponent& physicsComponentForEntityIndex(int ei);
-    RenderComponent& renderComponentForEntityIndex(int ei);
+    PhysicsComponent& physicsComponentForEntity(Entity& e);
+    RenderComponent& renderComponentForEntity(Entity& e);
 };
 
 #endif

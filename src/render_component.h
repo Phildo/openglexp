@@ -13,6 +13,7 @@ class RenderComponent
     ~RenderComponent();
 
     int entityIndex;
+
     int numVerts;
     glm::vec3 posData[MAX_VERTS];
     glm::vec3 colorData[MAX_VERTS];
