@@ -1,19 +1,19 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include "mygl.h"
-#include "input.h"
-#include "graphics.h"
-#include "entity_system.h"
+class MyGL;
+class Input;
+class Graphics;
+class EntitySystem;
 
 class Game
 {
   private:
-    MyGL myGL;
-    Input input;
-    Graphics graphics;
+    MyGL *myGL;
+    Input *input;
+    Graphics *graphics;
 
-    EntitySystem entitySystem;
+    EntitySystem *entitySystem;
   public:
     Game();
     ~Game();

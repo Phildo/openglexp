@@ -6,8 +6,6 @@
 #include "render_component.h"
 #include "physics_component.h"
 
-#define MAX_ENTITIES 100
-
 typedef long component_signature;
 const component_signature ComponentSig_Physics = 1;
 const component_signature ComponentSig_Render  = 2;

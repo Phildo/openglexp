@@ -8,7 +8,7 @@ class Input
   private:
     GLFWwindow* window;
   public:
-    Input(const MyGL& mygl);
+    Input(const MyGL* mygl);
     void poll();
 };
 
