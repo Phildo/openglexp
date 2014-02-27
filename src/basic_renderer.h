@@ -1,10 +1,11 @@
 #ifndef _BASIC_RENDERER_H_
 #define _BASIC_RENDERER_H_
 
-#include "renderer.h"
 #include "mygl.h"
+#include "camera.h"
+#include "render_component.h"
 
-class BasicRenderer : public Renderer
+class BasicRenderer
 {
   private:
     GLuint gl_program_id;

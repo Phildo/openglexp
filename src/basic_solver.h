@@ -1,9 +1,10 @@
 #ifndef _BASIC_SOLVER_H_
 #define _BASIC_SOLVER_H_
 
-#include "solver.h"
+#include "camera.h"
+#include "physics_component.h"
 
-class BasicSolver : public Solver
+class BasicSolver
 {
   private:
   public:

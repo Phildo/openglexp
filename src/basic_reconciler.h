@@ -1,9 +1,10 @@
 #ifndef _BASIC_RECONCILER_H_
 #define _BASIC_RECONCILER_H_
 
-#include "reconciler.h"
+#include "entity.h"
+#include "entity_pool.h"
 
-class BasicReconciler : public Reconciler
+class BasicReconciler
 {
   private:
   public:
