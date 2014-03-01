@@ -20,9 +20,9 @@ void BasicEntityFactory::produce(EntityPool& ep)
 {
   Entity& e = ep.createEntity(ComponentSig_Physics | ComponentSig_Render);  
 
-  RenderComponent& rc = ep.renderComponentForEntity(e);
+  RenderComponent& rc = ep.renderComponents[e.renderComponentIndex];
 
-  PhysicsComponent& pc = ep.physicsComponentForEntity(e);
+  PhysicsComponent& pc = ep.physicsComponents[e.physicsComponentIndex];
   pc.x = 0.0f;
   pc.y = 0.0f;
   pc.z = 0.0f;

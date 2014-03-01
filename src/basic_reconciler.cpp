@@ -16,8 +16,8 @@ void BasicReconciler::reconcile(Entity& e, EntityPool& ep) const
 {
   if(e.renderComponentIndex != -1 && e.physicsComponentIndex != -1)
   {
-    PhysicsComponent& pc = ep.physicsComponentForEntity(e);
-    RenderComponent& rc = ep.renderComponentForEntity(e);
+    PhysicsComponent& pc = ep.physicsComponents[e.physicsComponentIndex];
+    RenderComponent& rc = ep.renderComponents[e.renderComponentIndex];
 
     rc.modelMat = glm::translate(glm::mat4(), glm::vec3(pc.x, pc.y, pc.z));
     rc.modelMat = glm::rotate(rc.modelMat, pc.rotPitch, glm::vec3(0.0,1.0,0.0));

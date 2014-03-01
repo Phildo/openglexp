@@ -66,13 +66,3 @@ void EntityPool::deleteEntity(int index)
   }
 }
 
-PhysicsComponent& EntityPool::physicsComponentForEntity(Entity& e)
-{
-  return physicsComponents[e.physicsComponentIndex];
-}
-
-RenderComponent& EntityPool::renderComponentForEntity(Entity& e)
-{
-  return renderComponents[e.renderComponentIndex];
-}
-
