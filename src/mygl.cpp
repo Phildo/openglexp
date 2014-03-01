@@ -18,6 +18,10 @@ MyGL::MyGL()
 
   window = glfwCreateWindow(512,256,"hello world",NULL,NULL);
   glfwMakeContextCurrent(window);
+
+  //must come after glfwCreateWindow
+  glewExperimental = GL_TRUE;
+  glewInit();
 }
 
 MyGL::~MyGL()

@@ -7,8 +7,9 @@ class Graphics
 {
   private:
     GLFWwindow* window;
-    //void resize(GLFWwindow* window, int width, int height);
   public:
+    int sWidth;
+    int sHeight;
     Graphics(const MyGL* mygl);
     ~Graphics();
 };
