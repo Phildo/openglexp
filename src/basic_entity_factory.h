@@ -11,7 +11,7 @@ class BasicEntityFactory : public EntityFactory
   public:
     BasicEntityFactory();
     ~BasicEntityFactory();
-    void produce(EntityPool& ep);
+    void produce(EntityPool* ep);
 };
 
 #endif

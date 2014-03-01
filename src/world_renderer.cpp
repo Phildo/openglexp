@@ -1,4 +1,4 @@
-#include "basic_renderer.h"
+#include "world_renderer.h"
 #include "FLAT_utils.h"
 #include <string>
 
@@ -30,7 +30,7 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
   return gl_program_id;
 }
 
-BasicRenderer::BasicRenderer()
+WorldRenderer::WorldRenderer()
 {
   gl_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");
 
@@ -57,7 +57,7 @@ BasicRenderer::BasicRenderer()
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 }
 
-BasicRenderer::~BasicRenderer()
+WorldRenderer::~WorldRenderer()
 {
   glDeleteVertexArrays(1, &gl_vert_array_id);
   glDeleteBuffers(1, &gl_pos_buff_id);
@@ -65,7 +65,7 @@ BasicRenderer::~BasicRenderer()
   glDeleteProgram(gl_program_id);
 }
 
-void BasicRenderer::loadVertData(const RenderComponent& rc) const
+void WorldRenderer::loadVertData(const RenderComponent& rc) const
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
@@ -76,12 +76,12 @@ void BasicRenderer::loadVertData(const RenderComponent& rc) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
 }
 
-void BasicRenderer::render(const Camera& cam, const RenderComponent& rc) const
+void WorldRenderer::render(const Camera* cam, const RenderComponent& rc) const
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
-  glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam.projMat[0][0]);
-  glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam.viewMat[0][0]);
+  glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);
+  glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]);
   glUniformMatrix4fv(gl_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts);
 }

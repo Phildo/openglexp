@@ -16,7 +16,7 @@ Game::Game()
   scener = new Scener();
 
   BasicEntityFactory *bef = new BasicEntityFactory();
-  for(int i = 0; i < 100; i++)
+  for(int i = 0; i < 1; i++)
     entitySystem->produceEntityFromFactory(bef);
   delete bef;
 }

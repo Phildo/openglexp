@@ -16,13 +16,13 @@ BasicEntityFactory::~BasicEntityFactory()
 {
 }
 
-void BasicEntityFactory::produce(EntityPool& ep)
+void BasicEntityFactory::produce(EntityPool* ep)
 {
-  Entity& e = ep.createEntity(ComponentSig_Physics | ComponentSig_Render);  
+  Entity& e = ep->createEntity(ComponentSig_Physics | ComponentSig_Render);  
 
-  RenderComponent& rc = ep.renderComponents[e.renderComponentIndex];
+  RenderComponent& rc = ep->renderComponents[e.renderComponentIndex];
 
-  PhysicsComponent& pc = ep.physicsComponents[e.physicsComponentIndex];
+  PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
   pc.x = 0.0f;
   pc.y = 0.0f;
   pc.z = 0.0f;

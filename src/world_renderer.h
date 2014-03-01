@@ -1,11 +1,11 @@
-#ifndef _BASIC_RENDERER_H_
-#define _BASIC_RENDERER_H_
+#ifndef _WORLD_RENDERER_H_
+#define _WORLD_RENDERER_H_
 
 #include "mygl.h"
 #include "camera.h"
 #include "render_component.h"
 
-class BasicRenderer
+class WorldRenderer
 {
   private:
     GLuint gl_program_id;
@@ -22,11 +22,11 @@ class BasicRenderer
     glm::mat4 modelMat;
 
   public:
-    BasicRenderer();
-    ~BasicRenderer();
+    WorldRenderer();
+    ~WorldRenderer();
 
     void loadVertData(const RenderComponent& rc) const;
-    void render(const Camera& cam, const RenderComponent& rc) const;
+    void render(const Camera* cam, const RenderComponent& rc) const;
 };
 
 #endif

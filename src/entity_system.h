@@ -1,11 +1,11 @@
 #ifndef _ENTITY_SYSTEM_H_
 #define _ENTITY_SYSTEM_H_
 
-#include "entity_pool.h"
-#include "basic_solver.h"
-#include "basic_reconciler.h"
-#include "basic_renderer.h"
-#include "camera.h"
+class EntityPool;
+class BasicSolver;
+class BasicReconciler;
+class WorldRenderer;
+class Camera;
 
 class EntityFactory;
 struct GLFWwindow;
@@ -13,13 +13,13 @@ struct GLFWwindow;
 class EntitySystem
 {
   private:
-    EntityPool pool;
+    EntityPool *pool;
 
-    BasicSolver b_solver;
-    BasicReconciler b_reconciler;
-    BasicRenderer b_renderer;
+    BasicSolver *b_solver;
+    BasicReconciler *b_reconciler;
+    WorldRenderer *world_renderer;
 
-    Camera cam;
+    Camera *cam;
   public:
     EntitySystem();
     ~EntitySystem();

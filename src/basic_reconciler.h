@@ -11,7 +11,7 @@ class BasicReconciler
     BasicReconciler();
     ~BasicReconciler();
 
-    void reconcile(Entity& e, EntityPool& ep) const;
+    void reconcile(Entity& e, EntityPool* ep) const;
 };
 
 #endif
