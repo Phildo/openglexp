@@ -13,6 +13,10 @@ class WorldRenderer : public Renderer
 
     GLuint gl_vert_array_id;
 
+    GLuint gl_fb_id;
+    GLuint gl_fb_tex_buff_id;
+    GLuint gl_fb_depth_buff_id;
+
     GLuint gl_pos_buff_id;
     GLuint gl_color_buff_id;
 

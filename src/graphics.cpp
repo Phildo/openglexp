@@ -5,13 +5,19 @@
 #include <fstream>
 
 #include <stdlib.h>
+#include <cmath>
 
-#define WIDTH 64
-#define LENGTH 64
+#define WIDTH 128
+#define HEIGHT 256
 
 void resize(GLFWwindow* window, int width, int height)
 {
-  glViewport(0, 0, width, height);
+  //snap to power-of-two's
+  int w; for(w = 2; (std::abs(width-(w*2))  < std::abs(width-w));  w *= 2) ;
+  int h; for(h = 2; (std::abs(height-(h*2)) < std::abs(height-h)); h *= 2) ;
+
+  std::cout << w << "," << h << std::endl;
+  glViewport(0, 0, w, h);
 }
 
 Graphics::Graphics(const MyGL* mygl)
@@ -21,6 +27,9 @@ Graphics::Graphics(const MyGL* mygl)
   //must come after glfwCreateWindow
   glewExperimental = GL_TRUE;
   glewInit();
+
+  winWidth = WIDTH;
+  winHeight = HEIGHT;
 
   glfwSwapInterval(0);
   glfwSetFramebufferSizeCallback(window, resize);

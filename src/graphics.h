@@ -9,6 +9,8 @@ class Graphics
     GLFWwindow* window;
     //void resize(GLFWwindow* window, int width, int height);
   public:
+    int winWidth;
+    int winHeight;
     Graphics(const MyGL* mygl);
     ~Graphics();
 };

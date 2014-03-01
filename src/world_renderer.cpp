@@ -7,6 +7,9 @@ WorldRenderer::WorldRenderer()
 
   //gen IDs
   glGenVertexArrays(1, &gl_vert_array_id);
+  glGenFramebuffers(1, &gl_fb_id);
+  glGenTextures(1, &gl_fb_tex_buff_id);
+  glGenRenderbuffers(1, &gl_fb_depth_buff_id);
   glGenBuffers(1, &gl_pos_buff_id);
   glGenBuffers(1, &gl_color_buff_id);
   gl_proj_mat_id  = glGetUniformLocation(gl_program_id, "projMat");
@@ -28,6 +31,25 @@ WorldRenderer::WorldRenderer()
   glEnableVertexAttribArray(attrib_1);
   glBindBuffer(GL_ARRAY_BUFFER, gl_color_buff_id);
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+
+  //set up FB
+  /*
+  glBindFramebuffer(GL_FRAMEBUFFER, gl_fb_id);
+
+  glBindTexture(GL_TEXTURE_2D, gl_fb_tex_buff_id);
+  glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1024, 768, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_fb_tex_buff_id, 0);
+
+  glBindRenderbuffer(GL_RENDERBUFFER, gl_fb_depth_buff_id);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id);
+
+  GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+  glDrawBuffers(1, DrawBuffers);
+  */
+
 }
 
 void WorldRenderer::loadVertData(const WorldComponent& rc) const
