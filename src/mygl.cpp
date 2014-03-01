@@ -16,7 +16,7 @@ MyGL::MyGL()
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-  window = glfwCreateWindow(640,480,"hello world",NULL,NULL);
+  window = glfwCreateWindow(512,256,"hello world",NULL,NULL);
   glfwMakeContextCurrent(window);
 }
 
