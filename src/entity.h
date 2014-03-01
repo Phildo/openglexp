@@ -7,6 +7,7 @@ class Entity
   public:
     int worldComponentIndex;
     int physicsComponentIndex;
+    int HUDComponentIndex;
 
     Entity();
     ~Entity();

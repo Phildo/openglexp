@@ -1,11 +1,12 @@
 #ifndef _WORLD_RENDERER_H_
 #define _WORLD_RENDERER_H_
 
-#include "mygl.h"
-#include "camera.h"
+#include "renderer.h"
 #include "world_component.h"
 
-class WorldRenderer
+class Camera;
+
+class WorldRenderer : public Renderer
 {
   private:
     GLuint gl_program_id;

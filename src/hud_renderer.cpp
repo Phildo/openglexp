@@ -1,9 +1,8 @@
-#include "world_renderer.h"
-#include "Camera.h"
+#include "hud_renderer.h"
 
-WorldRenderer::WorldRenderer()
+HUDRenderer::HUDRenderer()
 {
-  gl_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");
+  gl_program_id = Renderer::loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");
 
   //gen IDs
   glGenVertexArrays(1, &gl_vert_array_id);
@@ -28,7 +27,7 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 }
 
-WorldRenderer::~WorldRenderer()
+HUDRenderer::~HUDRenderer()
 {
   glDeleteVertexArrays(1, &gl_vert_array_id);
   glDeleteBuffers(1, &gl_pos_buff_id);
@@ -36,7 +35,7 @@ WorldRenderer::~WorldRenderer()
   glDeleteProgram(gl_program_id);
 }
 
-void WorldRenderer::loadVertData(const WorldComponent& rc) const
+void HUDRenderer::loadVertData(const HUDComponent& rc) const
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
@@ -47,7 +46,7 @@ void WorldRenderer::loadVertData(const WorldComponent& rc) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
+void HUDRenderer::render(const HUDComponent& rc) const
 {
 /*
   for(int i = 0; i < 4; i++)
@@ -62,8 +61,8 @@ void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
 
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
-  glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);
-  glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]);
+  //glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);
+  //glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]);
   glUniformMatrix4fv(gl_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts);
 }

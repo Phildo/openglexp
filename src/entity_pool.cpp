@@ -31,6 +31,14 @@ Entity& EntityPool::createEntity(component_signature csig)
     worldComponents.push_back(std::move(rc));
   }
 
+  if(csig & ComponentSig_HUD)
+  {
+    HUDComponent rc;
+    e.HUDComponentIndex = HUDComponents.size();
+    rc.entityIndex = entities.size();
+    HUDComponents.push_back(std::move(rc));
+  }
+
   entities.push_back(std::move(e));
   return entities[entities.size() - 1];
 }
@@ -53,6 +61,12 @@ void EntityPool::deleteEntity(int index)
     if(e.worldComponentIndex != worldComponents.size())
       entities[worldComponents[e.worldComponentIndex].entityIndex].worldComponentIndex = e.worldComponentIndex;
   }
+  if(e.HUDComponentIndex > -1)
+  {
+    HUDComponents.erase(HUDComponents.begin()+e.HUDComponentIndex);
+    if(e.HUDComponentIndex != HUDComponents.size())
+      entities[HUDComponents[e.HUDComponentIndex].entityIndex].HUDComponentIndex = e.HUDComponentIndex;
+  }
 
   //Remove entity and re-wire components' entity positions
   entities.erase(entities.begin()+index);
@@ -63,6 +77,8 @@ void EntityPool::deleteEntity(int index)
       physicsComponents[e.physicsComponentIndex].entityIndex = index;
     if(e.worldComponentIndex > -1)
       worldComponents[e.worldComponentIndex].entityIndex = index;
+    if(e.HUDComponentIndex > -1)
+      HUDComponents[e.HUDComponentIndex].entityIndex = index;
   }
 }
 

@@ -6,7 +6,7 @@
 #include "world_renderer.h"
 #include "camera.h"
 
-EntitySystem::EntitySystem():pool(),physics_solver(),b_reconciler(),world_renderer(),cam()
+EntitySystem::EntitySystem()
 {
   pool = new EntityPool();
   physics_solver = new PhysicsSolver();
