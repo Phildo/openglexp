@@ -15,7 +15,7 @@ makemake :
 	makemake $(SRCDIR)/*.cpp
 
 tags : 
-	cd $(SRCDIR); ctags $(SRCDIR)/*.cpp
+	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
 
 #MAKEMAKE<
 #MAKEMAKE>

@@ -29,7 +29,7 @@ void Game::run()
     input->poll();
 
     //entitySystem->solve();
-    entitySystem->reconcile();
+    //entitySystem->reconcile();
     entitySystem->render(myGL->window);
 
     run = (!glfwWindowShouldClose(myGL->window) && (glfwGetKey(myGL->window, GLFW_KEY_ESCAPE) != GLFW_PRESS));

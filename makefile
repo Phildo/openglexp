@@ -15,7 +15,7 @@ makemake :
 	makemake $(SRCDIR)/*.cpp
 
 tags : 
-	cd $(SRCDIR); ctags $(SRCDIR)/*.cpp
+	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
 
 #MAKEMAKE<
 OBJS=$(ODIR)/FLAT_utils.o $(ODIR)/basic_entity_factory.o $(ODIR)/basic_reconciler.o $(ODIR)/camera.o $(ODIR)/entity.o $(ODIR)/entity_pool.o $(ODIR)/entity_system.o $(ODIR)/game.o $(ODIR)/graphics.o $(ODIR)/input.o $(ODIR)/main.o $(ODIR)/mygl.o $(ODIR)/physics_component.o $(ODIR)/physics_solver.o $(ODIR)/render_component.o $(ODIR)/scener.o $(ODIR)/world_renderer.o 
