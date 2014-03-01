@@ -1,6 +1,6 @@
-#include "render_component.h"
+#include "world_component.h"
 
-RenderComponent::RenderComponent(): modelMat(1.0)
+WorldComponent::WorldComponent(): modelMat(1.0)
 {
   numVerts = 3;
 
@@ -15,7 +15,7 @@ RenderComponent::RenderComponent(): modelMat(1.0)
   colorData[2] = glm::vec3(0.0,0.0,0.0);
 }
 
-RenderComponent::~RenderComponent()
+WorldComponent::~WorldComponent()
 {
 }
 

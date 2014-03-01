@@ -3,7 +3,7 @@
 
 #include "mygl.h"
 #include "camera.h"
-#include "render_component.h"
+#include "world_component.h"
 
 class WorldRenderer
 {
@@ -25,8 +25,8 @@ class WorldRenderer
     WorldRenderer();
     ~WorldRenderer();
 
-    void loadVertData(const RenderComponent& rc) const;
-    void render(const Camera* cam, const RenderComponent& rc) const;
+    void loadVertData(const WorldComponent& rc) const;
+    void render(const Camera* cam, const WorldComponent& rc) const;
 };
 
 #endif

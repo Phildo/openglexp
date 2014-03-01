@@ -5,7 +5,7 @@ class Entity
 {
   private:
   public:
-    int renderComponentIndex;
+    int worldComponentIndex;
     int physicsComponentIndex;
 
     Entity();

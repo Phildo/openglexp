@@ -1,7 +1,7 @@
 #include "entity.h"
 
 Entity::Entity() : 
-  renderComponentIndex (-1), 
+  worldComponentIndex (-1), 
   physicsComponentIndex(-1)
 {
 }

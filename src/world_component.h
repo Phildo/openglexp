@@ -1,16 +1,16 @@
-#ifndef _RENDER_COMPONENT_H_
-#define _RENDER_COMPONENT_H_
+#ifndef _WORLD_COMPONENT_H_
+#define _WORLD_COMPONENT_H_
 
 #define MAX_VERTS 100
 
 #include "gl_include.h"
 
-class RenderComponent
+class WorldComponent
 {
   private:
   public:
-    RenderComponent();
-    ~RenderComponent();
+    WorldComponent();
+    ~WorldComponent();
 
     int entityIndex;
 

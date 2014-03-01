@@ -3,13 +3,13 @@
 
 #include <vector>
 #include "entity.h"
-#include "render_component.h"
+#include "world_component.h"
 #include "physics_component.h"
 
 //do not like
 typedef long component_signature;
 const component_signature ComponentSig_Physics = 1;
-const component_signature ComponentSig_Render  = 2;
+const component_signature ComponentSig_World  = 2;
 
 class EntityPool
 {
@@ -21,7 +21,7 @@ class EntityPool
     std::vector<PhysicsComponent> physicsComponents;
 
     //Render Components
-    std::vector<RenderComponent>  renderComponents;
+    std::vector<WorldComponent>  worldComponents;
 
     EntityPool();
     ~EntityPool();

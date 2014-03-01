@@ -23,12 +23,12 @@ Entity& EntityPool::createEntity(component_signature csig)
     physicsComponents.push_back(std::move(pc));
   }
 
-  if(csig & ComponentSig_Render)
+  if(csig & ComponentSig_World)
   {
-    RenderComponent rc;
-    e.renderComponentIndex = renderComponents.size();
+    WorldComponent rc;
+    e.worldComponentIndex = worldComponents.size();
     rc.entityIndex = entities.size();
-    renderComponents.push_back(std::move(rc));
+    worldComponents.push_back(std::move(rc));
   }
 
   entities.push_back(std::move(e));
@@ -47,11 +47,11 @@ void EntityPool::deleteEntity(int index)
     if(e.physicsComponentIndex != physicsComponents.size())
       entities[physicsComponents[e.physicsComponentIndex].entityIndex].physicsComponentIndex = e.physicsComponentIndex;
   }
-  if(e.renderComponentIndex > -1)
+  if(e.worldComponentIndex > -1)
   {
-    renderComponents.erase(renderComponents.begin()+e.renderComponentIndex);
-    if(e.renderComponentIndex != renderComponents.size())
-      entities[renderComponents[e.renderComponentIndex].entityIndex].renderComponentIndex = e.renderComponentIndex;
+    worldComponents.erase(worldComponents.begin()+e.worldComponentIndex);
+    if(e.worldComponentIndex != worldComponents.size())
+      entities[worldComponents[e.worldComponentIndex].entityIndex].worldComponentIndex = e.worldComponentIndex;
   }
 
   //Remove entity and re-wire components' entity positions
@@ -61,8 +61,8 @@ void EntityPool::deleteEntity(int index)
     e = entities[index];
     if(e.physicsComponentIndex > -1)
       physicsComponents[e.physicsComponentIndex].entityIndex = index;
-    if(e.renderComponentIndex > -1)
-      renderComponents[e.renderComponentIndex].entityIndex = index;
+    if(e.worldComponentIndex > -1)
+      worldComponents[e.worldComponentIndex].entityIndex = index;
   }
 }
 

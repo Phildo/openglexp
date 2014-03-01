@@ -66,7 +66,7 @@ WorldRenderer::~WorldRenderer()
   glDeleteProgram(gl_program_id);
 }
 
-void WorldRenderer::loadVertData(const RenderComponent& rc) const
+void WorldRenderer::loadVertData(const WorldComponent& rc) const
 {
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
@@ -77,7 +77,7 @@ void WorldRenderer::loadVertData(const RenderComponent& rc) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::render(const Camera* cam, const RenderComponent& rc) const
+void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
 {
 /*
   for(int i = 0; i < 4; i++)
