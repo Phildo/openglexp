@@ -2,15 +2,15 @@
 
 HUDRenderer::HUDRenderer()
 {
-  gl_program_id = Renderer::loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");
+  viewMat = glm::mat4(1.0);
+
+  gl_program_id = Renderer::loadShader("/Users/pdougherty/Desktop/flat/src/shaders/h_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/h_shader.fs");
 
   //gen IDs
   glGenVertexArrays(1, &gl_vert_array_id);
   glGenBuffers(1, &gl_pos_buff_id);
   glGenBuffers(1, &gl_color_buff_id);
-  gl_proj_mat_id  = glGetUniformLocation(gl_program_id, "projMat");
   gl_view_mat_id  = glGetUniformLocation(gl_program_id, "viewMat");
-  gl_model_mat_id = glGetUniformLocation(gl_program_id, "modelMat");
 
   //set up VAO
   glUseProgram(gl_program_id);
@@ -27,14 +27,6 @@ HUDRenderer::HUDRenderer()
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 }
 
-HUDRenderer::~HUDRenderer()
-{
-  glDeleteVertexArrays(1, &gl_vert_array_id);
-  glDeleteBuffers(1, &gl_pos_buff_id);
-  glDeleteBuffers(1, &gl_color_buff_id);
-  glDeleteProgram(gl_program_id);
-}
-
 void HUDRenderer::loadVertData(const HUDComponent& rc) const
 {
   glUseProgram(gl_program_id);
@@ -48,22 +40,18 @@ void HUDRenderer::loadVertData(const HUDComponent& rc) const
 
 void HUDRenderer::render(const HUDComponent& rc) const
 {
-/*
-  for(int i = 0; i < 4; i++)
-  {
-    std::cout << cam->viewMat[i][0] << ",";
-    std::cout << cam->viewMat[i][1] << ",";
-    std::cout << cam->viewMat[i][2] << ",";
-    std::cout << cam->viewMat[i][3] << ",";
-  }
-    std::cout << std::endl;
-    */
-
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
-  //glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);
-  //glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]);
-  glUniformMatrix4fv(gl_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]);
+  glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &viewMat[0][0]);
+
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts);
+}
+
+HUDRenderer::~HUDRenderer()
+{
+  glDeleteVertexArrays(1, &gl_vert_array_id);
+  glDeleteBuffers(1, &gl_pos_buff_id);
+  glDeleteBuffers(1, &gl_color_buff_id);
+  glDeleteProgram(gl_program_id);
 }
 

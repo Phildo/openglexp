@@ -20,8 +20,6 @@ class WorldRenderer : public Renderer
     GLuint gl_view_mat_id;
     GLuint gl_model_mat_id;
 
-    glm::mat4 modelMat;
-
   public:
     WorldRenderer();
     ~WorldRenderer();

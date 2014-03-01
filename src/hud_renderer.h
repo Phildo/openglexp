@@ -14,12 +14,9 @@ class HUDRenderer : public Renderer
     GLuint gl_pos_buff_id;
     GLuint gl_color_buff_id;
 
-    GLuint gl_proj_mat_id;
     GLuint gl_view_mat_id;
-    GLuint gl_model_mat_id;
 
-    glm::mat4 modelMat;
-
+    glm::mat4 viewMat;//translates from -1 - 1 to 0 - 100
   public:
     HUDRenderer();
     ~HUDRenderer();
