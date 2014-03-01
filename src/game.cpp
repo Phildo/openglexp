@@ -28,7 +28,7 @@ void Game::run()
   {
     input->poll();
 
-    entitySystem->solve();
+    //entitySystem->solve();
     entitySystem->reconcile();
     entitySystem->render(myGL->window);
 

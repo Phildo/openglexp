@@ -1,6 +1,7 @@
 #include "world_renderer.h"
 #include "FLAT_utils.h"
 #include <string>
+#include <iostream>
 
 GLuint loadShader(const char *vs_filename, const char *fs_filename)
 {
@@ -78,6 +79,17 @@ void WorldRenderer::loadVertData(const RenderComponent& rc) const
 
 void WorldRenderer::render(const Camera* cam, const RenderComponent& rc) const
 {
+/*
+  for(int i = 0; i < 4; i++)
+  {
+    std::cout << cam->viewMat[i][0] << ",";
+    std::cout << cam->viewMat[i][1] << ",";
+    std::cout << cam->viewMat[i][2] << ",";
+    std::cout << cam->viewMat[i][3] << ",";
+  }
+    std::cout << std::endl;
+    */
+
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
   glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);

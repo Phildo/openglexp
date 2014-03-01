@@ -1,14 +1,14 @@
-#include "basic_solver.h"
+#include "physics_solver.h"
 
-BasicSolver::BasicSolver()
+PhysicsSolver::PhysicsSolver()
 {
 }
 
-BasicSolver::~BasicSolver()
+PhysicsSolver::~PhysicsSolver()
 {
 }
 
-void BasicSolver::solve(PhysicsComponent& pc) const
+void PhysicsSolver::solve(PhysicsComponent& pc) const
 {
   pc.x += pc.velX;
   pc.y += pc.velY;

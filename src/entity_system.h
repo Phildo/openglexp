@@ -2,7 +2,7 @@
 #define _ENTITY_SYSTEM_H_
 
 class EntityPool;
-class BasicSolver;
+class PhysicsSolver;
 class BasicReconciler;
 class WorldRenderer;
 class Camera;
@@ -15,9 +15,9 @@ class EntitySystem
   private:
     EntityPool *pool;
 
-    BasicSolver *b_solver;
-    BasicReconciler *b_reconciler;
+    PhysicsSolver *physics_solver;
     WorldRenderer *world_renderer;
+    BasicReconciler *b_reconciler;
 
     Camera *cam;
   public:
