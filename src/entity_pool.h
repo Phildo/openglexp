@@ -11,7 +11,7 @@
 typedef long component_signature;
 const component_signature ComponentSig_Physics = 1;
 const component_signature ComponentSig_World   = 2;
-const component_signature ComponentSig_HUD     = 3;
+const component_signature ComponentSig_HUD     = 4;
 
 class EntityPool
 {

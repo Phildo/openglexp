@@ -18,7 +18,7 @@ BasicEntityFactory::~BasicEntityFactory()
 
 void BasicEntityFactory::produce(EntityPool* ep)
 {
-  Entity& e = ep->createEntity(ComponentSig_Physics | ComponentSig_World | ComponentSig_HUD);  
+  Entity& e = ep->createEntity(ComponentSig_Physics | ComponentSig_World);  
 
   WorldComponent& rc = ep->worldComponents[e.worldComponentIndex];
 
@@ -30,8 +30,8 @@ void BasicEntityFactory::produce(EntityPool* ep)
   pc.velY = 0.0f;
   pc.velZ = 0.0f;
 
-  pc.rotVelPitch = 0.001;//(FLAT_Utils::randf()-1.0f);
-  pc.rotVelYaw = 0.001;//(FLAT_Utils::randf()-1.0f);
-  pc.rotVelRoll = 0.1;//(FLAT_Utils::randf()-1.0f);
+  pc.rotVelPitch = (FLAT_Utils::randf()-1.0f);
+  pc.rotVelYaw = (FLAT_Utils::randf()-1.0f);
+  pc.rotVelRoll = (FLAT_Utils::randf()-1.0f);
 }
 

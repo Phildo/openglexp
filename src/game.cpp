@@ -16,7 +16,7 @@ Game::Game()
   scener = new Scener();
 
   BasicEntityFactory *bef = new BasicEntityFactory();
-  for(int i = 0; i < 1; i++)
+  for(int i = 0; i < 1000; i++)
     entitySystem->produceEntityFromFactory(bef);
   delete bef;
 }
@@ -28,8 +28,8 @@ void Game::run()
   {
     input->poll();
 
-    //entitySystem->solve();
-    //entitySystem->reconcile();
+    entitySystem->solve();
+    entitySystem->reconcile();
     entitySystem->render(myGL->window);
 
     run = (!glfwWindowShouldClose(myGL->window) && (glfwGetKey(myGL->window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
