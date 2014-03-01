@@ -12,6 +12,8 @@ WorldRenderer::WorldRenderer()
   gl_proj_mat_id  = glGetUniformLocation(gl_program_id, "projMat");
   gl_view_mat_id  = glGetUniformLocation(gl_program_id, "viewMat");
   gl_model_mat_id = glGetUniformLocation(gl_program_id, "modelMat");
+  gl_t_id         = glGetUniformLocation(gl_program_id, "t");
+  t = 0;
 
   //set up VAO
   glUseProgram(gl_program_id);
@@ -46,7 +48,13 @@ void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
   glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);
   glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]);
   glUniformMatrix4fv(gl_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]);
+  glUniform1f(gl_t_id, t);
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts);
+}
+
+void WorldRenderer::update()
+{
+  t+=0.01f;
 }
 
 WorldRenderer::~WorldRenderer()

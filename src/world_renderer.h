@@ -20,12 +20,15 @@ class WorldRenderer : public Renderer
     GLuint gl_view_mat_id;
     GLuint gl_model_mat_id;
 
+    GLuint gl_t_id;
+    float t;
   public:
     WorldRenderer();
     ~WorldRenderer();
 
     void loadVertData(const WorldComponent& rc) const;
     void render(const Camera* cam, const WorldComponent& rc) const;
+    void update();
 };
 
 #endif

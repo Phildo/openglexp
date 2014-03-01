@@ -39,6 +39,7 @@ void EntitySystem::render(GLFWwindow* window) const
   {
     world_renderer->render(cam, pool->worldComponents[i]);
   }
+  world_renderer->update();
   glClear(GL_DEPTH_BUFFER_BIT);
     //hud_renderer->loadVertData(pool->HUDComponents[0]);
   for(int i = 0; i < pool->HUDComponents.size(); i++)
