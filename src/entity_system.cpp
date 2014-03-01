@@ -4,6 +4,7 @@
 #include "physics_solver.h"
 #include "basic_reconciler.h"
 #include "world_renderer.h"
+#include "hud_renderer.h"
 #include "camera.h"
 
 EntitySystem::EntitySystem()
@@ -11,6 +12,7 @@ EntitySystem::EntitySystem()
   pool = new EntityPool();
   physics_solver = new PhysicsSolver();
   world_renderer = new WorldRenderer();
+  hud_renderer = new HUDRenderer();
   b_reconciler = new BasicReconciler();
 
   cam = new Camera();
@@ -37,6 +39,12 @@ void EntitySystem::render(GLFWwindow* window) const
     world_renderer->loadVertData(pool->worldComponents[0]);
     world_renderer->render(cam, pool->worldComponents[i]);
   }
+  glClear(GL_DEPTH_BUFFER_BIT);
+  for(int i = 0; i < pool->HUDComponents.size(); i++)
+  {
+    hud_renderer->loadVertData(pool->HUDComponents[0]);
+    hud_renderer->render(pool->HUDComponents[i]);
+  }
   glfwSwapBuffers(window);
 }
 
@@ -52,6 +60,7 @@ EntitySystem::~EntitySystem()
 {
   delete cam;
   delete b_reconciler;
+  delete hud_renderer;
   delete world_renderer;
   delete physics_solver;
   delete pool;

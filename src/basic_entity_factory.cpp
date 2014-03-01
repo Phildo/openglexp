@@ -18,7 +18,7 @@ BasicEntityFactory::~BasicEntityFactory()
 
 void BasicEntityFactory::produce(EntityPool* ep)
 {
-  Entity& e = ep->createEntity(ComponentSig_Physics | ComponentSig_World);  
+  Entity& e = ep->createEntity(ComponentSig_Physics | ComponentSig_World | ComponentSig_HUD);  
 
   WorldComponent& rc = ep->worldComponents[e.worldComponentIndex];
 

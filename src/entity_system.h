@@ -5,6 +5,7 @@ class EntityPool;
 class PhysicsSolver;
 class BasicReconciler;
 class WorldRenderer;
+class HUDRenderer;
 class Camera;
 
 class EntityFactory;
@@ -17,6 +18,7 @@ class EntitySystem
 
     PhysicsSolver *physics_solver;
     WorldRenderer *world_renderer;
+    HUDRenderer *hud_renderer;
     BasicReconciler *b_reconciler;
 
     Camera *cam;
