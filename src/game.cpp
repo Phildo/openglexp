@@ -5,6 +5,7 @@
 #include "input.h"
 #include "graphics.h"
 #include "entity_system.h"
+#include "scener.h"
 
 Game::Game()
 {
@@ -12,9 +13,10 @@ Game::Game()
   input = new Input(myGL);
   graphics = new Graphics(myGL);
   entitySystem = new EntitySystem();
+  scener = new Scener();
 
   BasicEntityFactory *bef = new BasicEntityFactory();
-  for(int i = 0; i < 50000; i++)
+  for(int i = 0; i < 100; i++)
     entitySystem->produceEntityFromFactory(bef);
   delete bef;
 }
@@ -25,6 +27,7 @@ void Game::run()
   while(run)
   {
     input->poll();
+
     entitySystem->solve();
     entitySystem->reconcile();
     entitySystem->render(myGL->window);
@@ -35,6 +38,7 @@ void Game::run()
 
 Game::~Game()
 {
+  delete scener;
   delete entitySystem;
   delete graphics;
   delete input;

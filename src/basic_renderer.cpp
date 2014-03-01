@@ -32,7 +32,7 @@ GLuint loadShader(const char *vs_filename, const char *fs_filename)
 
 BasicRenderer::BasicRenderer()
 {
-  gl_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");//vs_filename, fs_filename);
+  gl_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/shader.fs");
 
   //gen IDs
   glGenVertexArrays(1, &gl_vert_array_id);

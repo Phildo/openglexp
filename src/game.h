@@ -5,15 +5,17 @@ class MyGL;
 class Input;
 class Graphics;
 class EntitySystem;
+class Scener;
 
 class Game
 {
   private:
-    MyGL *myGL;
-    Input *input;
-    Graphics *graphics;
+    MyGL* myGL;
+    Input* input;
+    Graphics* graphics;
 
-    EntitySystem *entitySystem;
+    EntitySystem* entitySystem;
+    Scener* scener;
   public:
     Game();
     ~Game();
