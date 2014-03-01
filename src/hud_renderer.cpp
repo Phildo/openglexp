@@ -1,6 +1,6 @@
 #include "hud_renderer.h"
 
-HUDRenderer::HUDRenderer()
+HUDRenderer::HUDRenderer(Graphics* g) : Renderer(g)
 {
   viewMat = glm::mat4(1.0);
 

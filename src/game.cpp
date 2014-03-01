@@ -12,7 +12,7 @@ Game::Game()
   myGL = new MyGL();
   input = new Input(myGL);
   graphics = new Graphics(myGL);
-  entitySystem = new EntitySystem();
+  entitySystem = new EntitySystem(graphics);
   scener = new Scener();
 
   BasicEntityFactory *bef = new BasicEntityFactory();

@@ -27,7 +27,7 @@ class WorldRenderer : public Renderer
     GLuint gl_t_id;
     float t;
   public:
-    WorldRenderer();
+    WorldRenderer(Graphics* g);
     ~WorldRenderer();
 
     void loadVertData(const WorldComponent& rc) const;

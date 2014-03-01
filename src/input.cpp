@@ -12,3 +12,8 @@ void Input::poll()
     glfwPollEvents();
 }
 
+Input::~Input()
+{
+
+}
+

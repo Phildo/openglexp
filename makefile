@@ -41,7 +41,7 @@ $(ODIR)/entity.o: src/entity.cpp src/entity.h
 $(ODIR)/entity_pool.o: src/entity_pool.cpp src/entity_pool.h src/entity.h src/physics_component.h src/world_component.h src/gl_include.h src/hud_component.h
 	$(CC) $(CFLAGS) src/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
-$(ODIR)/entity_system.o: src/entity_system.cpp src/entity_system.h src/entity_factory.h src/entity_pool.h src/entity.h src/physics_component.h src/world_component.h src/gl_include.h src/hud_component.h src/physics_solver.h src/basic_reconciler.h src/world_renderer.h src/renderer.h src/mygl.h src/camera.h
+$(ODIR)/entity_system.o: src/entity_system.cpp src/entity_system.h src/graphics.h src/mygl.h src/gl_include.h src/entity_factory.h src/entity_pool.h src/entity.h src/physics_component.h src/world_component.h src/hud_component.h src/physics_solver.h src/basic_reconciler.h src/world_renderer.h src/renderer.h src/hud_renderer.h src/camera.h
 	$(CC) $(CFLAGS) src/entity_system.cpp -o $(ODIR)/entity_system.o
 
 $(ODIR)/game.o: src/game.cpp src/game.h src/basic_entity_factory.h src/entity_factory.h src/mygl.h src/gl_include.h src/input.h src/graphics.h src/entity_system.h src/scener.h
@@ -53,7 +53,7 @@ $(ODIR)/graphics.o: src/graphics.cpp src/graphics.h src/mygl.h src/gl_include.h
 $(ODIR)/hud_component.o: src/hud_component.cpp src/hud_component.h src/gl_include.h
 	$(CC) $(CFLAGS) src/hud_component.cpp -o $(ODIR)/hud_component.o
 
-$(ODIR)/hud_renderer.o: src/hud_renderer.cpp src/hud_renderer.h src/renderer.h src/mygl.h src/gl_include.h src/hud_component.h
+$(ODIR)/hud_renderer.o: src/hud_renderer.cpp src/hud_renderer.h src/renderer.h src/graphics.h src/mygl.h src/gl_include.h src/hud_component.h
 	$(CC) $(CFLAGS) src/hud_renderer.cpp -o $(ODIR)/hud_renderer.o
 
 $(ODIR)/input.o: src/input.cpp src/input.h src/mygl.h src/gl_include.h
@@ -71,7 +71,7 @@ $(ODIR)/physics_component.o: src/physics_component.cpp src/physics_component.h
 $(ODIR)/physics_solver.o: src/physics_solver.cpp src/physics_solver.h src/physics_component.h
 	$(CC) $(CFLAGS) src/physics_solver.cpp -o $(ODIR)/physics_solver.o
 
-$(ODIR)/renderer.o: src/renderer.cpp src/renderer.h src/mygl.h src/gl_include.h src/FLAT_utils.h
+$(ODIR)/renderer.o: src/renderer.cpp src/renderer.h src/graphics.h src/mygl.h src/gl_include.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/renderer.cpp -o $(ODIR)/renderer.o
 
 $(ODIR)/scener.o: src/scener.cpp src/scener.h
@@ -80,7 +80,7 @@ $(ODIR)/scener.o: src/scener.cpp src/scener.h
 $(ODIR)/world_component.o: src/world_component.cpp src/world_component.h src/gl_include.h
 	$(CC) $(CFLAGS) src/world_component.cpp -o $(ODIR)/world_component.o
 
-$(ODIR)/world_renderer.o: src/world_renderer.cpp src/world_renderer.h src/renderer.h src/mygl.h src/gl_include.h src/world_component.h src/Camera.h
+$(ODIR)/world_renderer.o: src/world_renderer.cpp src/world_renderer.h src/renderer.h src/graphics.h src/mygl.h src/gl_include.h src/world_component.h src/Camera.h
 	$(CC) $(CFLAGS) src/world_renderer.cpp -o $(ODIR)/world_renderer.o
 
 #MAKEMAKE>

@@ -18,7 +18,7 @@ class HUDRenderer : public Renderer
 
     glm::mat4 viewMat;//translates from -1 - 1 to 0 - 100
   public:
-    HUDRenderer();
+    HUDRenderer(Graphics* g);
     ~HUDRenderer();
 
     void loadVertData(const HUDComponent& rc) const;

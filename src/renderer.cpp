@@ -2,9 +2,9 @@
 #include "FLAT_utils.h"
 #include <string>
 
-Renderer::Renderer()
+Renderer::Renderer(Graphics* g)
 {
-
+  graphics = g;
 }
 
 Renderer::~Renderer()

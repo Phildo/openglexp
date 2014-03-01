@@ -1,7 +1,7 @@
 #include "world_renderer.h"
 #include "Camera.h"
 
-WorldRenderer::WorldRenderer()
+WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
 {
   gl_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/w_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/w_shader.fs");
 
@@ -49,7 +49,6 @@ WorldRenderer::WorldRenderer()
   GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
   glDrawBuffers(1, DrawBuffers);
   */
-
 }
 
 void WorldRenderer::loadVertData(const WorldComponent& rc) const

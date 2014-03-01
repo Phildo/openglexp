@@ -1,4 +1,5 @@
 #include "entity_system.h"
+#include "graphics.h"
 #include "entity_factory.h"
 #include "entity_pool.h"
 #include "physics_solver.h"
@@ -7,12 +8,14 @@
 #include "hud_renderer.h"
 #include "camera.h"
 
-EntitySystem::EntitySystem()
+EntitySystem::EntitySystem(Graphics* g)
 {
+  graphics = g;
+
   pool = new EntityPool();
   physics_solver = new PhysicsSolver();
-  world_renderer = new WorldRenderer();
-  hud_renderer = new HUDRenderer();
+  world_renderer = new WorldRenderer(graphics);
+  hud_renderer = new HUDRenderer(graphics);
   b_reconciler = new BasicReconciler();
 
   cam = new Camera();

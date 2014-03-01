@@ -1,6 +1,7 @@
 #ifndef _ENTITY_SYSTEM_H_
 #define _ENTITY_SYSTEM_H_
 
+class Graphics;
 class EntityPool;
 class PhysicsSolver;
 class BasicReconciler;
@@ -14,16 +15,17 @@ struct GLFWwindow;
 class EntitySystem
 {
   private:
-    EntityPool *pool;
+    Graphics* graphics;
+    EntityPool* pool;
 
-    PhysicsSolver *physics_solver;
-    WorldRenderer *world_renderer;
-    HUDRenderer *hud_renderer;
-    BasicReconciler *b_reconciler;
+    PhysicsSolver* physics_solver;
+    WorldRenderer* world_renderer;
+    HUDRenderer* hud_renderer;
+    BasicReconciler* b_reconciler;
 
-    Camera *cam;
+    Camera* cam;
   public:
-    EntitySystem();
+    EntitySystem(Graphics* g);
     ~EntitySystem();
     void produceEntityFromFactory(EntityFactory* ef);
 
