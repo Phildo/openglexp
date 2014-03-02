@@ -35,6 +35,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //gen IDs
   glGenVertexArrays(1, &gl_blit_vert_array_id);
   glGenBuffers(1, &gl_blit_pos_buff_id);
+  gl_blit_tex_id = glGetUniformLocation(gl_blit_program_id, "tex");
     //set up VAO
   glUseProgram(gl_blit_program_id);
   glBindVertexArray(gl_blit_vert_array_id);
@@ -42,6 +43,15 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glEnableVertexAttribArray(attrib_0);
   glBindBuffer(GL_ARRAY_BUFFER, gl_blit_pos_buff_id);
   glVertexAttribPointer(attrib_0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+    //just upload the data now- won't change
+  screen_quad.posData[0] = glm::vec3(-1.0,-1.0,0.0);
+  screen_quad.posData[1] = glm::vec3( 1.0,-1.0,0.0);
+  screen_quad.posData[2] = glm::vec3( 1.0, 1.0,0.0);
+  screen_quad.posData[3] = glm::vec3(-1.0,-1.0,0.0);
+  screen_quad.posData[4] = glm::vec3( 1.0, 1.0,0.0);
+  screen_quad.posData[5] = glm::vec3(-1.0, 1.0,0.0);
+  screen_quad.numVerts = 6;
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.posData, GL_STATIC_DRAW);
 
   //set up FB
   glGenFramebuffers(1, &gl_fb_id);

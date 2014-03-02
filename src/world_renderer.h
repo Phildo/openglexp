@@ -25,6 +25,7 @@ class WorldRenderer : public Renderer
     GLuint gl_blit_program_id;
     GLuint gl_blit_vert_array_id;
     GLuint gl_blit_pos_buff_id;
+    GLuint gl_blit_tex_id;
 
     float t;
     WorldComponent screen_quad; //really just a quad- outside of entity_system

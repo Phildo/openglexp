@@ -1,9 +1,13 @@
 #version 330 core
 
+in vec2 UV;
 layout(location = 0) out vec3 color;
+
+uniform sampler2D tex;
 
 void main()
 {
-  color = vec3(0.0,1.0,0.0); //replace this with a texlookup
+  color = vec3(UV.x, UV.y, 0.0);
+  //color = texture(tex, UV).rgb
 }
 
