@@ -22,6 +22,7 @@ class HUDRenderer : public Renderer
     ~HUDRenderer();
 
     void loadVertData(const HUDComponent& rc) const;
+    void prepareForDraw();
     void render(const HUDComponent& rc) const;
 };
 

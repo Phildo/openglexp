@@ -34,6 +34,7 @@ class WorldRenderer : public Renderer
     ~WorldRenderer();
 
     void loadVertData(const WorldComponent& rc) const;
+    void prepareForDraw();
     void render(const Camera* cam, const WorldComponent& rc) const;
     void blit() const;
     void update();

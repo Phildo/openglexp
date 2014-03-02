@@ -82,6 +82,14 @@ void WorldRenderer::loadVertData(const WorldComponent& rc) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW); //define
 }
 
+void WorldRenderer::prepareForDraw()
+{
+  glBindFramebuffer(GL_FRAMEBUFFER,0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glBindFramebuffer(GL_FRAMEBUFFER,gl_fb_id);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
 {
   glBindFramebuffer(GL_FRAMEBUFFER,gl_fb_id); //bind

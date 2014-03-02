@@ -1,9 +1,5 @@
 #include "graphics.h"
 
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-
 #include <stdlib.h>
 #include <cmath>
 
@@ -16,8 +12,8 @@ void resize(GLFWwindow* window, int width, int height)
   //Not static- how to communicate change to Graphics:: ?
   //sWidth  = w;
   //sHeight = h;
-  glViewport(0, 0, w*2, h*2); //don't know why *2 is necessary...?
-  //glfwSetWindowSize(window, w, h);
+  glViewport(0, 0, w, h); 
+  //glfwSetWindowSize(window, w, h); //can't call this every time- need to find a way to wait until drag stopped
 }
 
 Graphics::Graphics(const MyGL* mygl)

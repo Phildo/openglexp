@@ -36,20 +36,17 @@ void EntitySystem::solve()
 
 void EntitySystem::render(GLFWwindow* window) const
 {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  world_renderer->prepareForDraw();
   world_renderer->loadVertData(pool->worldComponents[0]);
   for(int i = 0; i < pool->worldComponents.size(); i++)
-  {
     world_renderer->render(cam, pool->worldComponents[i]);
-  }
   world_renderer->blit();
   world_renderer->update();
   
-  glClear(GL_DEPTH_BUFFER_BIT);
+  hud_renderer->prepareForDraw();
   for(int i = 0; i < pool->HUDComponents.size(); i++)
-  {
     hud_renderer->render(pool->HUDComponents[i]);
-  }
+
   glfwSwapBuffers(window);
 }
 
