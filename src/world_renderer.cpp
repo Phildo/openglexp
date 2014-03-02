@@ -33,22 +33,20 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
   //set up FB
-  /*
   glBindFramebuffer(GL_FRAMEBUFFER, gl_fb_id);
 
   glBindTexture(GL_TEXTURE_2D, gl_fb_tex_buff_id);
-  glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1024, 768, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, graphics->sWidth, graphics->sHeight, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_fb_tex_buff_id, 0);
 
   glBindRenderbuffer(GL_RENDERBUFFER, gl_fb_depth_buff_id);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth, graphics->sHeight);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id);
 
   GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
   glDrawBuffers(1, DrawBuffers);
-  */
 }
 
 void WorldRenderer::loadVertData(const WorldComponent& rc) const
@@ -64,6 +62,7 @@ void WorldRenderer::loadVertData(const WorldComponent& rc) const
 
 void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
 {
+  glBindFramebuffer(GL_FRAMEBUFFER,0);
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
   glUniformMatrix4fv(gl_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);

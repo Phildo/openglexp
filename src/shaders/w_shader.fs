@@ -1,7 +1,7 @@
 #version 330 core
 
 in vec3 fcol;
-out vec3 color;
+layout(location = 0) out vec3 color;
 
 uniform float t;
 
