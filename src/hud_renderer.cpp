@@ -2,6 +2,7 @@
 
 HUDRenderer::HUDRenderer(Graphics* g) : Renderer(g)
 {
+/*
   viewMat = glm::mat4(1.0);
 
   gl_program_id = Renderer::loadShader("/Users/pdougherty/Desktop/flat/src/shaders/h_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/h_shader.fs");
@@ -25,10 +26,12 @@ HUDRenderer::HUDRenderer(Graphics* g) : Renderer(g)
   glEnableVertexAttribArray(attrib_1);
   glBindBuffer(GL_ARRAY_BUFFER, gl_color_buff_id);
   glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+  */
 }
 
 void HUDRenderer::loadVertData(const HUDComponent& rc) const
 {
+/*
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
 
@@ -36,22 +39,27 @@ void HUDRenderer::loadVertData(const HUDComponent& rc) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.posData, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_color_buff_id);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
+  */
 }
 
 void HUDRenderer::render(const HUDComponent& rc) const
 {
+/*
   glUseProgram(gl_program_id);
   glBindVertexArray(gl_vert_array_id);
   glUniformMatrix4fv(gl_view_mat_id,  1, GL_FALSE, &viewMat[0][0]);
 
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts);
+  */
 }
 
 HUDRenderer::~HUDRenderer()
 {
+/*
   glDeleteVertexArrays(1, &gl_vert_array_id);
   glDeleteBuffers(1, &gl_pos_buff_id);
   glDeleteBuffers(1, &gl_color_buff_id);
   glDeleteProgram(gl_program_id);
+  */
 }
 
