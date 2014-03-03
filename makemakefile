@@ -11,14 +11,14 @@ DEBUGGER = gdb
 CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
 LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEBUG)
 
+#MAKEMAKE<
+#MAKEMAKE>
+
 makemake : 
 	makemake $(SRCDIR)/*.cpp
 
 tags : 
 	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
-
-#MAKEMAKE<
-#MAKEMAKE>
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)

@@ -11,12 +11,6 @@ DEBUGGER = gdb
 CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
 LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEBUG)
 
-makemake : 
-	makemake $(SRCDIR)/*.cpp
-
-tags : 
-	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
-
 #MAKEMAKE<
 OBJS=$(ODIR)/FLAT_utils.o $(ODIR)/basic_entity_factory.o $(ODIR)/basic_reconciler.o $(ODIR)/camera.o $(ODIR)/entity.o $(ODIR)/entity_pool.o $(ODIR)/entity_system.o $(ODIR)/game.o $(ODIR)/graphics.o $(ODIR)/hud_component.o $(ODIR)/hud_renderer.o $(ODIR)/input.o $(ODIR)/main.o $(ODIR)/mygl.o $(ODIR)/physics_component.o $(ODIR)/physics_solver.o $(ODIR)/renderer.o $(ODIR)/scener.o $(ODIR)/world_component.o $(ODIR)/world_renderer.o 
 
@@ -84,6 +78,12 @@ $(ODIR)/world_renderer.o: src/world_renderer.cpp src/world_renderer.h src/render
 	$(CC) $(CFLAGS) src/world_renderer.cpp -o $(ODIR)/world_renderer.o
 
 #MAKEMAKE>
+
+makemake : 
+	makemake $(SRCDIR)/*.cpp
+
+tags : 
+	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)

@@ -1,7 +1,5 @@
 .DS_Store
-out
-app
-bin
+bin/app
 *.o
 *.out
 *.tar.gz
