@@ -30,8 +30,8 @@ void BasicEntityFactory::produce(EntityPool* ep)
   pc.velY = 0.0f;
   pc.velZ = 0.0f;
 
-  pc.rotVelPitch = (FLAT_Utils::randf()-1.0f);
-  pc.rotVelYaw = (FLAT_Utils::randf()-1.0f);
-  pc.rotVelRoll = (FLAT_Utils::randf()-1.0f);
+  pc.rotVelPitch = (FLAT_Utils::randf()-1.0f)*0.1;
+  pc.rotVelYaw = (FLAT_Utils::randf()-1.0f)*0.1;
+  pc.rotVelRoll = (FLAT_Utils::randf()-1.0f)*0.1;
 }
 

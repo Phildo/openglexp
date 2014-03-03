@@ -20,6 +20,9 @@ Graphics::Graphics(const MyGL* mygl)
 {
   window = mygl->window;
   glfwGetWindowSize(window, &sWidth, &sHeight);
+  //For retina...
+  sWidth*=2;
+  sHeight*=2;
   resize(window, sWidth, sHeight);
 
   glfwSwapInterval(0);

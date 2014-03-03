@@ -59,14 +59,14 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
 
   glGenTextures(1, &gl_fb_tex_buff_id); //generate
   glBindTexture(GL_TEXTURE_2D, gl_fb_tex_buff_id); //bind
-  glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, graphics->sWidth/8, graphics->sHeight/8, 0,GL_RGB, GL_UNSIGNED_BYTE, 0); //declare/define
+  glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, graphics->sWidth/16, graphics->sHeight/16, 0,GL_RGB, GL_UNSIGNED_BYTE, 0); //declare/define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //attrib
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_fb_tex_buff_id, 0); //attach
 
   glGenRenderbuffers(1, &gl_fb_depth_buff_id); //generate
   glBindRenderbuffer(GL_RENDERBUFFER, gl_fb_depth_buff_id); //bind
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/8, graphics->sHeight/8); //declare/define
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/16, graphics->sHeight/16); //declare/define
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id); //attach
 
   GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
@@ -86,7 +86,7 @@ void WorldRenderer::prepareForDraw()
 {
   glBindFramebuffer(GL_FRAMEBUFFER,gl_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glViewport(0,0,graphics->sWidth/8,graphics->sHeight/8);
+  glViewport(0,0,graphics->sWidth/16,graphics->sHeight/16);
 }
 
 void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
