@@ -3,10 +3,6 @@
 
 WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
 {
-  //Just 'constants' to better illustrate what the inputs that take ints are actually doing
-  GLuint attrib_0 = 0;
-  GLuint attrib_1 = 1;
-
   //Draw
   gl_draw_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/w_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/w_shader.fs"); //generate
   glUseProgram(gl_draw_program_id); //bind
@@ -14,15 +10,17 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glGenVertexArrays(1, &gl_draw_vert_array_id); //generate
   glBindVertexArray(gl_draw_vert_array_id); //bind
     //pos buff
+  gl_draw_pos_attrib_id = glGetAttribLocation(gl_draw_program_id, "vpos");
   glGenBuffers(1, &gl_draw_pos_buff_id); //generate
-  glEnableVertexAttribArray(attrib_0); //enable
+  glEnableVertexAttribArray(gl_draw_pos_attrib_id); //enable
   glBindBuffer(GL_ARRAY_BUFFER, gl_draw_pos_buff_id); //bind
-  glVertexAttribPointer(attrib_0,3,GL_FLOAT,GL_FALSE,0,(void*)0); //declare
+  glVertexAttribPointer(gl_draw_pos_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); //define
     //color buff
+  gl_draw_col_attrib_id = glGetAttribLocation(gl_draw_program_id, "vcol");
   glGenBuffers(1, &gl_draw_color_buff_id); //generate
-  glEnableVertexAttribArray(attrib_1); //enable
+  glEnableVertexAttribArray(gl_draw_col_attrib_id); //enable
   glBindBuffer(GL_ARRAY_BUFFER, gl_draw_color_buff_id); //bind
-  glVertexAttribPointer(attrib_1,3,GL_FLOAT,GL_FALSE,0,(void*)0); //declare
+  glVertexAttribPointer(gl_draw_col_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); //define
     //uniforms
   gl_draw_proj_mat_id  = glGetUniformLocation(gl_draw_program_id, "projMat");
   gl_draw_view_mat_id  = glGetUniformLocation(gl_draw_program_id, "viewMat");
@@ -37,12 +35,13 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glGenVertexArrays(1, &gl_blit_vert_array_id); //generate
   glBindVertexArray(gl_blit_vert_array_id); //bind
     //pos buff
+  gl_blit_pos_attrib_id = glGetAttribLocation(gl_blit_program_id, "vpos");
   glGenBuffers(1, &gl_blit_pos_buff_id); //generate
-  glEnableVertexAttribArray(attrib_0); //enable
+  glEnableVertexAttribArray(gl_blit_pos_attrib_id); //enable
   glBindBuffer(GL_ARRAY_BUFFER, gl_blit_pos_buff_id); //bind
-  glVertexAttribPointer(attrib_0,3,GL_FLOAT,GL_FALSE,0,(void*)0); //declare
+  glVertexAttribPointer(gl_blit_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0); //define
     //uniforms
-  gl_blit_tex_id = glGetUniformLocation(gl_blit_program_id, "tex");
+  gl_blit_col_tex_id = glGetUniformLocation(gl_blit_program_id, "col_tex");
     //just upload the data now- won't change
   screen_quad.posData[0] = glm::vec3(-1.0,-1.0,0.0);
   screen_quad.posData[1] = glm::vec3( 1.0,-1.0,0.0);
@@ -60,29 +59,27 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //Depth
   glGenTextures(1, &gl_fb_depth_tex_id); //generate
   glBindTexture(GL_TEXTURE_2D, gl_fb_depth_tex_id); //bind
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //declare/define
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
   glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_fb_depth_tex_id, 0); //attach
 
-/*
     //Color
   glGenTextures(1, &gl_fb_col_tex_id); //generate
   glBindTexture(GL_TEXTURE_2D, gl_fb_col_tex_id); //bind
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/4, graphics->sHeight/4, 0, GL_RGB, GL_UNSIGNED_BYTE, 0); //declare/define
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/4, graphics->sHeight/4, 0, GL_RGB, GL_UNSIGNED_BYTE, 0); //define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_fb_col_tex_id, 0); //attach
-*/
 
   // Alternative to render depth to renderbuffer rather than texture
   //glGenRenderbuffers(1, &gl_fb_depth_buff_id); //generate
   //glBindRenderbuffer(GL_RENDERBUFFER, gl_fb_depth_buff_id); //bind
-  //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4); //declare/define
+  //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4); //define
   //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id); //attach
 
   //GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};

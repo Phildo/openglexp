@@ -1,13 +1,13 @@
 #version 330 core
 
 in vec2 UV;
-layout(location = 0) out vec3 color;
+out vec3 color;
 
-uniform sampler2D tex;
+uniform sampler2D col_tex;
 
 void main()
 {
-  //color = texture(tex, UV).rgb;
-  color = (texture(tex, UV).rgb-0.995)*500;
+  color = texture(col_tex, UV).rgb;
+  //color = (texture(col_tex, UV).rgb-0.995)*500;
 }
 
