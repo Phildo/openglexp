@@ -10,8 +10,9 @@ class WorldRenderer : public Renderer
 {
   private:
     GLuint gl_fb_id;
-    GLuint gl_fb_tex_buff_id;
-    GLuint gl_fb_depth_buff_id;
+    GLuint gl_fb_col_tex_id;
+    GLuint gl_fb_depth_tex_id;
+    //GLuint gl_fb_depth_buff_id;
 
     GLuint gl_draw_program_id;
     GLuint gl_draw_vert_array_id;
