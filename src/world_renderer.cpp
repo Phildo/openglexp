@@ -42,6 +42,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glVertexAttribPointer(gl_blit_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0); //define
     //uniforms
   gl_blit_col_tex_id = glGetUniformLocation(gl_blit_program_id, "col_tex");
+  gl_blit_dep_tex_id = glGetUniformLocation(gl_blit_program_id, "dep_tex");
     //just upload the data now- won't change
   screen_quad.posData[0] = glm::vec3(-1.0,-1.0,0.0);
   screen_quad.posData[1] = glm::vec3( 1.0,-1.0,0.0);
@@ -56,18 +57,9 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glGenFramebuffers(1, &gl_fb_id); //generate
   glBindFramebuffer(GL_FRAMEBUFFER, gl_fb_id); // bind
 
-    //Depth
-  glGenTextures(1, &gl_fb_depth_tex_id); //generate
-  glBindTexture(GL_TEXTURE_2D, gl_fb_depth_tex_id); //bind
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //define
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //attrib
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_fb_depth_tex_id, 0); //attach
-
     //Color
   glGenTextures(1, &gl_fb_col_tex_id); //generate
+  glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, gl_fb_col_tex_id); //bind
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/4, graphics->sHeight/4, 0, GL_RGB, GL_UNSIGNED_BYTE, 0); //define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
@@ -75,10 +67,23 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_fb_col_tex_id, 0); //attach
+  glUniform1i(gl_blit_col_tex_id, 0);
+
+    //Depth
+  glGenTextures(1, &gl_fb_dep_tex_id); //generate
+  glActiveTexture(GL_TEXTURE1);
+  glBindTexture(GL_TEXTURE_2D, gl_fb_dep_tex_id); //bind
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //define
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //attrib
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_fb_dep_tex_id, 0); //attach
+  glUniform1i(gl_blit_dep_tex_id, 1);
 
   // Alternative to render depth to renderbuffer rather than texture
-  //glGenRenderbuffers(1, &gl_fb_depth_buff_id); //generate
-  //glBindRenderbuffer(GL_RENDERBUFFER, gl_fb_depth_buff_id); //bind
+  //glGenRenderbuffers(1, &gl_fb_dep_buff_id); //generate
+  //glBindRenderbuffer(GL_RENDERBUFFER, gl_fb_dep_buff_id); //bind
   //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4); //define
   //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id); //attach
 
@@ -128,15 +133,15 @@ void WorldRenderer::blit() const
 
 void WorldRenderer::update()
 {
-  t+=0.01f;
+  t+=0.001f;
 }
 
 WorldRenderer::~WorldRenderer()
 {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   glDeleteTextures(1, &gl_fb_col_tex_id);
-  glDeleteTextures(1, &gl_fb_depth_tex_id);
-  //glDeleteRenderbuffers(1, &gl_fb_depth_buff_id); //alternative to depth2tex
+  glDeleteTextures(1, &gl_fb_dep_tex_id);
+  //glDeleteRenderbuffers(1, &gl_fb_dep_buff_id); //alternative to depth2tex
   glDeleteFramebuffers(1, &gl_fb_id);
 
   glDeleteVertexArrays(1, &gl_blit_vert_array_id);
