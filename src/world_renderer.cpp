@@ -60,13 +60,14 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //Depth
   glGenTextures(1, &gl_fb_depth_tex_id); //generate
   glBindTexture(GL_TEXTURE_2D, gl_fb_depth_tex_id); //bind
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/4, graphics->sHeight/4, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //declare/define
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //declare/define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
   glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_fb_depth_tex_id, 0); //attach
 
+/*
     //Color
   glGenTextures(1, &gl_fb_col_tex_id); //generate
   glBindTexture(GL_TEXTURE_2D, gl_fb_col_tex_id); //bind
@@ -76,6 +77,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //attrib
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //attrib
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_fb_col_tex_id, 0); //attach
+*/
 
   // Alternative to render depth to renderbuffer rather than texture
   //glGenRenderbuffers(1, &gl_fb_depth_buff_id); //generate
@@ -83,8 +85,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/4, graphics->sHeight/4); //declare/define
   //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id); //attach
 
-  GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-  glDrawBuffers(1, DrawBuffers);
+  //GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+  //glDrawBuffers(1, DrawBuffers);
 }
 
 void WorldRenderer::loadVertData(const WorldComponent& rc) const
