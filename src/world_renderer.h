@@ -23,7 +23,6 @@ class WorldRenderer : public Renderer
     GLuint gl_draw_proj_mat_id;
     GLuint gl_draw_view_mat_id;
     GLuint gl_draw_model_mat_id;
-    GLuint gl_draw_t_id;
 
     GLuint gl_blit_program_id;
     GLuint gl_blit_vert_array_id;
@@ -32,7 +31,6 @@ class WorldRenderer : public Renderer
     GLuint gl_blit_col_tex_id;
     GLuint gl_blit_dep_tex_id;
 
-    float t;
     WorldComponent screen_quad; //really just a quad- outside of entity_system
   public:
     WorldRenderer(Graphics* g);
@@ -42,7 +40,6 @@ class WorldRenderer : public Renderer
     void prepareForDraw();
     void render(const Camera* cam, const WorldComponent& rc) const;
     void blit() const;
-    void update();
 };
 
 #endif

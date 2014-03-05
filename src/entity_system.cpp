@@ -41,7 +41,6 @@ void EntitySystem::render(GLFWwindow* window) const
   for(int i = 0; i < pool->worldComponents.size(); i++)
     world_renderer->render(cam, pool->worldComponents[i]);
   world_renderer->blit();
-  world_renderer->update();
   
   hud_renderer->prepareForDraw();
   for(int i = 0; i < pool->HUDComponents.size(); i++)

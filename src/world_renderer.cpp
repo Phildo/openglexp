@@ -25,8 +25,6 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   gl_draw_proj_mat_id  = glGetUniformLocation(gl_draw_program_id, "projMat");
   gl_draw_view_mat_id  = glGetUniformLocation(gl_draw_program_id, "viewMat");
   gl_draw_model_mat_id = glGetUniformLocation(gl_draw_program_id, "modelMat");
-  gl_draw_t_id         = glGetUniformLocation(gl_draw_program_id, "t");
-  t = 0;
 
   //Blit
   gl_blit_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/blit_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/blit_shader.fs"); //generate
@@ -115,7 +113,6 @@ void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
   glUniformMatrix4fv(gl_draw_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]); //define
   glUniformMatrix4fv(gl_draw_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]); //define
   glUniformMatrix4fv(gl_draw_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]); //define
-  glUniform1f(gl_draw_t_id, t); //define
   glDrawArrays(GL_TRIANGLES, 0, rc.numVerts); //draw
 }
 
@@ -129,11 +126,6 @@ void WorldRenderer::blit() const
   glUseProgram(gl_blit_program_id); //bind
   glBindVertexArray(gl_blit_vert_array_id); //bind
   glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts); //draw
-}
-
-void WorldRenderer::update()
-{
-  t+=0.001f;
 }
 
 WorldRenderer::~WorldRenderer()
