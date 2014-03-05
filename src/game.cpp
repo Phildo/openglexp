@@ -28,7 +28,7 @@ Game::Game()
 
   BasicEntityFactory *bef = new BasicEntityFactory();
   BilboardEntityFactory *bbef = new BilboardEntityFactory();
-  for(int i = 0; i < 100; i++)
+  for(int i = 0; i < 200; i++)
     entitySystem->produceEntityFromFactory(bef);
   entitySystem->produceEntityFromFactory(bbef);
   delete bbef;

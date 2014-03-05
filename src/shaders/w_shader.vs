@@ -13,6 +13,6 @@ uniform float t;
 void main()
 {
   gl_Position = projMat * viewMat * modelMat * vec4(vpos,1.0);
-  fcol = vcol;
+  fcol = vec3(0.9,0.9,0.9);//vcol;
 }
 
