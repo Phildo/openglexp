@@ -36,10 +36,16 @@ void Game::run()
 {
   bool run = true;
   bool render = false;
+
   timeval now_stamp; gettimeofday(&now_stamp, NULL);
   timeval tick_stamp = now_stamp;
+  #ifdef DEBUG
+  timeval debug_stamp = now_stamp;
+  #endif
+
   int ms_til_tick = 0;
   int catch_up_count = 0;
+
   while(run)
   {
     gettimeofday(&now_stamp, NULL);
@@ -55,15 +61,22 @@ void Game::run()
       entitySystem->reconcile();
       render = true;
 
-      #ifdef DEBUG
-      std::cout << msPassed(tick_stamp,now_stamp) << std::endl;
-      #endif
-      tick_stamp = now_stamp;
+      gettimeofday(&tick_stamp, NULL);
       catch_up_count++;
     }
     catch_up_count = 0;
 
-    if(render) entitySystem->render(myGL->window);
+    if(render)
+    {
+      #ifdef DEBUG
+      gettimeofday(&now_stamp, NULL);
+      if(msPassed(debug_stamp,now_stamp) > 0)
+        std::cout << (int)(1/(double(msPassed(debug_stamp,now_stamp))/1000.0)) << std::endl;
+        gettimeofday(&debug_stamp, NULL);
+      #endif
+     entitySystem->render(myGL->window);
+     render = false;
+    }
     run = (!glfwWindowShouldClose(myGL->window) && (glfwGetKey(myGL->window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
   }
 }
