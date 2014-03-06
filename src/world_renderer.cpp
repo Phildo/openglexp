@@ -8,27 +8,30 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   //Geometry Pass
   gl_g_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/g_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/g_shader.fs"); //generate
   glUseProgram(gl_g_program_id); //bind
-    //gen VAO
-  glGenVertexArrays(1, &gl_g_vert_array_id); //generate
-  glBindVertexArray(gl_g_vert_array_id); //bind
-    //pos buff
-  gl_g_pos_attrib_id = glGetAttribLocation(gl_g_program_id, "vpos");
-  glGenBuffers(1, &gl_g_pos_buff_id); //generate
-  glEnableVertexAttribArray(gl_g_pos_attrib_id); //enable
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id); //bind
-  glVertexAttribPointer(gl_g_pos_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); //define
-    //color buff
-  gl_g_col_attrib_id = glGetAttribLocation(gl_g_program_id, "vcol");
-  glGenBuffers(1, &gl_g_color_buff_id); //generate
-  glEnableVertexAttribArray(gl_g_col_attrib_id); //enable
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_color_buff_id); //bind
-  glVertexAttribPointer(gl_g_col_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); //define
+
     //uniforms
   gl_g_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
   gl_g_view_mat_id  = glGetUniformLocation(gl_g_program_id, "viewMat");
   gl_g_model_mat_id = glGetUniformLocation(gl_g_program_id, "modelMat");
+    //attribs
+  gl_g_pos_attrib_id = glGetAttribLocation(gl_g_program_id, "vpos");
+  glEnableVertexAttribArray(gl_g_pos_attrib_id); //enable
+  gl_g_col_attrib_id = glGetAttribLocation(gl_g_program_id, "vcol");
+  glEnableVertexAttribArray(gl_g_col_attrib_id); //enable
 
-  //Geometry FB
+    //gen VAO
+  glGenVertexArrays(1, &gl_g_vert_array_id); //generate
+  glBindVertexArray(gl_g_vert_array_id); //bind
+    //pos buff
+  glGenBuffers(1, &gl_g_pos_buff_id); //generate
+  glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id); //bind
+  glVertexAttribPointer(gl_g_pos_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); //define
+    //color buff
+  glGenBuffers(1, &gl_g_color_buff_id); //generate
+  glBindBuffer(GL_ARRAY_BUFFER, gl_g_color_buff_id); //bind
+  glVertexAttribPointer(gl_g_col_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); //define
+
+    //gen FB
   glGenFramebuffers(1, &gl_g_fb_id); //generate
   glBindFramebuffer(GL_FRAMEBUFFER, gl_g_fb_id); // bind
 
@@ -74,26 +77,26 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT); //define
   //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_g_fb_depth_buff_id); //attach
 
-  GLenum drawBuffers[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
-  glDrawBuffers(2, drawBuffers);
-
 
   //Light Pass
   gl_l_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/l_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/l_shader.fs"); //generate
   glUseProgram(gl_l_program_id); //bind
-    //gen VAO
-  glGenVertexArrays(1, &gl_l_vert_array_id); //generate
-  glBindVertexArray(gl_l_vert_array_id); //bind
-    //pos buff
-  gl_l_pos_attrib_id = glGetAttribLocation(gl_l_program_id, "vpos");
-  glGenBuffers(1, &gl_l_pos_buff_id); //generate
-  glEnableVertexAttribArray(gl_l_pos_attrib_id); //enable
-  glBindBuffer(GL_ARRAY_BUFFER, gl_l_pos_buff_id); //bind
-  glVertexAttribPointer(gl_l_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0); //define
+
     //uniforms
   gl_l_col_tex_id = glGetUniformLocation(gl_l_program_id, "col_tex");
   gl_l_pos_tex_id = glGetUniformLocation(gl_l_program_id, "pos_tex");
   gl_l_dep_tex_id = glGetUniformLocation(gl_l_program_id, "dep_tex");
+    //attribs
+  gl_l_pos_attrib_id = glGetAttribLocation(gl_l_program_id, "vpos");
+  glEnableVertexAttribArray(gl_l_pos_attrib_id); //enable
+
+    //gen VAO
+  glGenVertexArrays(1, &gl_l_vert_array_id); //generate
+  glBindVertexArray(gl_l_vert_array_id); //bind
+    //pos buff
+  glGenBuffers(1, &gl_l_pos_buff_id); //generate
+  glBindBuffer(GL_ARRAY_BUFFER, gl_l_pos_buff_id); //bind
+  glVertexAttribPointer(gl_l_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0); //define
     //just upload the data now- won't change
   screen_quad.posData[0] = glm::vec3(-1.0,-1.0,0.0);
   screen_quad.posData[1] = glm::vec3( 1.0,-1.0,0.0);
@@ -124,17 +127,20 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   //Blit Pass
   gl_b_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/blit_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/blit_shader.fs"); //generate
   glUseProgram(gl_b_program_id); //bind
+
+    //uniforms
+  gl_b_tex_id = glGetUniformLocation(gl_b_program_id, "tex");
+    //attribs
+  gl_b_pos_attrib_id = glGetAttribLocation(gl_b_program_id, "vpos");
+  glEnableVertexAttribArray(gl_b_pos_attrib_id); //enable
+
     //gen VAO
   glGenVertexArrays(1, &gl_b_vert_array_id); //generate
   glBindVertexArray(gl_b_vert_array_id); //bind
     //pos buff
-  gl_b_pos_attrib_id = glGetAttribLocation(gl_b_program_id, "vpos");
   glGenBuffers(1, &gl_b_pos_buff_id); //generate
-  glEnableVertexAttribArray(gl_b_pos_attrib_id); //enable
   glBindBuffer(GL_ARRAY_BUFFER, gl_b_pos_buff_id); //bind
   glVertexAttribPointer(gl_b_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0); //define
-    //uniforms
-  gl_b_tex_id = glGetUniformLocation(gl_b_program_id, "tex");
     //just upload the data now- won't change
   screen_quad.posData[0] = glm::vec3(-1.0,-1.0,0.0);
   screen_quad.posData[1] = glm::vec3( 1.0,-1.0,0.0);
@@ -161,6 +167,8 @@ void WorldRenderer::prepareForDraw() const
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
   glUseProgram(gl_g_program_id); //bind
+  GLenum drawBuffers[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT0 + 1};
+  glDrawBuffers(2, drawBuffers);
 }
 
 void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
@@ -178,6 +186,8 @@ void WorldRenderer::prepareForLight() const
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
   glUseProgram(gl_l_program_id); //bind
+  GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+  glDrawBuffers(1, drawBuffers);
 }
 
 void WorldRenderer::light() const
@@ -188,6 +198,7 @@ void WorldRenderer::light() const
 
 void WorldRenderer::blit() const
 {
+  return;
   glBindFramebuffer(GL_FRAMEBUFFER,0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth,graphics->sHeight);
