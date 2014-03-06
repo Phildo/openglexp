@@ -9,7 +9,6 @@ out vec3 fpos;
 uniform mat4 modelMat;
 uniform mat4 viewMat;
 uniform mat4 projMat;
-uniform float t;
 
 void main()
 {

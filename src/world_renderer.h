@@ -12,7 +12,7 @@ class WorldRenderer : public Renderer
     GLuint gl_g_program_id;
     GLuint gl_g_vert_array_id;
     GLuint gl_g_pos_buff_id;
-    GLuint gl_g_color_buff_id;
+    GLuint gl_g_col_buff_id;
     GLuint gl_g_pos_attrib_id;
     GLuint gl_g_col_attrib_id;
     GLuint gl_g_proj_mat_id;
