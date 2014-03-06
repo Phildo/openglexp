@@ -59,8 +59,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBindFramebuffer(GL_FRAMEBUFFER, gl_fb_id); // bind
 
     //Color
+  glActiveTexture(GL_TEXTURE0 + 0);
   glGenTextures(1, &gl_fb_col_tex_id); //generate
-  glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, gl_fb_col_tex_id); //bind
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0); //define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
@@ -71,8 +71,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glUniform1i(gl_blit_col_tex_id, 0);
 
     //Position
+  glActiveTexture(GL_TEXTURE0 + 1);
   glGenTextures(1, &gl_fb_pos_tex_id); //generate
-  glActiveTexture(GL_TEXTURE1);
   glBindTexture(GL_TEXTURE_2D, gl_fb_pos_tex_id); //bind
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0); //define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
@@ -83,8 +83,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glUniform1i(gl_blit_pos_tex_id, 1);
 
     //Depth
+  glActiveTexture(GL_TEXTURE0 + 2);
   glGenTextures(1, &gl_fb_dep_tex_id); //generate
-  glActiveTexture(GL_TEXTURE2);
   glBindTexture(GL_TEXTURE_2D, gl_fb_dep_tex_id); //bind
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); //define
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); //attrib
@@ -100,8 +100,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT); //define
   //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_fb_depth_buff_id); //attach
 
-  //GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-  //glDrawBuffers(1, DrawBuffers);
+  GLenum drawBuffers[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
+  glDrawBuffers(2, drawBuffers);
 }
 
 void WorldRenderer::loadVertData(const WorldComponent& rc) const
