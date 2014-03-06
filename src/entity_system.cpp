@@ -42,7 +42,7 @@ void EntitySystem::render(GLFWwindow* window) const
     world_renderer->loadVertData(pool->worldComponents[i]);
     world_renderer->render(cam, pool->worldComponents[i]);
   }
-  world_renderer->blit();
+  world_renderer->light();
   
   hud_renderer->prepareForDraw();
   for(int i = 0; i < pool->HUDComponents.size(); i++)

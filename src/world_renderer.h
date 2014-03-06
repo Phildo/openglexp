@@ -15,23 +15,23 @@ class WorldRenderer : public Renderer
     GLuint gl_fb_dep_tex_id;
     //GLuint gl_fb_dep_buff_id;
 
-    GLuint gl_draw_program_id;
-    GLuint gl_draw_vert_array_id;
-    GLuint gl_draw_pos_buff_id;
-    GLuint gl_draw_color_buff_id;
-    GLuint gl_draw_pos_attrib_id;
-    GLuint gl_draw_col_attrib_id;
-    GLuint gl_draw_proj_mat_id;
-    GLuint gl_draw_view_mat_id;
-    GLuint gl_draw_model_mat_id;
+    GLuint gl_g_program_id;
+    GLuint gl_g_vert_array_id;
+    GLuint gl_g_pos_buff_id;
+    GLuint gl_g_color_buff_id;
+    GLuint gl_g_pos_attrib_id;
+    GLuint gl_g_col_attrib_id;
+    GLuint gl_g_proj_mat_id;
+    GLuint gl_g_view_mat_id;
+    GLuint gl_g_model_mat_id;
 
-    GLuint gl_blit_program_id;
-    GLuint gl_blit_vert_array_id;
-    GLuint gl_blit_pos_buff_id;
-    GLuint gl_blit_pos_attrib_id;
-    GLuint gl_blit_col_tex_id;
-    GLuint gl_blit_pos_tex_id;
-    GLuint gl_blit_dep_tex_id;
+    GLuint gl_l_program_id;
+    GLuint gl_l_vert_array_id;
+    GLuint gl_l_pos_buff_id;
+    GLuint gl_l_pos_attrib_id;
+    GLuint gl_l_col_tex_id;
+    GLuint gl_l_pos_tex_id;
+    GLuint gl_l_dep_tex_id;
 
     WorldComponent screen_quad; //really just a quad- outside of entity_system
   public:
@@ -41,7 +41,7 @@ class WorldRenderer : public Renderer
     void loadVertData(const WorldComponent& rc) const;
     void prepareForDraw();
     void render(const Camera* cam, const WorldComponent& rc) const;
-    void blit() const;
+    void light() const;
 };
 
 #endif
