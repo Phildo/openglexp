@@ -11,6 +11,8 @@ class LightComponent
     ~LightComponent();
 
     int entityIndex;
+
+    glm::vec3 pos;
 };
 
 #endif

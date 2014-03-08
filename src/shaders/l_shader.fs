@@ -3,8 +3,9 @@
 in vec2 UV;
 out vec3 color;
 
-uniform sampler2D col_tex;
 uniform sampler2D pos_tex;
+uniform sampler2D col_tex;
+uniform sampler2D norm_tex;
 uniform sampler2D dep_tex;
 
 void main()
