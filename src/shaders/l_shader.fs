@@ -10,6 +10,6 @@ uniform sampler2D dep_tex;
 
 void main()
 {
-  color = texture(col_tex, UV).rgb+texture(pos_tex, UV).rgb+((texture(dep_tex, UV).r-0.995)*500);
+  color = texture(col_tex, UV).rgb + texture(pos_tex, UV).rgb + (texture(dep_tex, UV).r-0.995)*500;
 }
 

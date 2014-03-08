@@ -34,18 +34,18 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //pos buff
   glGenBuffers(1, &gl_g_pos_buff_id);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
-  glEnableVertexAttribArray(gl_g_pos_attrib_id);
   glVertexAttribPointer(gl_g_pos_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+  glEnableVertexAttribArray(gl_g_pos_attrib_id);
     //color buff
   glGenBuffers(1, &gl_g_col_buff_id);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
-  glEnableVertexAttribArray(gl_g_col_attrib_id);
   glVertexAttribPointer(gl_g_col_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+  glEnableVertexAttribArray(gl_g_col_attrib_id);
     //normal buff
   glGenBuffers(1, &gl_g_norm_buff_id);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_norm_buff_id);
-  glEnableVertexAttribArray(gl_g_norm_attrib_id);
   glVertexAttribPointer(gl_g_norm_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+  glEnableVertexAttribArray(gl_g_norm_attrib_id);
 
     //gen FB
   glGenFramebuffers(1, &gl_g_fb_id);
@@ -60,7 +60,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+0, gl_g_fb_pos_tex_id, 0);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, gl_g_fb_pos_tex_id, 0);
 
     //Color
   glActiveTexture(GL_TEXTURE0 + 1);
@@ -71,7 +71,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+1, gl_g_fb_col_tex_id, 0);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 1, gl_g_fb_col_tex_id, 0);
 
     //Normal
   glActiveTexture(GL_TEXTURE0 + 2);
@@ -82,7 +82,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+2, gl_g_fb_norm_tex_id, 0);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 2, gl_g_fb_norm_tex_id, 0);
 
     //Depth
   glActiveTexture(GL_TEXTURE0 + 3);
@@ -120,8 +120,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //pos buff
   glGenBuffers(1, &gl_l_pos_buff_id);
   glBindBuffer(GL_ARRAY_BUFFER, gl_l_pos_buff_id);
-  glEnableVertexAttribArray(gl_l_pos_attrib_id);
   glVertexAttribPointer(gl_l_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+  glEnableVertexAttribArray(gl_l_pos_attrib_id);
     //just upload the data now- won't change
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.posData, GL_STATIC_DRAW);
 
@@ -156,15 +156,14 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //pos buff
   glGenBuffers(1, &gl_b_pos_buff_id);
   glBindBuffer(GL_ARRAY_BUFFER, gl_b_pos_buff_id);
-  glEnableVertexAttribArray(gl_b_pos_attrib_id);
   glVertexAttribPointer(gl_b_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+  glEnableVertexAttribArray(gl_b_pos_attrib_id);
     //just upload the data now- won't change
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.posData, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::loadVertData(const GeoComponent& gc) const
 {
-  glBindVertexArray(gl_g_vert_array_id);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.posData, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
@@ -179,7 +178,7 @@ void WorldRenderer::prepareForDraw() const
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
   glUseProgram(gl_g_program_id);
-  GLenum drawBuffers[3] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT0 + 1, GL_COLOR_ATTACHMENT0 + 2};
+  GLenum drawBuffers[3] = {GL_COLOR_ATTACHMENT0 + 0, GL_COLOR_ATTACHMENT0 + 1, GL_COLOR_ATTACHMENT0 + 2};
   glDrawBuffers(3, drawBuffers);
 }
 
