@@ -2,7 +2,7 @@
 
 #include "entity.h"
 #include "entity_pool.h"
-#include "world_component.h"
+#include "geo_component.h"
 
 #include "FLAT_utils.h"
 #include "gl_include.h"
@@ -18,9 +18,9 @@ BasicEntityFactory::~BasicEntityFactory()
 
 void BasicEntityFactory::produce(EntityPool* ep)
 {
-  Entity& e = ep->createEntity(ComponentSig_Physics | ComponentSig_World);  
+  Entity& e = ep->createEntity( ComponentSig_Physics | ComponentSig_Geo );  
 
-  WorldComponent& rc = ep->worldComponents[e.worldComponentIndex];
+  GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];
 
   PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
   pc.x = 0.0f;

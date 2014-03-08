@@ -23,20 +23,28 @@ Entity& EntityPool::createEntity(component_signature csig)
     physicsComponents.push_back(std::move(pc));
   }
 
-  if(csig & ComponentSig_World)
+  if(csig & ComponentSig_Geo)
   {
-    WorldComponent rc;
-    e.worldComponentIndex = worldComponents.size();
-    rc.entityIndex = entities.size();
-    worldComponents.push_back(std::move(rc));
+    GeoComponent gc;
+    e.geoComponentIndex = geoComponents.size();
+    gc.entityIndex = entities.size();
+    geoComponents.push_back(std::move(gc));
+  }
+
+  if(csig & ComponentSig_Light)
+  {
+    LightComponent lc;
+    e.lightComponentIndex = lightComponents.size();
+    lc.entityIndex = entities.size();
+    lightComponents.push_back(std::move(lc));
   }
 
   if(csig & ComponentSig_HUD)
   {
-    HUDComponent rc;
+    HUDComponent hc;
     e.HUDComponentIndex = HUDComponents.size();
-    rc.entityIndex = entities.size();
-    HUDComponents.push_back(std::move(rc));
+    hc.entityIndex = entities.size();
+    HUDComponents.push_back(std::move(hc));
   }
 
   entities.push_back(std::move(e));
@@ -55,11 +63,17 @@ void EntityPool::deleteEntity(int index)
     if(e.physicsComponentIndex != physicsComponents.size())
       entities[physicsComponents[e.physicsComponentIndex].entityIndex].physicsComponentIndex = e.physicsComponentIndex;
   }
-  if(e.worldComponentIndex > -1)
+  if(e.geoComponentIndex > -1)
   {
-    worldComponents.erase(worldComponents.begin()+e.worldComponentIndex);
-    if(e.worldComponentIndex != worldComponents.size())
-      entities[worldComponents[e.worldComponentIndex].entityIndex].worldComponentIndex = e.worldComponentIndex;
+    geoComponents.erase(geoComponents.begin()+e.geoComponentIndex);
+    if(e.geoComponentIndex != geoComponents.size())
+      entities[geoComponents[e.geoComponentIndex].entityIndex].geoComponentIndex = e.geoComponentIndex;
+  }
+  if(e.lightComponentIndex > -1)
+  {
+    lightComponents.erase(lightComponents.begin()+e.lightComponentIndex);
+    if(e.lightComponentIndex != lightComponents.size())
+      entities[lightComponents[e.lightComponentIndex].entityIndex].lightComponentIndex = e.lightComponentIndex;
   }
   if(e.HUDComponentIndex > -1)
   {
@@ -75,8 +89,10 @@ void EntityPool::deleteEntity(int index)
     e = entities[index];
     if(e.physicsComponentIndex > -1)
       physicsComponents[e.physicsComponentIndex].entityIndex = index;
-    if(e.worldComponentIndex > -1)
-      worldComponents[e.worldComponentIndex].entityIndex = index;
+    if(e.geoComponentIndex > -1)
+      geoComponents[e.geoComponentIndex].entityIndex = index;
+    if(e.lightComponentIndex > -1)
+      lightComponents[e.lightComponentIndex].entityIndex = index;
     if(e.HUDComponentIndex > -1)
       HUDComponents[e.HUDComponentIndex].entityIndex = index;
   }

@@ -2,7 +2,7 @@
 #define _WORLD_RENDERER_H_
 
 #include "renderer.h"
-#include "world_component.h"
+#include "geo_component.h"
 
 class Camera;
 
@@ -42,14 +42,14 @@ class WorldRenderer : public Renderer
     GLuint gl_b_pos_attrib_id;
     GLuint gl_b_tex_id;
 
-    WorldComponent screen_quad; //really just a quad- outside of entity_system
+    GeoComponent screen_quad; //really just a quad- outside of entity_system
   public:
     WorldRenderer(Graphics* g);
     ~WorldRenderer();
 
-    void loadVertData(const WorldComponent& rc) const;
+    void loadVertData(const GeoComponent& gc) const;
     void prepareForDraw() const;
-    void render(const Camera* cam, const WorldComponent& rc) const;
+    void render(const Camera* cam, const GeoComponent& gc) const;
     void prepareForLight() const;
     void light() const;
     void blit() const;

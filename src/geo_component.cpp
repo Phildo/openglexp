@@ -1,6 +1,6 @@
-#include "world_component.h"
+#include "geo_component.h"
 
-WorldComponent::WorldComponent(): modelMat(1.0)
+GeoComponent::GeoComponent(): modelMat(1.0)
 {
   numVerts = 3;
 
@@ -15,7 +15,7 @@ WorldComponent::WorldComponent(): modelMat(1.0)
   colorData[2] = glm::vec3(0.2,0.2,0.2);
 }
 
-WorldComponent::~WorldComponent()
+GeoComponent::~GeoComponent()
 {
 }
 

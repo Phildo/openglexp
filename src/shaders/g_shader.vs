@@ -13,7 +13,7 @@ uniform mat4 projMat;
 void main()
 {
   gl_Position = projMat * viewMat * modelMat * vec4(vpos,1.0);
-  fpos = gl_Position.xyz;//(projMat * viewMat * modelMat * vec4(vpos,1.0)).xyz; 
+  fpos = gl_Position.xyz;
   fcol = vcol;
 }
 

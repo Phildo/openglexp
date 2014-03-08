@@ -5,7 +5,8 @@ class Entity
 {
   private:
   public:
-    int worldComponentIndex;
+    int geoComponentIndex;
+    int lightComponentIndex;
     int physicsComponentIndex;
     int HUDComponentIndex;
 

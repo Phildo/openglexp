@@ -37,10 +37,10 @@ void EntitySystem::solve()
 void EntitySystem::render(GLFWwindow* window) const
 {
   world_renderer->prepareForDraw();
-  for(int i = 0; i < pool->worldComponents.size(); i++)
+  for(int i = 0; i < pool->geoComponents.size(); i++)
   {
-    world_renderer->loadVertData(pool->worldComponents[i]);
-    world_renderer->render(cam, pool->worldComponents[i]);
+    world_renderer->loadVertData(pool->geoComponents[i]);
+    world_renderer->render(cam, pool->geoComponents[i]);
   }
   world_renderer->prepareForLight();
   world_renderer->light();

@@ -144,13 +144,13 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.posData, GL_STATIC_DRAW); //define
 }
 
-void WorldRenderer::loadVertData(const WorldComponent& rc) const
+void WorldRenderer::loadVertData(const GeoComponent& gc) const
 {
   glBindVertexArray(gl_g_vert_array_id); //bind
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id); //bind
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.posData, GL_STATIC_DRAW); //define
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.posData, GL_STATIC_DRAW); //define
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id); //bind
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW); //define
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.colorData, GL_STATIC_DRAW); //define
 }
 
 void WorldRenderer::prepareForDraw() const
@@ -163,13 +163,13 @@ void WorldRenderer::prepareForDraw() const
   glDrawBuffers(2, drawBuffers);
 }
 
-void WorldRenderer::render(const Camera* cam, const WorldComponent& rc) const
+void WorldRenderer::render(const Camera* cam, const GeoComponent& gc) const
 {
   glBindVertexArray(gl_g_vert_array_id); //bind
   glUniformMatrix4fv(gl_g_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]); //define
   glUniformMatrix4fv(gl_g_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]); //define
-  glUniformMatrix4fv(gl_g_model_mat_id, 1, GL_FALSE, &rc.modelMat[0][0]); //define
-  glDrawArrays(GL_TRIANGLES, 0, rc.numVerts); //draw
+  glUniformMatrix4fv(gl_g_model_mat_id, 1, GL_FALSE, &gc.modelMat[0][0]); //define
+  glDrawArrays(GL_TRIANGLES, 0, gc.numVerts); //draw
 }
 
 void WorldRenderer::prepareForLight() const

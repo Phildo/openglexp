@@ -1,7 +1,8 @@
 #include "entity.h"
 
 Entity::Entity() : 
-  worldComponentIndex (-1), 
+  geoComponentIndex (-1), 
+  lightComponentIndex (-1), 
   physicsComponentIndex(-1),
   HUDComponentIndex(-1)
 {

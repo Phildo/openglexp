@@ -1,16 +1,16 @@
-#ifndef _WORLD_COMPONENT_H_
-#define _WORLD_COMPONENT_H_
+#ifndef _GEO_COMPONENT_H_
+#define _GEO_COMPONENT_H_
 
 #define MAX_VERTS 100
 
 #include "gl_include.h"
 
-class WorldComponent
+class GeoComponent
 {
   private:
   public:
-    WorldComponent();
-    ~WorldComponent();
+    GeoComponent();
+    ~GeoComponent();
 
     int entityIndex;
 
