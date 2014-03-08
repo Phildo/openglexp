@@ -19,7 +19,8 @@ class WorldRenderer : public Renderer
     GLuint gl_g_norm_attrib_id;
     GLuint gl_g_proj_mat_id;
     GLuint gl_g_view_mat_id;
-    GLuint gl_g_model_mat_id;
+    GLuint gl_g_model_mat_a_id;
+    GLuint gl_g_model_mat_r_id;
 
     GLuint gl_g_fb_id;
     GLuint gl_g_fb_pos_tex_id;

@@ -20,7 +20,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glUseProgram(gl_g_program_id);
 
     //uniforms
-  gl_g_model_mat_id = glGetUniformLocation(gl_g_program_id, "modelMat");
+  gl_g_model_mat_a_id = glGetUniformLocation(gl_g_program_id, "modelMatA");
+  gl_g_model_mat_r_id = glGetUniformLocation(gl_g_program_id, "modelMatR");
   gl_g_view_mat_id  = glGetUniformLocation(gl_g_program_id, "viewMat");
   gl_g_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
     //attribs
@@ -185,9 +186,10 @@ void WorldRenderer::prepareForDraw() const
 void WorldRenderer::render(const Camera* cam, const GeoComponent& gc) const
 {
   glBindVertexArray(gl_g_vert_array_id);
-  glUniformMatrix4fv(gl_g_proj_mat_id,  1, GL_FALSE, &cam->projMat[0][0]);
-  glUniformMatrix4fv(gl_g_view_mat_id,  1, GL_FALSE, &cam->viewMat[0][0]);
-  glUniformMatrix4fv(gl_g_model_mat_id, 1, GL_FALSE, &gc.modelMat[0][0]);
+  glUniformMatrix4fv(gl_g_proj_mat_id,    1, GL_FALSE, &cam->projMat[0][0]);
+  glUniformMatrix4fv(gl_g_view_mat_id,    1, GL_FALSE, &cam->viewMat[0][0]);
+  glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
+  glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
 }
 

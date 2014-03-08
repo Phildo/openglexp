@@ -19,10 +19,11 @@ void BasicReconciler::reconcile(Entity& e, EntityPool* ep) const
     PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
     GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];
 
-    gc.modelMat = glm::translate(glm::mat4(), glm::vec3(pc.x, pc.y, pc.z));
-    gc.modelMat = glm::rotate(gc.modelMat, pc.rotPitch, glm::vec3(0.0,1.0,0.0));
-    gc.modelMat = glm::rotate(gc.modelMat, pc.rotYaw,   glm::vec3(1.0,0.0,0.0));
-    gc.modelMat = glm::rotate(gc.modelMat, pc.rotRoll,  glm::vec3(0.0,0.0,1.0));
+    gc.modelMatA = glm::translate(glm::mat4(), glm::vec3(pc.x, pc.y, pc.z));
+
+    gc.modelMatR = glm::rotate(glm::mat4(), pc.rotPitch, glm::vec3(0.0,1.0,0.0));
+    gc.modelMatR = glm::rotate(gc.modelMatR, pc.rotYaw,   glm::vec3(1.0,0.0,0.0));
+    gc.modelMatR = glm::rotate(gc.modelMatR, pc.rotRoll,  glm::vec3(0.0,0.0,1.0));
   }
 }
 

@@ -1,10 +1,11 @@
 #include "geo_component.h"
 
-GeoComponent::GeoComponent(): modelMat(1.0f)
+GeoComponent::GeoComponent()
 {
   numVerts = 3;
 
-  modelMat = glm::mat4(1.0f);
+  modelMatR = glm::mat4(1.0f);
+  modelMatA = glm::mat4(1.0f);
 
   posData[0] = glm::vec3(-5.0f,-5.0f,0.0f);
   posData[1] = glm::vec3( 0.0f, 5.0f,0.0f);

@@ -8,15 +8,16 @@ out vec3 fpos;
 out vec3 fcol;
 out vec3 fnorm;
 
-uniform mat4 modelMat;
-uniform mat4 viewMat;
-uniform mat4 projMat;
+uniform mat4 modelMatA; //Non rotation affine
+uniform mat4 modelMatR; //Rotation
+uniform mat4 viewMat; //Affine camera
+uniform mat4 projMat; //non-affine camera
 
 void main()
 {
-  gl_Position = projMat * viewMat * modelMat * vec4(vpos,1.0);
-  fpos = gl_Position.xyz;
+  gl_Position = projMat * viewMat * modelMatA * modelMatR * vec4(vpos,1.0);
+  fpos = (viewMat * modelMatA * modelMatR * vec4(vpos, 1.0)).xyz; //Affine position
   fcol = vcol;
-  fnorm = vnorm;
+  fnorm = (modelMatR * vec4(vnorm,1.0)).xyz;
 }
 

@@ -18,7 +18,8 @@ class GeoComponent
     glm::vec3 posData[MAX_VERTS];
     glm::vec3 colorData[MAX_VERTS];
     glm::vec3 normData[MAX_VERTS];
-    glm::mat4 modelMat;
+    glm::mat4 modelMatR;
+    glm::mat4 modelMatA;
 };
 
 #endif
