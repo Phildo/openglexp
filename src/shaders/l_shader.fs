@@ -17,8 +17,10 @@ void main()
   float x = texture(pos_tex, UV).x-posVec.x;
   float y = texture(pos_tex, UV).y-posVec.y;
   float z = texture(pos_tex, UV).z-posVec.z;
-  float l = sqrt((x*x) + (y*y) + (z*z))/5;
-  color = texture(pos_tex, UV).xyz;//vec3(0,0,0);
+  float l = sqrt(x*x + y*y + z*z);
+  color = vec3(l,l,l)/5;
+  //color = texture(norm_tex, UV).xyz;
+  color = ((texture(dep_tex, UV)-0.995)*500).rgb;
   //color = texture(col_tex, UV).rgb + texture(norm_tex, UV).rgb + (texture(dep_tex, UV).r-0.995)*500;
 }
 

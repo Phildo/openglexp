@@ -56,7 +56,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glActiveTexture(GL_TEXTURE0 + 0);
   glGenTextures(1, &gl_g_fb_pos_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_g_fb_pos_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -67,7 +67,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glActiveTexture(GL_TEXTURE0 + 1);
   glGenTextures(1, &gl_g_fb_col_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_g_fb_col_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -78,7 +78,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glActiveTexture(GL_TEXTURE0 + 2);
   glGenTextures(1, &gl_g_fb_norm_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_g_fb_norm_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -137,7 +137,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glActiveTexture(GL_TEXTURE0 + 4);
   glGenTextures(1, &gl_l_fb_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_l_fb_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
