@@ -15,9 +15,9 @@ class GeoComponent
     int entityIndex;
 
     int numVerts;
-    glm::vec3 posData[MAX_VERTS];
-    glm::vec3 colorData[MAX_VERTS];
-    glm::vec3 normData[MAX_VERTS];
+    glm::vec3 pos[MAX_VERTS];
+    glm::vec3 color[MAX_VERTS];
+    glm::vec3 norm[MAX_VERTS];
     glm::mat4 modelMatR;
     glm::mat4 modelMatA;
 };

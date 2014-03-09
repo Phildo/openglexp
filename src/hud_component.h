@@ -15,8 +15,8 @@ class HUDComponent
     int entityIndex;
 
     int numVerts;
-    glm::vec3 posData[MAX_VERTS];
-    glm::vec3 colorData[MAX_VERTS];
+    glm::vec3 pos[MAX_VERTS];
+    glm::vec3 color[MAX_VERTS];
 };
 
 #endif

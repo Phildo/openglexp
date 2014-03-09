@@ -20,13 +20,13 @@ $(OUT) : $(OBJS)
 $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
 
-$(ODIR)/basic_entity_factory.o: src/basic_entity_factory.cpp src/basic_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/geo_component.h src/gl_include.h src/light_component.h src/hud_component.h src/FLAT_utils.h
+$(ODIR)/basic_entity_factory.o: src/basic_entity_factory.cpp src/basic_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/basic_entity_factory.cpp -o $(ODIR)/basic_entity_factory.o
 
-$(ODIR)/basic_reconciler.o: src/basic_reconciler.cpp src/basic_reconciler.h src/entity.h src/entity_pool.h src/physics_component.h src/geo_component.h src/gl_include.h src/light_component.h src/hud_component.h
+$(ODIR)/basic_reconciler.o: src/basic_reconciler.cpp src/basic_reconciler.h src/entity.h src/entity_pool.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h
 	$(CC) $(CFLAGS) src/basic_reconciler.cpp -o $(ODIR)/basic_reconciler.o
 
-$(ODIR)/bilboard_entity_factory.o: src/bilboard_entity_factory.cpp src/bilboard_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/geo_component.h src/gl_include.h src/light_component.h src/hud_component.h src/FLAT_utils.h
+$(ODIR)/bilboard_entity_factory.o: src/bilboard_entity_factory.cpp src/bilboard_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h
 	$(CC) $(CFLAGS) src/bilboard_entity_factory.cpp -o $(ODIR)/bilboard_entity_factory.o
 
 $(ODIR)/camera.o: src/camera.cpp src/camera.h src/gl_include.h
@@ -35,7 +35,7 @@ $(ODIR)/camera.o: src/camera.cpp src/camera.h src/gl_include.h
 $(ODIR)/entity.o: src/entity.cpp src/entity.h
 	$(CC) $(CFLAGS) src/entity.cpp -o $(ODIR)/entity.o
 
-$(ODIR)/entity_pool.o: src/entity_pool.cpp src/entity_pool.h src/entity.h src/physics_component.h src/geo_component.h src/gl_include.h src/light_component.h src/hud_component.h
+$(ODIR)/entity_pool.o: src/entity_pool.cpp src/entity_pool.h src/entity.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h
 	$(CC) $(CFLAGS) src/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
 $(ODIR)/entity_system.o: src/entity_system.cpp src/entity_system.h src/graphics.h src/mygl.h src/gl_include.h src/entity_factory.h src/entity_pool.h src/entity.h src/physics_component.h src/geo_component.h src/light_component.h src/hud_component.h src/physics_solver.h src/basic_reconciler.h src/world_renderer.h src/renderer.h src/hud_renderer.h src/camera.h
@@ -62,7 +62,7 @@ $(ODIR)/input.o: src/input.cpp src/input.h src/mygl.h src/gl_include.h
 $(ODIR)/light_component.o: src/light_component.cpp src/light_component.h src/gl_include.h
 	$(CC) $(CFLAGS) src/light_component.cpp -o $(ODIR)/light_component.o
 
-$(ODIR)/light_entity_factory.o: src/light_entity_factory.cpp src/light_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/geo_component.h src/gl_include.h src/light_component.h src/hud_component.h src/FLAT_utils.h
+$(ODIR)/light_entity_factory.o: src/light_entity_factory.cpp src/light_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h
 	$(CC) $(CFLAGS) src/light_entity_factory.cpp -o $(ODIR)/light_entity_factory.o
 
 $(ODIR)/main.o: src/main.cpp src/game.h
@@ -71,10 +71,10 @@ $(ODIR)/main.o: src/main.cpp src/game.h
 $(ODIR)/mygl.o: src/mygl.cpp src/mygl.h src/gl_include.h
 	$(CC) $(CFLAGS) src/mygl.cpp -o $(ODIR)/mygl.o
 
-$(ODIR)/physics_component.o: src/physics_component.cpp src/physics_component.h
+$(ODIR)/physics_component.o: src/physics_component.cpp src/physics_component.h src/gl_include.h
 	$(CC) $(CFLAGS) src/physics_component.cpp -o $(ODIR)/physics_component.o
 
-$(ODIR)/physics_solver.o: src/physics_solver.cpp src/physics_solver.h src/physics_component.h
+$(ODIR)/physics_solver.o: src/physics_solver.cpp src/physics_solver.h src/physics_component.h src/gl_include.h
 	$(CC) $(CFLAGS) src/physics_solver.cpp -o $(ODIR)/physics_solver.o
 
 $(ODIR)/renderer.o: src/renderer.cpp src/renderer.h src/graphics.h src/mygl.h src/gl_include.h src/FLAT_utils.h

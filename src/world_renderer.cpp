@@ -6,12 +6,12 @@
 WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
 {
   //init the quad
-  screen_quad.posData[0] = glm::vec3(-1.0,-1.0,0.0);
-  screen_quad.posData[1] = glm::vec3( 1.0,-1.0,0.0);
-  screen_quad.posData[2] = glm::vec3( 1.0, 1.0,0.0);
-  screen_quad.posData[3] = glm::vec3(-1.0,-1.0,0.0);
-  screen_quad.posData[4] = glm::vec3( 1.0, 1.0,0.0);
-  screen_quad.posData[5] = glm::vec3(-1.0, 1.0,0.0);
+  screen_quad.pos[0] = glm::vec3(-1.0,-1.0,0.0);
+  screen_quad.pos[1] = glm::vec3( 1.0,-1.0,0.0);
+  screen_quad.pos[2] = glm::vec3( 1.0, 1.0,0.0);
+  screen_quad.pos[3] = glm::vec3(-1.0,-1.0,0.0);
+  screen_quad.pos[4] = glm::vec3( 1.0, 1.0,0.0);
+  screen_quad.pos[5] = glm::vec3(-1.0, 1.0,0.0);
   screen_quad.numVerts = 6;
 
 
@@ -127,7 +127,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glVertexAttribPointer(gl_l_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_l_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.posData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.pos, GL_STATIC_DRAW);
 
   //Accumulation(light) FB
   glGenFramebuffers(1, &gl_l_fb_id);
@@ -163,17 +163,17 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glVertexAttribPointer(gl_b_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_b_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.posData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.pos, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::loadVertData(const GeoComponent& gc) const
 {
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.posData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.colorData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.color, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_norm_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.normData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.norm, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::prepareForDraw(const Camera* cam) const

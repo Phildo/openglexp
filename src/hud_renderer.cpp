@@ -33,9 +33,9 @@ void HUDRenderer::loadVertData(const HUDComponent& rc) const
   glBindVertexArray(gl_vert_array_id);
 
   glBindBuffer(GL_ARRAY_BUFFER, gl_pos_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.posData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.pos, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_color_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.colorData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*rc.numVerts, (GLfloat *)rc.color, GL_STATIC_DRAW);
 }
 
 void HUDRenderer::prepareForDraw()

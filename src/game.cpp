@@ -30,7 +30,7 @@ Game::Game()
   BasicEntityFactory *bef     = new BasicEntityFactory();
   BilboardEntityFactory *bbef = new BilboardEntityFactory();
   LightEntityFactory *lef     = new LightEntityFactory();
-  for(int i = 0; i < 200; i++)
+  for(int i = 0; i < 10; i++)
     entitySystem->produceEntityFromFactory(bef);
   entitySystem->produceEntityFromFactory(bbef);
   entitySystem->produceEntityFromFactory(lef);

@@ -10,12 +10,12 @@ PhysicsSolver::~PhysicsSolver()
 
 void PhysicsSolver::solve(PhysicsComponent& pc) const
 {
-  pc.x += pc.velX;
-  pc.y += pc.velY;
-  pc.z += pc.velZ;
+  pc.pos.x += pc.vel.x;
+  pc.pos.y += pc.vel.y;
+  pc.pos.z += pc.vel.z;
 
-  pc.rotPitch += pc.rotVelPitch;
-  pc.rotYaw += pc.rotVelYaw;
-  pc.rotRoll += pc.rotVelRoll;
+  pc.rot.y += pc.rotVel.y; //yaw
+  pc.rot.x += pc.rotVel.x; //pitch
+  pc.rot.z += pc.rotVel.z; //roll
 }
 

@@ -6,7 +6,6 @@
 
 #include "FLAT_utils.h"
 #include "gl_include.h"
-#include <stdlib.h>
 
 BasicEntityFactory::BasicEntityFactory()
 {
@@ -23,15 +22,9 @@ void BasicEntityFactory::produce(EntityPool* ep)
   GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];
 
   PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
-  pc.x = 0.0f;
-  pc.y = 0.0f;
-  pc.z = 0.0f;
-  pc.velX = 0.0f;
-  pc.velY = 0.0f;
-  pc.velZ = 0.0f;
 
-  pc.rotVelPitch = (FLAT_Utils::randf()-1.0f)*1;
-  pc.rotVelYaw = (FLAT_Utils::randf()-1.0f)*1;
-  pc.rotVelRoll = (FLAT_Utils::randf()-1.0f)*0.1;
+  pc.rotVel.y = (FLAT_Utils::randf()-1.0f);
+  pc.rotVel.x = (FLAT_Utils::randf()-1.0f);
+  pc.rotVel.z = (FLAT_Utils::randf()-1.0f);
 }
 
