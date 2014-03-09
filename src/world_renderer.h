@@ -3,6 +3,7 @@
 
 #include "renderer.h"
 #include "geo_component.h"
+#include "light_component.h"
 
 class Camera;
 
@@ -37,6 +38,9 @@ class WorldRenderer : public Renderer
     GLuint gl_l_col_tex_id;
     GLuint gl_l_norm_tex_id;
     GLuint gl_l_dep_tex_id;
+    GLuint gl_l_proj_mat_id;
+    GLuint gl_l_view_mat_id;
+    GLuint gl_l_pos_vec_id;
 
     GLuint gl_l_fb_id;
     GLuint gl_l_fb_tex_id;
@@ -53,10 +57,10 @@ class WorldRenderer : public Renderer
     ~WorldRenderer();
 
     void loadVertData(const GeoComponent& gc) const;
-    void prepareForDraw() const;
-    void render(const Camera* cam, const GeoComponent& gc) const;
-    void prepareForLight() const;
-    void light() const;
+    void prepareForDraw(const Camera* cam) const;
+    void render(const GeoComponent& gc) const;
+    void prepareForLight(const Camera* cam) const;
+    void light(const LightComponent& lc) const;
     void blit() const;
 };
 

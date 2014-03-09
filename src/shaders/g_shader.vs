@@ -16,7 +16,7 @@ uniform mat4 projMat; //non-affine camera
 void main()
 {
   gl_Position = projMat * viewMat * modelMatA * modelMatR * vec4(vpos,1.0);
-  fpos = (viewMat * modelMatA * modelMatR * vec4(vpos, 1.0)).xyz; //Affine position
+  fpos = (modelMatA * modelMatR * vec4(vpos, 1.0)).xyz; //Affine position
   fcol = vcol;
   fnorm = (modelMatR * vec4(vnorm,1.0)).xyz;
 }

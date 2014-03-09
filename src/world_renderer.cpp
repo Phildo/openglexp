@@ -108,10 +108,13 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glUseProgram(gl_l_program_id);
 
     //uniforms
-  gl_l_pos_tex_id  = glGetUniformLocation(gl_l_program_id, "pos_tex");
-  gl_l_col_tex_id  = glGetUniformLocation(gl_l_program_id, "col_tex");
-  gl_l_norm_tex_id = glGetUniformLocation(gl_l_program_id, "norm_tex");
-  gl_l_dep_tex_id  = glGetUniformLocation(gl_l_program_id, "dep_tex");
+  gl_l_pos_tex_id   = glGetUniformLocation(gl_l_program_id, "pos_tex");
+  gl_l_col_tex_id   = glGetUniformLocation(gl_l_program_id, "col_tex");
+  gl_l_norm_tex_id  = glGetUniformLocation(gl_l_program_id, "norm_tex");
+  gl_l_dep_tex_id   = glGetUniformLocation(gl_l_program_id, "dep_tex");
+  gl_l_pos_vec_id   = glGetUniformLocation(gl_g_program_id, "posVec");
+  gl_l_view_mat_id  = glGetUniformLocation(gl_g_program_id, "viewMat");
+  gl_l_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
     //attribs
   gl_l_pos_attrib_id = glGetAttribLocation(gl_l_program_id, "vpos");
 
@@ -173,7 +176,7 @@ void WorldRenderer::loadVertData(const GeoComponent& gc) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.normData, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::prepareForDraw() const
+void WorldRenderer::prepareForDraw(const Camera* cam) const
 {
   glBindFramebuffer(GL_FRAMEBUFFER,gl_g_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -181,19 +184,20 @@ void WorldRenderer::prepareForDraw() const
   glUseProgram(gl_g_program_id);
   GLenum drawBuffers[3] = {GL_COLOR_ATTACHMENT0 + 0, GL_COLOR_ATTACHMENT0 + 1, GL_COLOR_ATTACHMENT0 + 2};
   glDrawBuffers(3, drawBuffers);
+
+  glBindVertexArray(gl_g_vert_array_id);
+  glUniformMatrix4fv(gl_g_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
+  glUniformMatrix4fv(gl_g_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
 }
 
-void WorldRenderer::render(const Camera* cam, const GeoComponent& gc) const
+void WorldRenderer::render(const GeoComponent& gc) const
 {
-  glBindVertexArray(gl_g_vert_array_id);
-  glUniformMatrix4fv(gl_g_proj_mat_id,    1, GL_FALSE, &cam->projMat[0][0]);
-  glUniformMatrix4fv(gl_g_view_mat_id,    1, GL_FALSE, &cam->viewMat[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
 }
 
-void WorldRenderer::prepareForLight() const
+void WorldRenderer::prepareForLight(const Camera* cam) const
 {
   glBindFramebuffer(GL_FRAMEBUFFER,gl_l_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -201,15 +205,20 @@ void WorldRenderer::prepareForLight() const
   glUseProgram(gl_l_program_id);
   GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0 + 4};
   glDrawBuffers(1, drawBuffers);
-}
 
-void WorldRenderer::light() const
-{
   glBindVertexArray(gl_l_vert_array_id);
   glUniform1i(gl_l_pos_tex_id, 0);
   glUniform1i(gl_l_col_tex_id, 1);
   glUniform1i(gl_l_norm_tex_id, 2);
   glUniform1i(gl_l_dep_tex_id, 3);
+
+  glUniformMatrix4fv(gl_l_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
+  glUniformMatrix4fv(gl_l_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
+}
+
+void WorldRenderer::light(const LightComponent& lc) const
+{
+  glUniform3fv(gl_l_pos_vec_id, 1, &lc.pos[0]);
   glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
 }
 

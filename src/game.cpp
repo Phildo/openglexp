@@ -13,6 +13,7 @@
 
 #include "basic_entity_factory.h"
 #include "bilboard_entity_factory.h"
+#include "light_entity_factory.h"
 
 //#define DEBUG
 #define MS_PER_TICK 1000/60
@@ -26,11 +27,14 @@ Game::Game()
   entitySystem = new EntitySystem(graphics);
   scener = new Scener();
 
-  BasicEntityFactory *bef = new BasicEntityFactory();
+  BasicEntityFactory *bef     = new BasicEntityFactory();
   BilboardEntityFactory *bbef = new BilboardEntityFactory();
+  LightEntityFactory *lef     = new LightEntityFactory();
   for(int i = 0; i < 200; i++)
     entitySystem->produceEntityFromFactory(bef);
   entitySystem->produceEntityFromFactory(bbef);
+  entitySystem->produceEntityFromFactory(lef);
+  delete lef;
   delete bbef;
   delete bef;
 }
