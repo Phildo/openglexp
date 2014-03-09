@@ -18,7 +18,8 @@ void main()
   float y = texture(pos_tex, UV).y-posVec.y;
   float z = texture(pos_tex, UV).z-posVec.z;
   float d = sqrt(x*x + y*y + z*z);
-  color = texture(col_tex, UV).xyz*0.2;
+  color = texture(col_tex, UV).xyz*(1/max(0.001,d));
+
   //color = texture(norm_tex, UV).xyz;
   //color = ((texture(dep_tex, UV)-0.995)*500).rgb;
   //color = texture(col_tex, UV).rgb + texture(norm_tex, UV).rgb + (texture(dep_tex, UV).r-0.995)*500;

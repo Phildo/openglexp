@@ -20,11 +20,20 @@ void BasicEntityFactory::produce(EntityPool* ep)
   Entity& e = ep->createEntity( ComponentSig_Physics | ComponentSig_Geo );  
 
   GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];
+  gc.color[0].r = FLAT_Utils::randf();
+  gc.color[0].g = FLAT_Utils::randf();
+  gc.color[0].b = FLAT_Utils::randf();
+  gc.color[1].r = FLAT_Utils::randf();
+  gc.color[1].g = FLAT_Utils::randf();
+  gc.color[1].b = FLAT_Utils::randf();
+  gc.color[2].r = FLAT_Utils::randf();
+  gc.color[2].g = FLAT_Utils::randf();
+  gc.color[2].b = FLAT_Utils::randf();
 
   PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
 
-  pc.rotVel.y = (FLAT_Utils::randf()-1.0f);
-  pc.rotVel.x = (FLAT_Utils::randf()-1.0f);
-  pc.rotVel.z = (FLAT_Utils::randf()-1.0f);
+  pc.rotVel.y = (FLAT_Utils::randf()-0.5f)*2;
+  pc.rotVel.x = (FLAT_Utils::randf()-0.5f)*2;
+  pc.rotVel.z = (FLAT_Utils::randf()-0.5f)*2;
 }
 

@@ -112,9 +112,9 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   gl_l_col_tex_id   = glGetUniformLocation(gl_l_program_id, "col_tex");
   gl_l_norm_tex_id  = glGetUniformLocation(gl_l_program_id, "norm_tex");
   gl_l_dep_tex_id   = glGetUniformLocation(gl_l_program_id, "dep_tex");
-  gl_l_pos_vec_id   = glGetUniformLocation(gl_g_program_id, "posVec");
-  gl_l_view_mat_id  = glGetUniformLocation(gl_g_program_id, "viewMat");
-  gl_l_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
+  gl_l_pos_vec_id   = glGetUniformLocation(gl_l_program_id, "posVec");
+  gl_l_view_mat_id  = glGetUniformLocation(gl_l_program_id, "viewMat");
+  gl_l_proj_mat_id  = glGetUniformLocation(gl_l_program_id, "projMat");
     //attribs
   gl_l_pos_attrib_id = glGetAttribLocation(gl_l_program_id, "vpos");
 
