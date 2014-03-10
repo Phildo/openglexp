@@ -62,7 +62,7 @@ $(ODIR)/input.o: src/input.cpp src/input.h src/mygl.h src/gl_include.h
 $(ODIR)/light_component.o: src/light_component.cpp src/light_component.h src/gl_include.h
 	$(CC) $(CFLAGS) src/light_component.cpp -o $(ODIR)/light_component.o
 
-$(ODIR)/light_entity_factory.o: src/light_entity_factory.cpp src/light_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h
+$(ODIR)/light_entity_factory.o: src/light_entity_factory.cpp src/light_entity_factory.h src/entity_factory.h src/entity.h src/entity_pool.h src/physics_component.h src/gl_include.h src/geo_component.h src/light_component.h src/hud_component.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/light_entity_factory.cpp -o $(ODIR)/light_entity_factory.o
 
 $(ODIR)/main.o: src/main.cpp src/game.h

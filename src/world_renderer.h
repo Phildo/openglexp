@@ -28,23 +28,22 @@ class WorldRenderer : public Renderer
     GLuint gl_g_fb_col_tex_id;
     GLuint gl_g_fb_norm_tex_id;
     GLuint gl_g_fb_dep_tex_id;
-    //GLuint gl_g_fb_dep_buff_id;
 
-    GLuint gl_l_program_id;
-    GLuint gl_l_vert_array_id;
-    GLuint gl_l_pos_buff_id;
-    GLuint gl_l_pos_attrib_id;
-    GLuint gl_l_pos_tex_id;
-    GLuint gl_l_col_tex_id;
-    GLuint gl_l_norm_tex_id;
-    GLuint gl_l_dep_tex_id;
-    GLuint gl_l_accum_tex_id;
-    GLuint gl_l_proj_mat_id;
-    GLuint gl_l_view_mat_id;
-    GLuint gl_l_pos_vec_id;
+    GLuint gl_a_program_id;
+    GLuint gl_a_vert_array_id;
+    GLuint gl_a_pos_buff_id;
+    GLuint gl_a_pos_attrib_id;
+    GLuint gl_a_pos_tex_id;
+    GLuint gl_a_col_tex_id;
+    GLuint gl_a_norm_tex_id;
+    GLuint gl_a_dep_tex_id;
+    GLuint gl_a_tex_id;
+    GLuint gl_a_proj_mat_id;
+    GLuint gl_a_view_mat_id;
+    GLuint gl_a_pos_vec_id;
 
-    GLuint gl_l_fb_id;
-    GLuint gl_l_fb_tex_id;
+    GLuint gl_a_fb_id;
+    GLuint gl_a_fb_tex_id;
 
     GLuint gl_b_program_id;
     GLuint gl_b_vert_array_id;
