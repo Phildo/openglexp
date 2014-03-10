@@ -38,7 +38,7 @@ class WorldRenderer : public Renderer
     GLuint gl_l_col_tex_id;
     GLuint gl_l_norm_tex_id;
     GLuint gl_l_dep_tex_id;
-    GLuint gl_l_tex_id;
+    GLuint gl_l_accum_tex_id;
     GLuint gl_l_proj_mat_id;
     GLuint gl_l_view_mat_id;
     GLuint gl_l_pos_vec_id;

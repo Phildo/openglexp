@@ -33,7 +33,7 @@ Game::Game()
   for(int i = 0; i < 1; i++)
     entitySystem->produceEntityFromFactory(bef);
   entitySystem->produceEntityFromFactory(bbef);
-  for(int i = 0; i < 6; i++)
+  for(int i = 0; i < 1; i++)
     entitySystem->produceEntityFromFactory(lef);
   delete lef;
   delete bbef;
