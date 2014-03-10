@@ -28,7 +28,7 @@ Graphics::Graphics(const MyGL* mygl)
   glfwSwapInterval(0);
   glfwSetFramebufferSizeCallback(window, resize);
 
-  glClearColor(255,255,255,0);
+  glClearColor(0,0,0,1);//(255,255,255,0);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 }

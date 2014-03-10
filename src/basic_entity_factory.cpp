@@ -32,8 +32,8 @@ void BasicEntityFactory::produce(EntityPool* ep)
 
   PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
 
-  pc.rotVel.y = (FLAT_Utils::randf()-0.5f)*2;
-  pc.rotVel.x = (FLAT_Utils::randf()-0.5f)*2;
-  pc.rotVel.z = (FLAT_Utils::randf()-0.5f)*2;
+  pc.rotVel.y = (FLAT_Utils::randf()-0.5f)*0.5;
+  pc.rotVel.x = 0;//(FLAT_Utils::randf()-0.5f)*2;
+  pc.rotVel.z = 0;//(FLAT_Utils::randf()-0.5f)*2;
 }
 

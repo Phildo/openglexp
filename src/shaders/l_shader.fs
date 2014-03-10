@@ -11,6 +11,7 @@ uniform sampler2D pos_tex;
 uniform sampler2D col_tex;
 uniform sampler2D norm_tex;
 uniform sampler2D dep_tex;
+uniform sampler2D tex; //the tex being drawn to
 
 void main()
 {
@@ -18,7 +19,7 @@ void main()
   float y = texture(pos_tex, UV).y-posVec.y;
   float z = texture(pos_tex, UV).z-posVec.z;
   float d = sqrt(x*x + y*y + z*z);
-  color = texture(col_tex, UV).xyz*dot(posVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*(2/max(0.001,d));
+  color = texture(tex, UV).xyz+texture(col_tex, UV).xyz*dot(posVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*(1/max(0.001,d));
 
   //color = texture(norm_tex, UV).xyz;
   //color = ((texture(dep_tex, UV)-0.995)*500).rgb;

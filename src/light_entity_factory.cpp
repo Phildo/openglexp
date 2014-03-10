@@ -5,6 +5,7 @@
 #include "light_component.h"
 
 #include "gl_include.h"
+#include "FLAT_utils.h"
 
 LightEntityFactory::LightEntityFactory()
 {
@@ -23,7 +24,7 @@ void LightEntityFactory::produce(EntityPool* ep)
   pc.vel.z = 0;//.01;
   pc.pos.x = 0;
   pc.pos.y = 0;
-  pc.pos.z = 5;
+  pc.pos.z = 5*FLAT_Utils::randf();
   LightComponent& lc = ep->lightComponents[e.lightComponentIndex]; //note- physics pos will override light pos given opportunity
   lc.pos.x = 0;
   lc.pos.y = 0;

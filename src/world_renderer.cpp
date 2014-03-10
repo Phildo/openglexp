@@ -112,6 +112,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   gl_l_col_tex_id   = glGetUniformLocation(gl_l_program_id, "col_tex");
   gl_l_norm_tex_id  = glGetUniformLocation(gl_l_program_id, "norm_tex");
   gl_l_dep_tex_id   = glGetUniformLocation(gl_l_program_id, "dep_tex");
+  gl_l_tex_id       = glGetUniformLocation(gl_l_program_id, "tex"); //same tex being drawn to
   gl_l_pos_vec_id   = glGetUniformLocation(gl_l_program_id, "posVec");
   gl_l_view_mat_id  = glGetUniformLocation(gl_l_program_id, "viewMat");
   gl_l_proj_mat_id  = glGetUniformLocation(gl_l_program_id, "projMat");
@@ -211,6 +212,7 @@ void WorldRenderer::prepareForLight(const Camera* cam) const
   glUniform1i(gl_l_col_tex_id, 1);
   glUniform1i(gl_l_norm_tex_id, 2);
   glUniform1i(gl_l_dep_tex_id, 3);
+  glUniform1i(gl_l_tex_id, 4); //the same tex being drawn to
 
   glUniformMatrix4fv(gl_l_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
   glUniformMatrix4fv(gl_l_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
