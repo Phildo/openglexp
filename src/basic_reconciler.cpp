@@ -18,6 +18,19 @@ void BasicReconciler::reconcile(Entity& e, EntityPool* ep) const
   if(e.physicsComponentIndex != -1)
   {
     PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
+    if(e.inputPlanarComponentIndex != -1)
+    {
+      InputPlanarComponent& ipc = ep->inputPlanarComponents[e.inputPlanarComponentIndex];
+      pc.vel.y = 0;
+      pc.vel.x = 0;
+      pc.vel.z = 0;
+      if(ipc.up)   pc.vel.y = 0.05;
+      if(ipc.down) pc.vel.y = -0.05;
+      if(ipc.w) pc.vel.z = -0.05;
+      if(ipc.s) pc.vel.z = 0.05;
+      if(ipc.a) pc.vel.x = -0.05;
+      if(ipc.d) pc.vel.x = 0.05;
+    }
     if(e.geoComponentIndex != -1)
     {
       GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];

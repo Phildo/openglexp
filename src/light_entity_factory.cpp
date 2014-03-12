@@ -20,7 +20,7 @@ LightEntityFactory::~LightEntityFactory()
 
 void LightEntityFactory::produce(EntityPool* ep)
 {
-  Entity& e = ep->createEntity( ComponentSig_Light | ComponentSig_Physics );  
+  Entity& e = ep->createEntity( ComponentSig_Light | ComponentSig_Physics | ComponentSig_InputPlanar );  
   PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
   pc.vel.x = 0;
   pc.vel.y = 0;

@@ -23,6 +23,14 @@ Entity& EntityPool::createEntity(component_signature csig)
     physicsComponents.push_back(std::move(pc));
   }
 
+  if(csig & ComponentSig_InputPlanar)
+  {
+    InputPlanarComponent ipc;
+    e.inputPlanarComponentIndex = inputPlanarComponents.size();
+    ipc.entityIndex = entities.size();
+    inputPlanarComponents.push_back(std::move(ipc));
+  }
+
   if(csig & ComponentSig_Geo)
   {
     GeoComponent gc;
@@ -63,6 +71,12 @@ void EntityPool::deleteEntity(int index)
     if(e.physicsComponentIndex != physicsComponents.size())
       entities[physicsComponents[e.physicsComponentIndex].entityIndex].physicsComponentIndex = e.physicsComponentIndex;
   }
+  if(e.inputPlanarComponentIndex > -1)
+  {
+    inputPlanarComponents.erase(inputPlanarComponents.begin()+e.inputPlanarComponentIndex);
+    if(e.inputPlanarComponentIndex != inputPlanarComponents.size())
+      entities[inputPlanarComponents[e.inputPlanarComponentIndex].entityIndex].inputPlanarComponentIndex = e.inputPlanarComponentIndex;
+  }
   if(e.geoComponentIndex > -1)
   {
     geoComponents.erase(geoComponents.begin()+e.geoComponentIndex);
@@ -89,6 +103,8 @@ void EntityPool::deleteEntity(int index)
     e = entities[index];
     if(e.physicsComponentIndex > -1)
       physicsComponents[e.physicsComponentIndex].entityIndex = index;
+    if(e.inputPlanarComponentIndex > -1)
+      inputPlanarComponents[e.inputPlanarComponentIndex].entityIndex = index;
     if(e.geoComponentIndex > -1)
       geoComponents[e.geoComponentIndex].entityIndex = index;
     if(e.lightComponentIndex > -1)

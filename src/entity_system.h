@@ -4,9 +4,11 @@
 class Graphics;
 class EntityPool;
 class PhysicsSolver;
+class InputInjector;
 class BasicReconciler;
 class WorldRenderer;
 class HUDRenderer;
+class Input;
 class Camera;
 
 class EntityFactory;
@@ -19,6 +21,7 @@ class EntitySystem
     EntityPool* pool;
 
     PhysicsSolver* physics_solver;
+    InputInjector* input_injector;
     WorldRenderer* world_renderer;
     HUDRenderer* hud_renderer;
     BasicReconciler* b_reconciler;
@@ -30,6 +33,7 @@ class EntitySystem
     void produceEntityFromFactory(EntityFactory* ef);
 
     void solve();
+    void input(Input& i);
     void reconcile();
     void render(GLFWwindow* window) const;
 };

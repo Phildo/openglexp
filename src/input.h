@@ -10,6 +10,14 @@ class Input
   public:
     Input(const MyGL* mygl);
     ~Input();
+
+    bool up;
+    bool down;
+    bool w;
+    bool a;
+    bool s;
+    bool d;
+
     void poll();
 };
 

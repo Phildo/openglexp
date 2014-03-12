@@ -3,6 +3,7 @@
 #include "entity_factory.h"
 #include "entity_pool.h"
 #include "physics_solver.h"
+#include "input_injector.h"
 #include "basic_reconciler.h"
 #include "world_renderer.h"
 #include "hud_renderer.h"
@@ -14,6 +15,7 @@ EntitySystem::EntitySystem(Graphics* g)
 
   pool = new EntityPool();
   physics_solver = new PhysicsSolver();
+  input_injector = new InputInjector();
   world_renderer = new WorldRenderer(graphics);
   hud_renderer = new HUDRenderer(graphics);
   b_reconciler = new BasicReconciler();
@@ -31,6 +33,14 @@ void EntitySystem::solve()
   for(int i = 0; i < pool->physicsComponents.size(); i++)
   {
     physics_solver->solve(pool->physicsComponents[i]);
+  }
+}
+
+void EntitySystem::input(Input& in)
+{
+  for(int i = 0; i < pool->inputPlanarComponents.size(); i++)
+  {
+    input_injector->inject(in, pool->inputPlanarComponents[i]);
   }
 }
 
@@ -70,6 +80,7 @@ EntitySystem::~EntitySystem()
   delete b_reconciler;
   delete hud_renderer;
   delete world_renderer;
+  delete input_injector;
   delete physics_solver;
   delete pool;
 }

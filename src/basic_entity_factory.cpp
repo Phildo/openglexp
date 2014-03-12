@@ -35,5 +35,9 @@ void BasicEntityFactory::produce(EntityPool* ep)
   pc.rotVel.y = (FLAT_Utils::randf()-0.5f)*2;
   pc.rotVel.x = (FLAT_Utils::randf()-0.5f)*2;
   pc.rotVel.z = (FLAT_Utils::randf()-0.5f)*2;
+
+  pc.rot.y = (FLAT_Utils::randf())*200;
+  pc.rot.x = (FLAT_Utils::randf())*200;
+  pc.rot.z = (FLAT_Utils::randf())*200;
 }
 
