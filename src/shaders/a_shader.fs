@@ -24,10 +24,10 @@ void main()
   float d = sqrt(x*x + y*y + z*z);
   color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*20/max(0.000001,d*d);
 
-
   //fragment pos in the shadow depth tex
-  vec4 fpos = lightProjMat * lightViewMat * vec4(texture(pos_tex, UV).xyz,1.0);
-  vec2 fuv = (fpos.xy+1)/2;
+  //vec4 fpos = lightProjMat * lightViewMat * vec4(texture(pos_tex, UV).xyz,1.0);
+  //vec2 fuv = (fpos.xy+1)/2;
+  //float z = 2.0 * (0.1*100) / ((100+0.1) - ((texture(shadow_tex, fuv).x*2)-1) * (100-0.1)); //supposedly the z of this fragment from the camera
 
   //color = texture(pos_tex, UV).xyz;
   //color = ((texture(dep_tex, UV)-0.995)*500).rgb;
