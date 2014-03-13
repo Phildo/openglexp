@@ -145,14 +145,15 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glUseProgram(gl_a_program_id);
 
     //uniforms
-  gl_a_pos_tex_id  = glGetUniformLocation(gl_a_program_id, "pos_tex");
-  gl_a_col_tex_id  = glGetUniformLocation(gl_a_program_id, "col_tex");
-  gl_a_norm_tex_id = glGetUniformLocation(gl_a_program_id, "norm_tex");
-  gl_a_dep_tex_id  = glGetUniformLocation(gl_a_program_id, "dep_tex");
-  gl_a_tex_id      = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
-  gl_a_pos_vec_id  = glGetUniformLocation(gl_a_program_id, "posVec");
-  gl_a_view_mat_id = glGetUniformLocation(gl_a_program_id, "viewMat");
-  gl_a_proj_mat_id = glGetUniformLocation(gl_a_program_id, "projMat");
+  gl_a_pos_tex_id    = glGetUniformLocation(gl_a_program_id, "pos_tex");
+  gl_a_col_tex_id    = glGetUniformLocation(gl_a_program_id, "col_tex");
+  gl_a_norm_tex_id   = glGetUniformLocation(gl_a_program_id, "norm_tex");
+  gl_a_dep_tex_id    = glGetUniformLocation(gl_a_program_id, "dep_tex");
+  gl_a_shadow_tex_id = glGetUniformLocation(gl_a_program_id, "shadow_tex");
+  gl_a_tex_id        = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
+  gl_a_pos_vec_id    = glGetUniformLocation(gl_a_program_id, "posVec");
+  gl_a_view_mat_id   = glGetUniformLocation(gl_a_program_id, "viewMat");
+  gl_a_proj_mat_id   = glGetUniformLocation(gl_a_program_id, "projMat");
     //attribs
   gl_a_pos_attrib_id = glGetAttribLocation(gl_a_program_id, "vpos");
 
@@ -286,7 +287,8 @@ void WorldRenderer::prepareForLight(const Camera* cam) const
   glUniform1i(gl_a_col_tex_id, 1);
   glUniform1i(gl_a_norm_tex_id, 2);
   glUniform1i(gl_a_dep_tex_id, 3);
-  glUniform1i(gl_a_tex_id, 4); //the same tex being drawn to
+  glUniform1i(gl_a_shadow_tex_id, 4);
+  glUniform1i(gl_a_tex_id, 5); //the same tex being drawn to
 
   glUniformMatrix4fv(gl_a_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
   glUniformMatrix4fv(gl_a_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);

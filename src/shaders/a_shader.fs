@@ -11,6 +11,7 @@ uniform sampler2D pos_tex;
 uniform sampler2D col_tex;
 uniform sampler2D norm_tex;
 uniform sampler2D dep_tex;
+uniform sampler2D shadow_tex;
 uniform sampler2D accum_tex; //the tex being drawn to
 
 void main()
