@@ -46,15 +46,21 @@ void EntitySystem::input(Input& in)
 
 void EntitySystem::render(GLFWwindow* window) const
 {
-  world_renderer->prepareForDraw(cam);
+  world_renderer->prepareForGeo(cam);
   for(int i = 0; i < pool->geoComponents.size(); i++)
   {
-    world_renderer->loadVertData(pool->geoComponents[i]);
-    world_renderer->render(pool->geoComponents[i]);
+    world_renderer->loadGeoVertData(pool->geoComponents[i]);
+    world_renderer->renderGeo(pool->geoComponents[i]);
   }
-  world_renderer->prepareForLight(cam);
   for(int i = 0; i < pool->lightComponents.size(); i++)
   {
+    world_renderer->prepareForShadow(cam);
+    for(int j = 0; j < pool->geoComponents.size(); j++)
+    {
+      world_renderer->loadShadowVertData(pool->geoComponents[j]);
+      world_renderer->genShadowMap(pool->lightComponents[i]);
+    }
+    world_renderer->prepareForLight(cam);
     world_renderer->light(pool->lightComponents[i]);
   }
   world_renderer->blit();

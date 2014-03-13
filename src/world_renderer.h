@@ -72,11 +72,17 @@ class WorldRenderer : public Renderer
     WorldRenderer(Graphics* g);
     ~WorldRenderer();
 
-    void loadVertData(const GeoComponent& gc) const;
-    void prepareForDraw(const Camera* cam) const;
-    void render(const GeoComponent& gc) const;
+    void prepareForGeo(const Camera* cam) const;
+    void loadGeoVertData(const GeoComponent& gc) const;
+    void renderGeo(const GeoComponent& gc) const;
+
+    void prepareForShadow(const Camera* cam) const;
+    void loadShadowVertData(const GeoComponent& gc) const;
+    void genShadowMap(const LightComponent& lc) const;
+
     void prepareForLight(const Camera* cam) const;
     void light(const LightComponent& lc) const;
+
     void blit() const;
 };
 
