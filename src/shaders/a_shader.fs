@@ -3,9 +3,11 @@
 in vec2 UV;
 out vec3 color;
 
-uniform vec3 posVec; //Non rotation affine
 uniform mat4 viewMat; //Affine camera
 uniform mat4 projMat; //non-affine camera
+uniform vec3 lightPosVec; //Non rotation affine
+uniform mat4 lightViewMat; //Affine lightviewport
+uniform mat4 lightProjMat; //non-affine lightviewport
 
 uniform sampler2D pos_tex;
 uniform sampler2D col_tex;
@@ -16,16 +18,19 @@ uniform sampler2D accum_tex; //the tex being drawn to
 
 void main()
 {
-  //float x = texture(pos_tex, UV).x-posVec.x;
-  //float y = texture(pos_tex, UV).y-posVec.y;
-  //float z = texture(pos_tex, UV).z-posVec.z;
-  //float d = sqrt(x*x + y*y + z*z);
-  //color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(posVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*8/max(0.000001,d*d);
+  float x = texture(pos_tex, UV).x-lightPosVec.x;
+  float y = texture(pos_tex, UV).y-lightPosVec.y;
+  float z = texture(pos_tex, UV).z-lightPosVec.z;
+  float d = sqrt(x*x + y*y + z*z);
+  color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*20/max(0.000001,d*d);
 
-  //color = texture(norm_tex, UV).xyz;
+
+  //fragment pos in the shadow depth tex
+  vec4 fpos = lightProjMat * lightViewMat * vec4(texture(pos_tex, UV).xyz,1.0);
+  vec2 fuv = (fpos.xy+1)/2;
+
+  //color = texture(pos_tex, UV).xyz;
   //color = ((texture(dep_tex, UV)-0.995)*500).rgb;
   //color = texture(col_tex, UV).rgb + texture(norm_tex, UV).rgb + (texture(dep_tex, UV).r-0.995)*500;
-
-  color = vec3((texture(shadow_tex, UV).r-0.995)*500,0,0);
 }
 
