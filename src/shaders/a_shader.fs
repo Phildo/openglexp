@@ -16,14 +16,16 @@ uniform sampler2D accum_tex; //the tex being drawn to
 
 void main()
 {
-  float x = texture(pos_tex, UV).x-posVec.x;
-  float y = texture(pos_tex, UV).y-posVec.y;
-  float z = texture(pos_tex, UV).z-posVec.z;
-  float d = sqrt(x*x + y*y + z*z);
-  color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(posVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*8/max(0.000001,d*d);
+  //float x = texture(pos_tex, UV).x-posVec.x;
+  //float y = texture(pos_tex, UV).y-posVec.y;
+  //float z = texture(pos_tex, UV).z-posVec.z;
+  //float d = sqrt(x*x + y*y + z*z);
+  //color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(posVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*8/max(0.000001,d*d);
 
   //color = texture(norm_tex, UV).xyz;
   //color = ((texture(dep_tex, UV)-0.995)*500).rgb;
   //color = texture(col_tex, UV).rgb + texture(norm_tex, UV).rgb + (texture(dep_tex, UV).r-0.995)*500;
+
+  color = vec3((texture(shadow_tex, UV).r-0.995)*500,0,0);
 }
 

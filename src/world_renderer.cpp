@@ -173,7 +173,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBindFramebuffer(GL_FRAMEBUFFER, gl_a_fb_id);
 
     //Color
-  glActiveTexture(GL_TEXTURE0 + 4);
+  glActiveTexture(GL_TEXTURE0 + 5);
   glGenTextures(1, &gl_a_fb_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_a_fb_tex_id);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
@@ -300,7 +300,7 @@ void WorldRenderer::blit() const
   glUseProgram(gl_b_program_id);
 
   glBindVertexArray(gl_b_vert_array_id);
-  glUniform1i(gl_b_tex_id, 4);
+  glUniform1i(gl_b_tex_id, 5);
   glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
 }
 
