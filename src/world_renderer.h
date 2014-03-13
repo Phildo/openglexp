@@ -77,9 +77,9 @@ class WorldRenderer : public Renderer
     void loadGeoVertData(const GeoComponent& gc) const;
     void renderGeo(const GeoComponent& gc) const;
 
-    void prepareForShadow(const Camera* cam) const;
+    void prepareForShadow(const LightComponent& lc) const;
     void loadShadowVertData(const GeoComponent& gc) const;
-    void genShadowMap(const LightComponent& lc) const;
+    void renderShadow(const GeoComponent& gc) const;
 
     void prepareForLight(const Camera* cam) const;
     void light(const LightComponent& lc) const;

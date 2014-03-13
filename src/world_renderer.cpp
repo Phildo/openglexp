@@ -205,16 +205,6 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.pos, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::loadGeoVertData(const GeoComponent& gc) const
-{
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.color, GL_STATIC_DRAW);
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_norm_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.norm, GL_STATIC_DRAW);
-}
-
 void WorldRenderer::prepareForGeo(const Camera* cam) const
 {
   glBindFramebuffer(GL_FRAMEBUFFER,gl_g_fb_id);
@@ -229,6 +219,16 @@ void WorldRenderer::prepareForGeo(const Camera* cam) const
   glUniformMatrix4fv(gl_g_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
 }
 
+void WorldRenderer::loadGeoVertData(const GeoComponent& gc) const
+{
+  glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.color, GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, gl_g_norm_buff_id);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.norm, GL_STATIC_DRAW);
+}
+
 void WorldRenderer::renderGeo(const GeoComponent& gc) const
 {
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
@@ -236,41 +236,33 @@ void WorldRenderer::renderGeo(const GeoComponent& gc) const
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
 }
 
-void WorldRenderer::loadShadowVertData(const GeoComponent& gc) const
+void WorldRenderer::prepareForShadow(const LightComponent& lc) const
 {
-/*
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.color, GL_STATIC_DRAW);
-  glBindBuffer(GL_ARRAY_BUFFER, gl_g_norm_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.norm, GL_STATIC_DRAW);
-*/
-}
-
-void WorldRenderer::prepareForShadow(const Camera* cam) const
-{
-/*
-  glBindFramebuffer(GL_FRAMEBUFFER,gl_g_fb_id);
+  glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
-  glUseProgram(gl_g_program_id);
-  GLenum drawBuffers[3] = {GL_COLOR_ATTACHMENT0 + 0, GL_COLOR_ATTACHMENT0 + 1, GL_COLOR_ATTACHMENT0 + 2};
-  glDrawBuffers(3, drawBuffers);
+  glUseProgram(gl_s_program_id);
+  GLenum drawBuffers[0] = {};
+  glDrawBuffers(0, drawBuffers);
 
-  glBindVertexArray(gl_g_vert_array_id);
-  glUniformMatrix4fv(gl_g_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
-  glUniformMatrix4fv(gl_g_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
-*/
+  glBindVertexArray(gl_s_vert_array_id);
+  glm::mat4 projMat = glm::perspective(45.0f, 2.0f, 0.1f, 100.0f);
+  glm::mat4 viewMat = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
+  glUniformMatrix4fv(gl_s_proj_mat_id, 1, GL_FALSE, &projMat[0][0]);
+  glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &viewMat[0][0]);
 }
 
-void WorldRenderer::genShadowMap(const LightComponent& lc) const
+void WorldRenderer::loadShadowVertData(const GeoComponent& gc) const
 {
-/*
+  glBindBuffer(GL_ARRAY_BUFFER, gl_s_pos_buff_id);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
+}
+
+void WorldRenderer::renderShadow(const GeoComponent& gc) const
+{
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
-*/
 }
 
 void WorldRenderer::prepareForLight(const Camera* cam) const

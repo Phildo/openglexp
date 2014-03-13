@@ -54,11 +54,11 @@ void EntitySystem::render(GLFWwindow* window) const
   }
   for(int i = 0; i < pool->lightComponents.size(); i++)
   {
-    world_renderer->prepareForShadow(cam);
+    world_renderer->prepareForShadow(pool->lightComponents[i]);
     for(int j = 0; j < pool->geoComponents.size(); j++)
     {
       world_renderer->loadShadowVertData(pool->geoComponents[j]);
-      world_renderer->genShadowMap(pool->lightComponents[i]);
+      world_renderer->renderShadow(pool->geoComponents[j]);
     }
     world_renderer->prepareForLight(cam);
     world_renderer->light(pool->lightComponents[i]);
