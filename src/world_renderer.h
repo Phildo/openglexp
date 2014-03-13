@@ -10,6 +10,7 @@ class Camera;
 class WorldRenderer : public Renderer
 {
   private:
+    //Geo
     GLuint gl_g_program_id;
     GLuint gl_g_vert_array_id;
     GLuint gl_g_pos_buff_id;
@@ -29,6 +30,20 @@ class WorldRenderer : public Renderer
     GLuint gl_g_fb_norm_tex_id;
     GLuint gl_g_fb_dep_tex_id;
 
+    //Shadow
+    GLuint gl_s_program_id;
+    GLuint gl_s_vert_array_id;
+    GLuint gl_s_pos_buff_id;
+    GLuint gl_s_pos_attrib_id;
+    GLuint gl_s_proj_mat_id;
+    GLuint gl_s_view_mat_id;
+    GLuint gl_s_model_mat_a_id;
+    GLuint gl_s_model_mat_r_id;
+
+    GLuint gl_s_fb_id;
+    GLuint gl_s_fb_dep_tex_id;
+
+    //Accumulation
     GLuint gl_a_program_id;
     GLuint gl_a_vert_array_id;
     GLuint gl_a_pos_buff_id;
@@ -45,6 +60,7 @@ class WorldRenderer : public Renderer
     GLuint gl_a_fb_id;
     GLuint gl_a_fb_tex_id;
 
+    //Blit
     GLuint gl_b_program_id;
     GLuint gl_b_vert_array_id;
     GLuint gl_b_pos_buff_id;

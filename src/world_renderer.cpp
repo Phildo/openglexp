@@ -20,10 +20,10 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glUseProgram(gl_g_program_id);
 
     //uniforms
-  gl_g_model_mat_a_id = glGetUniformLocation(gl_g_program_id, "modelMatA");
-  gl_g_model_mat_r_id = glGetUniformLocation(gl_g_program_id, "modelMatR");
   gl_g_view_mat_id  = glGetUniformLocation(gl_g_program_id, "viewMat");
   gl_g_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
+  gl_g_model_mat_a_id = glGetUniformLocation(gl_g_program_id, "modelMatA");
+  gl_g_model_mat_r_id = glGetUniformLocation(gl_g_program_id, "modelMatR");
     //attribs
   gl_g_pos_attrib_id  = glGetAttribLocation(gl_g_program_id, "vpos");
   gl_g_col_attrib_id  = glGetAttribLocation(gl_g_program_id, "vcol");
@@ -101,6 +101,43 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   //glBindRenderbuffer(GL_RENDERBUFFER, gl_g_fb_dep_buff_id);
   //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT);
   //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_g_fb_depth_buff_id);
+
+
+  //Shadow Pass
+  gl_s_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/s_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/s_shader.fs");
+  glUseProgram(gl_s_program_id);
+
+    //uniforms
+  gl_s_view_mat_id  = glGetUniformLocation(gl_s_program_id, "viewMat");
+  gl_s_proj_mat_id  = glGetUniformLocation(gl_s_program_id, "projMat");
+  gl_s_model_mat_a_id = glGetUniformLocation(gl_s_program_id, "modelMatA");
+  gl_s_model_mat_r_id = glGetUniformLocation(gl_s_program_id, "modelMatR");
+    //attribs
+  gl_s_pos_attrib_id  = glGetAttribLocation(gl_s_program_id, "vpos");
+
+    //gen VAO
+  glGenVertexArrays(1, &gl_s_vert_array_id);
+  glBindVertexArray(gl_s_vert_array_id);
+    //pos buff
+  glGenBuffers(1, &gl_s_pos_buff_id);
+  glBindBuffer(GL_ARRAY_BUFFER, gl_s_pos_buff_id);
+  glVertexAttribPointer(gl_s_pos_attrib_id, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+  glEnableVertexAttribArray(gl_s_pos_attrib_id);
+
+    //gen FB
+  glGenFramebuffers(1, &gl_s_fb_id);
+  glBindFramebuffer(GL_FRAMEBUFFER, gl_s_fb_id);
+
+    //Depth
+  glActiveTexture(GL_TEXTURE0 + 3);
+  glGenTextures(1, &gl_s_fb_dep_tex_id);
+  glBindTexture(GL_TEXTURE_2D, gl_s_fb_dep_tex_id);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_s_fb_dep_tex_id, 0);
 
 
   //Light Pass
