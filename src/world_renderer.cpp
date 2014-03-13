@@ -129,7 +129,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBindFramebuffer(GL_FRAMEBUFFER, gl_s_fb_id);
 
     //Depth
-  glActiveTexture(GL_TEXTURE0 + 3);
+  glActiveTexture(GL_TEXTURE0 + 4);
   glGenTextures(1, &gl_s_fb_dep_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_s_fb_dep_tex_id);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
@@ -180,7 +180,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 4, gl_a_fb_tex_id, 0);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, gl_a_fb_tex_id, 0);
 
 
   //Blit Pass
@@ -278,7 +278,7 @@ void WorldRenderer::prepareForLight(const Camera* cam) const
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
   glUseProgram(gl_a_program_id);
-  GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0 + 4};
+  GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0 + 0};
   glDrawBuffers(1, drawBuffers);
 
   glBindVertexArray(gl_a_vert_array_id);
