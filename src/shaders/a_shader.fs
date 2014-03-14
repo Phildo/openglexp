@@ -24,13 +24,25 @@ void main()
   float d = sqrt(x*x + y*y + z*z);
   color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*20/max(0.000001,d*d);
 
+  //Renders light's version of pos_tex
+
   //fragment pos in the shadow depth tex
-  //vec4 fpos = lightProjMat * lightViewMat * vec4(texture(pos_tex, UV).xyz,1.0);
-  //vec2 fuv = (fpos.xy+1)/2;
-  //float z = 2.0 * (0.1*100) / ((100+0.1) - ((texture(shadow_tex, fuv).x*2)-1) * (100-0.1)); //supposedly the z of this fragment from the camera
+  vec4 lpos = lightProjMat * lightViewMat * vec4(texture(pos_tex, UV).xyz,1.0);
+  vec2 luv = (lpos.xy+1)/2;
+  float ldep = 2.0 * (0.1*100) / ((100+0.1) - ((texture(shadow_tex, luv).x*2)-1) * (100-0.1)); //supposedly the z of this fragment from the camera
+  //color = vec3(ldep/500,ldep/500,ldep/500);
+  //color = vec3(d/100,d/100,d/100);
+  float asdf = (100+0.1) - ((texture(shadow_tex, luv).x*2)-1) * (100-0.1);
+  color = vec3(asdf,asdf,asdf);
+
+  //color = vec3(l_dep/100,l_dep/100,l_dep/100);
+  //color = vec3(d/10,d/10,d/10);
+  //if(z <= d+0.001) 
+    //color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*20/max(0.000001,d*d);
+  //else
+    //color = vec3(0,0,0);
 
   //color = texture(pos_tex, UV).xyz;
   //color = ((texture(dep_tex, UV)-0.995)*500).rgb;
-  //color = texture(col_tex, UV).rgb + texture(norm_tex, UV).rgb + (texture(dep_tex, UV).r-0.995)*500;
 }
 

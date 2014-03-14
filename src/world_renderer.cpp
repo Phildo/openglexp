@@ -295,8 +295,8 @@ void WorldRenderer::light(const LightComponent& lc) const
   //duplicate cam info from shadow pass (i know, ridiculous)
   glm::mat4 projMat = glm::perspective(45.0f, 2.0f, 0.1f, 100.0f);
   glm::mat4 viewMat = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
-  glUniformMatrix4fv(gl_s_proj_mat_id, 1, GL_FALSE, &projMat[0][0]);
-  glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &viewMat[0][0]);
+  glUniformMatrix4fv(gl_a_light_proj_mat_id, 1, GL_FALSE, &projMat[0][0]);
+  glUniformMatrix4fv(gl_a_light_view_mat_id, 1, GL_FALSE, &viewMat[0][0]);
 
   glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
 }

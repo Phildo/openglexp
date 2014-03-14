@@ -27,10 +27,10 @@ void LightEntityFactory::produce(EntityPool* ep)
   pc.vel.z = 0;
   pc.pos.x = 0;
   pc.pos.y = 0;
-  pc.pos.z = -1;
+  pc.pos.z = 20;
   LightComponent& lc = ep->lightComponents[e.lightComponentIndex]; //note- physics pos will override light pos given opportunity
   lc.pos.x = 0;
   lc.pos.y = 0;
-  lc.pos.z = 5;
+  lc.pos.z = 20;
 }
 
