@@ -30,6 +30,6 @@ void main()
   if(UVInLightTex.x > 1 || UVInLightTex.y > 1 || UVInLightTex.x < 0 || UVInLightTex.y < 0 || abs(ldep-d) > 1) 
     color = vec3(0,0,0);
   else
-    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*40/max(0.000001,d*d);
+    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*80/max(0.000001,d*d);
 }
 
