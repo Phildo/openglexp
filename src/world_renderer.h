@@ -28,7 +28,7 @@ class WorldRenderer : public Renderer
     GLuint gl_g_fb_pos_tex_id;
     GLuint gl_g_fb_col_tex_id;
     GLuint gl_g_fb_norm_tex_id;
-    GLuint gl_g_fb_dep_tex_id;
+    GLuint gl_g_fb_dep_buff_id;
 
     //Shadow
     GLuint gl_s_program_id;
@@ -51,7 +51,6 @@ class WorldRenderer : public Renderer
     GLuint gl_a_pos_tex_id;
     GLuint gl_a_col_tex_id;
     GLuint gl_a_norm_tex_id;
-    GLuint gl_a_dep_tex_id;
     GLuint gl_a_shadow_tex_id;
     GLuint gl_a_tex_id;
     GLuint gl_a_light_pos_vec_id;

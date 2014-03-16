@@ -85,22 +85,11 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 2, gl_g_fb_norm_tex_id, 0);
 
-    //Depth
-  glActiveTexture(GL_TEXTURE0 + 3);
-  glGenTextures(1, &gl_g_fb_dep_tex_id);
-  glBindTexture(GL_TEXTURE_2D, gl_g_fb_dep_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_g_fb_dep_tex_id, 0);
-
-  // Alternative to render depth to renderbuffer rather than texture
-  //glGenRenderbuffers(1, &gl_g_fb_dep_buff_id);
-  //glBindRenderbuffer(GL_RENDERBUFFER, gl_g_fb_dep_buff_id);
-  //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT);
-  //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_g_fb_depth_buff_id);
+    //Depth buff
+  glGenRenderbuffers(1, &gl_g_fb_dep_buff_id);
+  glBindRenderbuffer(GL_RENDERBUFFER, gl_g_fb_dep_buff_id);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT);
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_g_fb_dep_buff_id);
 
 
   //Shadow Pass
@@ -150,7 +139,6 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   gl_a_pos_tex_id        = glGetUniformLocation(gl_a_program_id, "pos_tex");
   gl_a_col_tex_id        = glGetUniformLocation(gl_a_program_id, "col_tex");
   gl_a_norm_tex_id       = glGetUniformLocation(gl_a_program_id, "norm_tex");
-  gl_a_dep_tex_id        = glGetUniformLocation(gl_a_program_id, "dep_tex");
   gl_a_shadow_tex_id     = glGetUniformLocation(gl_a_program_id, "shadow_tex");
   gl_a_tex_id            = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
   gl_a_light_pos_vec_id  = glGetUniformLocation(gl_a_program_id, "lightPosVec");
@@ -280,7 +268,6 @@ void WorldRenderer::prepareForLight(const Camera* cam) const
   glUniform1i(gl_a_pos_tex_id, 0);
   glUniform1i(gl_a_col_tex_id, 1);
   glUniform1i(gl_a_norm_tex_id, 2);
-  glUniform1i(gl_a_dep_tex_id, 3);
   glUniform1i(gl_a_shadow_tex_id, 4);
   glUniform1i(gl_a_tex_id, 5); //the same tex being drawn to
 }
@@ -314,8 +301,7 @@ WorldRenderer::~WorldRenderer()
 {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-  //glDeleteRenderbuffers(1, &gl_g_fb_dep_buff_id); //alternative to depth2tex
-  glDeleteTextures(1, &gl_g_fb_dep_tex_id);
+  glDeleteRenderbuffers(1, &gl_g_fb_dep_buff_id); //alternative to depth2tex
   glDeleteTextures(1, &gl_g_fb_norm_tex_id);
   glDeleteTextures(1, &gl_g_fb_col_tex_id);
   glDeleteTextures(1, &gl_g_fb_pos_tex_id);
