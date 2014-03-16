@@ -153,8 +153,6 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   gl_a_dep_tex_id        = glGetUniformLocation(gl_a_program_id, "dep_tex");
   gl_a_shadow_tex_id     = glGetUniformLocation(gl_a_program_id, "shadow_tex");
   gl_a_tex_id            = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
-  gl_a_view_mat_id       = glGetUniformLocation(gl_a_program_id, "viewMat");
-  gl_a_proj_mat_id       = glGetUniformLocation(gl_a_program_id, "projMat");
   gl_a_light_pos_vec_id  = glGetUniformLocation(gl_a_program_id, "lightPosVec");
   gl_a_light_view_mat_id = glGetUniformLocation(gl_a_program_id, "lightViewMat");
   gl_a_light_proj_mat_id = glGetUniformLocation(gl_a_program_id, "lightProjMat");
@@ -285,9 +283,6 @@ void WorldRenderer::prepareForLight(const Camera* cam) const
   glUniform1i(gl_a_dep_tex_id, 3);
   glUniform1i(gl_a_shadow_tex_id, 4);
   glUniform1i(gl_a_tex_id, 5); //the same tex being drawn to
-
-  glUniformMatrix4fv(gl_a_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
-  glUniformMatrix4fv(gl_a_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
 }
 
 void WorldRenderer::light(const LightComponent& lc) const

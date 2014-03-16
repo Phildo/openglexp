@@ -3,8 +3,6 @@
 in vec2 UV;
 out vec3 color;
 
-uniform mat4 viewMat; //Affine camera
-uniform mat4 projMat; //non-affine camera
 uniform vec3 lightPosVec; //Non rotation affine
 uniform mat4 lightViewMat; //Affine lightviewport
 uniform mat4 lightProjMat; //non-affine lightviewport
@@ -27,7 +25,7 @@ void main()
   vec3 shadowSTR = (((posInLightClip/posInLightClip.w).xyz)+1)/2;
 
   if(texture(shadow_tex, shadowSTR) == 0.0)
-    color = vec3(0,0,0);
+    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*10/max(0.000001,d*d);
   else
     color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*80/max(0.000001,d*d);
 }
