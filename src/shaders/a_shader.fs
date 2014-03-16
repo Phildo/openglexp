@@ -22,21 +22,14 @@ void main()
   float y = texture(pos_tex, UV).y-lightPosVec.y;
   float z = texture(pos_tex, UV).z-lightPosVec.z;
   float d = sqrt(x*x + y*y + z*z);
-  color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*40/max(0.000001,d*d);
 
   vec4 posInLightClip = lightProjMat * lightViewMat * texture(pos_tex, UV);
   vec2 UVInLightTex = (((posInLightClip/posInLightClip.w).xy)+1)/2;
-
   float ldep = 2.0 * (0.1*100) / ((100+0.1) - ((texture(shadow_tex, UVInLightTex).x*2)-1) * (100-0.1)); //supposedly the z of this fragment from the camera
 
-  color = vec3(ldep,ldep,ldep)/100;
-  //color = vec3(d,d,d)/100;
-
-/*
-  if(UVInLightTex.x > 1 || UVInLightTex.y > 1 || UVInLightTex.x < 0 || UVInLightTex.y < 0 || ldep > d+0.2 || ldep < d-0.2) 
+  if(UVInLightTex.x > 1 || UVInLightTex.y > 1 || UVInLightTex.x < 0 || UVInLightTex.y < 0 || abs(ldep-d) > 1) 
     color = vec3(0,0,0);
   else
-    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*20/max(0.000001,d*d);
-*/
+    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*40/max(0.000001,d*d);
 }
 
