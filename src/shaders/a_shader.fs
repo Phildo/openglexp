@@ -23,6 +23,11 @@ void main()
   vec4 posInLightClip = lightProjMat * lightViewMat * texture(pos_tex, UV);
   vec3 shadowSTR = (((posInLightClip/posInLightClip.w).xyz)+1)/2;
 
-  color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*(10+70*texture(shadow_tex, shadowSTR))/max(0.000001,d*d);
+  color = 
+  texture(accum_tex, UV).xyz+                                        //current value
+  texture(col_tex, UV).xyz                                           //frag color
+  *dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz) //dot product of angle of incidence of light to normal
+  *(4+15*texture(shadow_tex, shadowSTR))                             //shadow amplification
+  /max(0.000001,d*d);                                                //distance cutoff
 }
 
