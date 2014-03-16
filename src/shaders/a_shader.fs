@@ -23,9 +23,6 @@ void main()
   vec4 posInLightClip = lightProjMat * lightViewMat * texture(pos_tex, UV);
   vec3 shadowSTR = (((posInLightClip/posInLightClip.w).xyz)+1)/2;
 
-  if(texture(shadow_tex, shadowSTR) == 0.0)
-    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*10/max(0.000001,d*d);
-  else
-    color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*80/max(0.000001,d*d);
+  color = texture(accum_tex, UV).xyz+texture(col_tex, UV).xyz*(dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz)*0.5+0.5)*(10+70*texture(shadow_tex, shadowSTR))/max(0.000001,d*d);
 }
 
