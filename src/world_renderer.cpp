@@ -197,6 +197,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
 
 void WorldRenderer::prepareForGeo(const Camera* cam) const
 {
+  glCullFace(GL_BACK);
+
   glBindFramebuffer(GL_FRAMEBUFFER,gl_g_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
@@ -228,6 +230,8 @@ void WorldRenderer::renderGeo(const GeoComponent& gc) const
 
 void WorldRenderer::prepareForShadow(const LightComponent& lc) const
 {
+  glCullFace(GL_FRONT);
+
   glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
@@ -257,6 +261,8 @@ void WorldRenderer::renderShadow(const GeoComponent& gc) const
 
 void WorldRenderer::prepareForLight(const Camera* cam) const
 {
+  glCullFace(GL_BACK);
+
   glBindFramebuffer(GL_FRAMEBUFFER,gl_a_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);

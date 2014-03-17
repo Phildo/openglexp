@@ -20,15 +20,29 @@ void BasicEntityFactory::produce(EntityPool* ep)
   Entity& e = ep->createEntity( ComponentSig_Physics | ComponentSig_Geo );  
 
   GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];
-  gc.color[0].r = FLAT_Utils::randf();
-  gc.color[0].g = FLAT_Utils::randf();
-  gc.color[0].b = FLAT_Utils::randf();
-  gc.color[1].r = FLAT_Utils::randf();
-  gc.color[1].g = FLAT_Utils::randf();
-  gc.color[1].b = FLAT_Utils::randf();
-  gc.color[2].r = FLAT_Utils::randf();
-  gc.color[2].g = FLAT_Utils::randf();
-  gc.color[2].b = FLAT_Utils::randf();
+
+  gc.pos[0] = glm::vec3( 5.0f,-5.0f,0.2f);
+  gc.pos[1] = glm::vec3( 0.0f, 5.0f,0.2f);
+  gc.pos[2] = glm::vec3(-5.0f,-5.0f,0.2f);
+  gc.pos[3] = glm::vec3(-5.0f,-5.0f,-0.2f);
+  gc.pos[4] = glm::vec3( 0.0f, 5.0f,-0.2f);
+  gc.pos[5] = glm::vec3( 5.0f,-5.0f,-0.2f);
+
+  gc.color[0] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
+  gc.color[1] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
+  gc.color[2] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
+  gc.color[3] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
+  gc.color[4] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
+  gc.color[5] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
+
+  gc.norm[0] = glm::vec3(0.0f,0.0f,1.0f);
+  gc.norm[1] = glm::vec3(0.0f,0.0f,1.0f);
+  gc.norm[2] = glm::vec3(0.0f,0.0f,1.0f);
+  gc.norm[3] = glm::vec3(0.0f,0.0f,-1.0f);
+  gc.norm[4] = glm::vec3(0.0f,0.0f,-1.0f);
+  gc.norm[5] = glm::vec3(0.0f,0.0f,-1.0f);
+
+  gc.numVerts = 6;
 
   PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
 
