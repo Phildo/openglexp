@@ -41,7 +41,7 @@ class WorldRenderer : public Renderer
     GLuint gl_s_model_mat_r_id;
 
     GLuint gl_s_fb_id;
-    GLuint gl_s_fb_dep_tex_id;
+    GLuint gl_s_fb_cube_dep_tex_id;
 
     //Accumulation
     GLuint gl_a_program_id;

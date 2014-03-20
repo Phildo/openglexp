@@ -118,9 +118,9 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBindFramebuffer(GL_FRAMEBUFFER, gl_s_fb_id);
 
     //Depth
-  glActiveTexture(GL_TEXTURE0 + 4);
-  glGenTextures(1, &gl_s_fb_dep_tex_id);
-  glBindTexture(GL_TEXTURE_2D, gl_s_fb_dep_tex_id);
+  glActiveTexture(GL_TEXTURE0 + 3);
+  glGenTextures(1, &gl_s_fb_cube_dep_tex_id);
+  glBindTexture(GL_TEXTURE_2D, gl_s_fb_cube_dep_tex_id);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -128,7 +128,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_s_fb_dep_tex_id, 0);
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_s_fb_cube_dep_tex_id, 0);
 
 
   //Light Pass
@@ -163,7 +163,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBindFramebuffer(GL_FRAMEBUFFER, gl_a_fb_id);
 
     //Color
-  glActiveTexture(GL_TEXTURE0 + 5);
+  glActiveTexture(GL_TEXTURE0 + 4);
   glGenTextures(1, &gl_a_fb_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_a_fb_tex_id);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
@@ -274,8 +274,8 @@ void WorldRenderer::prepareForLight(const Camera* cam) const
   glUniform1i(gl_a_pos_tex_id, 0);
   glUniform1i(gl_a_col_tex_id, 1);
   glUniform1i(gl_a_norm_tex_id, 2);
-  glUniform1i(gl_a_shadow_tex_id, 4);
-  glUniform1i(gl_a_tex_id, 5); //the same tex being drawn to
+  glUniform1i(gl_a_shadow_tex_id, 3);
+  glUniform1i(gl_a_tex_id, 4); //the same tex being drawn to
 }
 
 void WorldRenderer::light(const LightComponent& lc) const
@@ -299,7 +299,7 @@ void WorldRenderer::blit() const
   glUseProgram(gl_b_program_id);
 
   glBindVertexArray(gl_b_vert_array_id);
-  glUniform1i(gl_b_tex_id, 5);
+  glUniform1i(gl_b_tex_id, 4);
   glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
 }
 
