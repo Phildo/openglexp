@@ -120,15 +120,17 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
     //Depth
   glActiveTexture(GL_TEXTURE0 + 3);
   glGenTextures(1, &gl_s_fb_cube_dep_tex_id);
-  glBindTexture(GL_TEXTURE_2D, gl_s_fb_cube_dep_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, graphics->sWidth/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_s_fb_cube_dep_tex_id, 0);
+  glBindTexture(GL_TEXTURE_CUBE_MAP, gl_s_fb_cube_dep_tex_id);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+  glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
 
   //Light Pass
@@ -233,14 +235,16 @@ void WorldRenderer::prepareForShadow(const LightComponent& lc) const
   glCullFace(GL_FRONT);
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, gl_s_fb_cube_dep_tex_id, 0);
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glViewport(0,0,graphics->sWidth/POT,graphics->sHeight/POT);
+  glViewport(0,0,graphics->sHeight/POT,graphics->sHeight/POT);
   glUseProgram(gl_s_program_id);
   GLenum drawBuffers[0] = {};
   glDrawBuffers(0, drawBuffers);
 
   glBindVertexArray(gl_s_vert_array_id);
-  glm::mat4 projMat = glm::perspective(45.0f, 2.0f, 0.1f, 100.0f);
+  glm::mat4 projMat = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
   glm::mat4 viewMat = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
   glUniformMatrix4fv(gl_s_proj_mat_id, 1, GL_FALSE, &projMat[0][0]);
   glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &viewMat[0][0]);
