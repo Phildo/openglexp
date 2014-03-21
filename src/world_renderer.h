@@ -68,6 +68,11 @@ class WorldRenderer : public Renderer
     GLuint gl_b_tex_id;
 
     GeoComponent screen_quad; //really just a quad- outside of entity_system
+
+    //Projections for 6 sided shadow cube
+    glm::mat4 shadowProjMat; 
+    glm::mat4 shadowViewMats[6];
+
   public:
     WorldRenderer(Graphics* g);
     ~WorldRenderer();
@@ -76,8 +81,9 @@ class WorldRenderer : public Renderer
     void loadGeoVertData(const GeoComponent& gc) const;
     void renderGeo(const GeoComponent& gc) const;
 
-    void prepareForShadow(const LightComponent& lc) const;
+    void prepareForShadow(const LightComponent& lc);
     void loadShadowVertData(const GeoComponent& gc) const;
+    void prepareForShadowOrientation(const GLuint orientation) const;
     void renderShadow(const GeoComponent& gc) const;
 
     void prepareForLight(const Camera* cam) const;

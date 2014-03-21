@@ -14,6 +14,8 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   screen_quad.pos[5] = glm::vec3(-1.0, 1.0,0.0);
   screen_quad.numVerts = 6;
 
+  //init shadow projection matrix
+  shadowProjMat = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
 
   //Geometry Pass
   gl_g_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/g_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/g_shader.fs");
@@ -230,30 +232,38 @@ void WorldRenderer::renderGeo(const GeoComponent& gc) const
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
 }
 
-void WorldRenderer::prepareForShadow(const LightComponent& lc) const
+void WorldRenderer::prepareForShadow(const LightComponent& lc)
 {
   glCullFace(GL_FRONT);
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, gl_s_fb_cube_dep_tex_id, 0);
-
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,graphics->sHeight/POT,graphics->sHeight/POT);
+
   glUseProgram(gl_s_program_id);
   GLenum drawBuffers[0] = {};
   glDrawBuffers(0, drawBuffers);
 
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3( 1,0,0),glm::vec3(0,1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(-1,0,0),glm::vec3(0,1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Z] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0, 1),glm::vec3(0,1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Z] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Y] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0, 1,0),glm::vec3(0,0, 1));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Y] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,-1,0),glm::vec3(0,0,-1));
   glBindVertexArray(gl_s_vert_array_id);
-  glm::mat4 projMat = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
-  glm::mat4 viewMat = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
-  glUniformMatrix4fv(gl_s_proj_mat_id, 1, GL_FALSE, &projMat[0][0]);
-  glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &viewMat[0][0]);
+  glUniformMatrix4fv(gl_s_proj_mat_id, 1, GL_FALSE, &shadowProjMat[0][0]);
 }
 
 void WorldRenderer::loadShadowVertData(const GeoComponent& gc) const
 {
   glBindBuffer(GL_ARRAY_BUFFER, gl_s_pos_buff_id);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
+}
+
+void WorldRenderer::prepareForShadowOrientation(const GLuint orientation) const
+{
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, orientation, gl_s_fb_cube_dep_tex_id, 0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &shadowViewMats[orientation][0][0]);
 }
 
 void WorldRenderer::renderShadow(const GeoComponent& gc) const
