@@ -262,14 +262,14 @@ void WorldRenderer::loadShadowVertData(const GeoComponent& gc) const
 void WorldRenderer::prepareForShadowOrientation(const GLuint orientation) const
 {
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, orientation, gl_s_fb_cube_dep_tex_id, 0);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glClear(GL_DEPTH_BUFFER_BIT);
   glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &shadowViewMats[orientation-GL_TEXTURE_CUBE_MAP_POSITIVE_X][0][0]);
 }
 
 void WorldRenderer::renderShadow(const GeoComponent& gc) const
 {
-  glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
-  glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
+  glUniformMatrix4fv(gl_s_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
+  glUniformMatrix4fv(gl_s_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
 }
 
