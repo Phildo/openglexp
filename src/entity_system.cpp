@@ -59,7 +59,7 @@ void EntitySystem::render(GLFWwindow* window) const
     {
       world_renderer->loadShadowVertData(pool->geoComponents[j]);
       for(int k = GL_TEXTURE_CUBE_MAP_POSITIVE_X; k < GL_TEXTURE_CUBE_MAP_POSITIVE_X + 6; k++) //0-5, I think...
-        world_renderer->prepareForShadowOrientation(GL_TEXTURE_CUBE_MAP_POSITIVE_X + k);
+        world_renderer->prepareForShadowOrientation(k);
       world_renderer->renderShadow(pool->geoComponents[j]);
     }
     world_renderer->prepareForLight(cam);
