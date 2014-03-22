@@ -1,7 +1,7 @@
 #include "world_renderer.h"
 #include "Camera.h"
 
-#define POT 1
+#define POT 8
 
 WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
 {
@@ -123,12 +123,12 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glActiveTexture(GL_TEXTURE0 + 3);
   glGenTextures(1, &gl_s_fb_cube_dep_tex_id);
   glBindTexture(GL_TEXTURE_CUBE_MAP, gl_s_fb_cube_dep_tex_id);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT24, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT24, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT24, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT24, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT24, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT24, graphics->sHeight/POT, graphics->sHeight/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/POT, graphics->sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/POT, graphics->sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/POT, graphics->sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/POT, graphics->sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/POT, graphics->sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT24, graphics->sWidth/POT, graphics->sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
@@ -237,16 +237,16 @@ void WorldRenderer::prepareForShadow(const LightComponent& lc)
   glCullFace(GL_FRONT);
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
-  glViewport(0,0,graphics->sHeight/POT,graphics->sHeight/POT);
+  glViewport(0,0,graphics->sWidth/POT,graphics->sWidth/POT);
 
   glUseProgram(gl_s_program_id);
   GLenum drawBuffers[0] = {};
   glDrawBuffers(0, drawBuffers);
 
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3( 1,0,0),glm::vec3(0,1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(-1,0,0),glm::vec3(0,1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0, 1),glm::vec3(0,1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3( 1,0,0),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(-1,0,0),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0, 1),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,-1,0));
   shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Y-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0, 1,0),glm::vec3(0,0, 1));
   shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Y-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,-1,0),glm::vec3(0,0,-1));
   glBindVertexArray(gl_s_vert_array_id);
