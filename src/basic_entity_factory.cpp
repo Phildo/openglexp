@@ -21,12 +21,12 @@ void BasicEntityFactory::produce(EntityPool* ep)
 
   GeoComponent& gc = ep->geoComponents[e.geoComponentIndex];
 
-  gc.pos[0] = glm::vec3( 5.0f,-5.0f,0.2f);
-  gc.pos[1] = glm::vec3( 0.0f, 5.0f,0.2f);
-  gc.pos[2] = glm::vec3(-5.0f,-5.0f,0.2f);
-  gc.pos[3] = glm::vec3(-5.0f,-5.0f,-0.2f);
-  gc.pos[4] = glm::vec3( 0.0f, 5.0f,-0.2f);
-  gc.pos[5] = glm::vec3( 5.0f,-5.0f,-0.2f);
+  gc.pos[0] = glm::vec3( 5.0f,-5.0f,0.1f);
+  gc.pos[1] = glm::vec3( 0.0f, 5.0f,0.1f);
+  gc.pos[2] = glm::vec3(-5.0f,-5.0f,0.1f);
+  gc.pos[3] = glm::vec3(-5.0f,-5.0f,-0.1f);
+  gc.pos[4] = glm::vec3( 0.0f, 5.0f,-0.1f);
+  gc.pos[5] = glm::vec3( 5.0f,-5.0f,-0.1f);
 
   gc.color[0] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
   gc.color[1] = glm::vec3(FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f,FLAT_Utils::randf()+0.2f);
