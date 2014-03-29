@@ -1,6 +1,6 @@
-#include "geo_component.h"
+#include "geometry_component.h"
 
-GeoComponent::GeoComponent()
+GeometryComponent::GeometryComponent()
 {
   numVerts = 3;
 
@@ -18,9 +18,5 @@ GeoComponent::GeoComponent()
   norm[0] = glm::vec3(0.0f,0.0,1.0f);
   norm[1] = glm::vec3(0.0f,0.0,1.0f);
   norm[2] = glm::vec3(0.0f,0.0,1.0f);
-}
-
-GeoComponent::~GeoComponent()
-{
 }
 
