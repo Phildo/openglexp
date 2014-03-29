@@ -28,9 +28,9 @@ class EntityPool
     std::vector<InputPlanarComponent> inputPlanarComponents;
 
     //Render Components
-    std::vector<GeoComponent>    geoComponents;
-    std::vector<LightComponent>  lightComponents;
-    std::vector<HUDComponent>    HUDComponents;
+    std::vector<GeoComponent>   geoComponents;
+    std::vector<LightComponent> lightComponents;
+    std::vector<HUDComponent>   HUDComponents;
 
     EntityPool();
     ~EntityPool();
