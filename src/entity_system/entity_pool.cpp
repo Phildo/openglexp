@@ -15,45 +15,116 @@ Entity& EntityPool::createEntity(component_signature csig)
 {
   Entity e;
 
-  if(csig & ComponentSig_Physics)
-  {
-    PhysicsComponent pc;
-    e.physicsComponentIndex = physicsComponents.size();
-    pc.entityIndex = entities.size();
-    physicsComponents.push_back(std::move(pc));
-  }
+//ECS_CONSTRUCT_ADD_C_TO_E_START
 
-  if(csig & ComponentSig_InputPlanar)
-  {
-    InputPlanarComponent ipc;
-    e.inputPlanarComponentIndex = inputPlanarComponents.size();
-    ipc.entityIndex = entities.size();
-    inputPlanarComponents.push_back(std::move(ipc));
-  }
+if(csig & component_signature_direction_component)
+{
+  DirectionComponent direction_component;
+  direction_components.push_back(std::move(direction_component));
+  e.direction_component = &direction_components[direction_components.size()-1];
+  direction_component.entity = &e;
+}
 
-  if(csig & ComponentSig_Geo)
-  {
-    GeoComponent gc;
-    e.geoComponentIndex = geoComponents.size();
-    gc.entityIndex = entities.size();
-    geoComponents.push_back(std::move(gc));
-  }
 
-  if(csig & ComponentSig_Light)
-  {
-    LightComponent lc;
-    e.lightComponentIndex = lightComponents.size();
-    lc.entityIndex = entities.size();
-    lightComponents.push_back(std::move(lc));
-  }
+if(csig & component_signature_geometry_component)
+{
+  GeometryComponent geometry_component;
+  geometry_components.push_back(std::move(geometry_component));
+  e.geometry_component = &geometry_components[geometry_components.size()-1];
+  geometry_component.entity = &e;
+}
 
-  if(csig & ComponentSig_HUD)
-  {
-    HUDComponent hc;
-    e.HUDComponentIndex = HUDComponents.size();
-    hc.entityIndex = entities.size();
-    HUDComponents.push_back(std::move(hc));
-  }
+
+if(csig & component_signature_hud_component)
+{
+  HudComponent hud_component;
+  hud_components.push_back(std::move(hud_component));
+  e.hud_component = &hud_components[hud_components.size()-1];
+  hud_component.entity = &e;
+}
+
+
+if(csig & component_signature_input_component)
+{
+  InputComponent input_component;
+  input_components.push_back(std::move(input_component));
+  e.input_component = &input_components[input_components.size()-1];
+  input_component.entity = &e;
+}
+
+
+if(csig & component_signature_light_component)
+{
+  LightComponent light_component;
+  light_components.push_back(std::move(light_component));
+  e.light_component = &light_components[light_components.size()-1];
+  light_component.entity = &e;
+}
+
+
+if(csig & component_signature_position_component)
+{
+  PositionComponent position_component;
+  position_components.push_back(std::move(position_component));
+  e.position_component = &position_components[position_components.size()-1];
+  position_component.entity = &e;
+}
+
+
+if(csig & component_signature_rotational_velocity_component)
+{
+  RotationalVelocityComponent rotational_velocity_component;
+  rotational_velocity_components.push_back(std::move(rotational_velocity_component));
+  e.rotational_velocity_component = &rotational_velocity_components[rotational_velocity_components.size()-1];
+  rotational_velocity_component.entity = &e;
+}
+
+
+if(csig & component_signature_starting_direction_component)
+{
+  StartingDirectionComponent starting_direction_component;
+  starting_direction_components.push_back(std::move(starting_direction_component));
+  e.starting_direction_component = &starting_direction_components[starting_direction_components.size()-1];
+  starting_direction_component.entity = &e;
+}
+
+
+if(csig & component_signature_starting_position_component)
+{
+  StartingPositionComponent starting_position_component;
+  starting_position_components.push_back(std::move(starting_position_component));
+  e.starting_position_component = &starting_position_components[starting_position_components.size()-1];
+  starting_position_component.entity = &e;
+}
+
+
+if(csig & component_signature_starting_rotational_velocity_component)
+{
+  StartingRotationalVelocityComponent starting_rotational_velocity_component;
+  starting_rotational_velocity_components.push_back(std::move(starting_rotational_velocity_component));
+  e.starting_rotational_velocity_component = &starting_rotational_velocity_components[starting_rotational_velocity_components.size()-1];
+  starting_rotational_velocity_component.entity = &e;
+}
+
+
+if(csig & component_signature_starting_velocity_component)
+{
+  StartingVelocityComponent starting_velocity_component;
+  starting_velocity_components.push_back(std::move(starting_velocity_component));
+  e.starting_velocity_component = &starting_velocity_components[starting_velocity_components.size()-1];
+  starting_velocity_component.entity = &e;
+}
+
+
+if(csig & component_signature_velocity_component)
+{
+  VelocityComponent velocity_component;
+  velocity_components.push_back(std::move(velocity_component));
+  e.velocity_component = &velocity_components[velocity_components.size()-1];
+  velocity_component.entity = &e;
+}
+
+//ECS_CONSTRUCT_ADD_C_TO_E_END
 
   entities.push_back(std::move(e));
   return entities[entities.size() - 1];

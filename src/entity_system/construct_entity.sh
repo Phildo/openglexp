@@ -1,6 +1,8 @@
 #!/bin/bash
 
-TMP_FILE=.ENTITY_CONSTRUCTION.tmp
+TMP_FILE=".ENTITY_CONSTRUCTION.tmp"
+ACTIVE_FILE=""
+FLAG=""
 
 function fileToUnder()
 {
@@ -15,81 +17,81 @@ function underToCamel()
 #
 #CONSTRUCT ENTITY
 #
-ENTITY_H_FILE="entity.h"
-
-ENTITY_H_FORWARD_DECLARATIONS="ECS_CONSTRUCT_C_FORWARD_DECLS"
+ACTIVE_FILE="entity.h"
+FLAG="ECS_CONSTRUCT_C_FORWARD_DECLS"
 touch $TMP_FILE
 for i in components/*.h; do
   UNDER=`fileToUnder $i`
   CAMEL=`underToCamel $UNDER`
   echo "class $CAMEL;"  >> $TMP_FILE
 done
-inject ${ENTITY_H_FORWARD_DECLARATIONS}_START  ${ENTITY_H_FORWARD_DECLARATIONS}_END  $TMP_FILE $ENTITY_H_FILE
+inject ${FLAG}_START  ${FLAG}_END  $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
-ENTITY_H_PUBLIC_MEMBERS="ECS_CONSTRUCT_PUBLIC_C_MEMBERS"
+FLAG="ECS_CONSTRUCT_PUBLIC_C_MEMBERS"
 touch $TMP_FILE
 for i in components/*.h; do
   UNDER=`fileToUnder $i`
   CAMEL=`underToCamel $UNDER`
   echo "$CAMEL* $UNDER;" >> $TMP_FILE
 done
-inject ${ENTITY_H_PUBLIC_MEMBERS}_START ${ENTITY_H_PUBLIC_MEMBERS}_END $TMP_FILE $ENTITY_H_FILE
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
 
 #
 #CONSTRUCT ENTITY_POOL
 #
-ENTITY_POOL_H_FILE="entity_pool.h"
+ACTIVE_FILE="entity_pool.h"
 
-ENTITY_POOL_H_C_INCLUDE="ECS_CONSTRUCT_C_INCLUDE"
+FLAG="ECS_CONSTRUCT_C_INCLUDE"
 touch $TMP_FILE
 for i in components/*.h; do
   echo "#include \"$i\"" >> $TMP_FILE
 done
-inject ${ENTITY_POOL_H_C_INCLUDE}_START ${ENTITY_POOL_H_C_INCLUDE}_END $TMP_FILE $ENTITY_POOL_H_FILE
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
-ENTITY_POOL_H_C_SIGNATURE_DEF="ECS_CONSTRUCT_C_SIGNATURE_DEF"
+FLAG="ECS_CONSTRUCT_C_SIGNATURE_DEF"
 touch $TMP_FILE
 SIG_BIT=1
 for i in components/*.h; do
-  echo "const component_signature ComponentSig_"`fileToUnder $i`" = $SIG_BIT;" >> $TMP_FILE
+  echo "const component_signature component_signature_"`fileToUnder $i`" = $SIG_BIT;" >> $TMP_FILE
   SIG_BIT=$(($SIG_BIT * 2))
 done
-inject ${ENTITY_POOL_H_C_SIGNATURE_DEF}_START ${ENTITY_POOL_H_C_SIGNATURE_DEF}_END $TMP_FILE $ENTITY_POOL_H_FILE
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
-ENTITY_POOL_H_C_SIGNATURE_DEF="ECS_CONSTRUCT_C_SIGNATURE_DEF"
-touch $TMP_FILE
-SIG_BIT=1
-for i in components/*.h; do
-  echo "const component_signature ComponentSig_"`fileToUnder $i`" = $SIG_BIT;" >> $TMP_FILE
-  SIG_BIT=$(($SIG_BIT * 2))
-done
-inject ${ENTITY_POOL_H_C_SIGNATURE_DEF}_START ${ENTITY_POOL_H_C_SIGNATURE_DEF}_END $TMP_FILE $ENTITY_POOL_H_FILE
-rm $TMP_FILE
-
-ENTITY_POOL_H_PUBLIC_C_DECL="ECS_CONSTRUCT_PUBLIC_C_DECL"
+FLAG="ECS_CONSTRUCT_PUBLIC_C_DECL"
 touch $TMP_FILE
 for i in components/*.h; do
   UNDER=`fileToUnder $i`
   CAMEL=`underToCamel $UNDER`
   echo "std::vector<$CAMEL> ${UNDER}s;" >> $TMP_FILE
 done
-inject ${ENTITY_POOL_H_PUBLIC_C_DECL}_START ${ENTITY_POOL_H_PUBLIC_C_DECL}_END $TMP_FILE $ENTITY_POOL_H_FILE
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
-exit 0
-  if(csig & ComponentSig_Physics)
-  {
-    PhysicsComponent pc;
-    e.physicsComponentIndex = physicsComponents.size();
-    pc.entityIndex = entities.size();
-    physicsComponents.push_back(std::move(pc));
-  }
+ACTIVE_FILE="entity_pool.cpp"
 
+FLAG="ECS_CONSTRUCT_ADD_C_TO_E"
+touch $TMP_FILE
+for i in components/*.h; do
+  
+  UNDER=`fileToUnder $i`
+  CAMEL=`underToCamel $UNDER`
+  echo ""                                             >> $TMP_FILE
+  echo "if(csig & component_signature_$UNDER)"        >> $TMP_FILE
+  echo "{"                                            >> $TMP_FILE
+  echo "  $CAMEL $UNDER;"                             >> $TMP_FILE
+  echo "  ${UNDER}s.push_back(std::move($UNDER));"    >> $TMP_FILE
+  echo "  e.$UNDER = &${UNDER}s[${UNDER}s.size()-1];" >> $TMP_FILE
+  echo "  ${UNDER}.entity = &e;"                      >> $TMP_FILE
+  echo "}"                                            >> $TMP_FILE
+  echo ""                                             >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
 
 exit 0
 

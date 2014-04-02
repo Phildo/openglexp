@@ -20,18 +20,18 @@
 
 typedef long component_signature;
 //ECS_CONSTRUCT_C_SIGNATURE_DEF_START
-const component_signature ComponentSig_direction_component = 1;
-const component_signature ComponentSig_geometry_component = 2;
-const component_signature ComponentSig_hud_component = 4;
-const component_signature ComponentSig_input_component = 8;
-const component_signature ComponentSig_light_component = 16;
-const component_signature ComponentSig_position_component = 32;
-const component_signature ComponentSig_rotational_velocity_component = 64;
-const component_signature ComponentSig_starting_direction_component = 128;
-const component_signature ComponentSig_starting_position_component = 256;
-const component_signature ComponentSig_starting_rotational_velocity_component = 512;
-const component_signature ComponentSig_starting_velocity_component = 1024;
-const component_signature ComponentSig_velocity_component = 2048;
+const component_signature component_signature_direction_component = 1;
+const component_signature component_signature_geometry_component = 2;
+const component_signature component_signature_hud_component = 4;
+const component_signature component_signature_input_component = 8;
+const component_signature component_signature_light_component = 16;
+const component_signature component_signature_position_component = 32;
+const component_signature component_signature_rotational_velocity_component = 64;
+const component_signature component_signature_starting_direction_component = 128;
+const component_signature component_signature_starting_position_component = 256;
+const component_signature component_signature_starting_rotational_velocity_component = 512;
+const component_signature component_signature_starting_velocity_component = 1024;
+const component_signature component_signature_velocity_component = 2048;
 //ECS_CONSTRUCT_C_SIGNATURE_DEF_END
 
 class EntityPool
