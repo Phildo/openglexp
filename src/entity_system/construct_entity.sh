@@ -67,7 +67,7 @@ touch $TMP_FILE
 for i in components/*.h; do
   UNDER=`fileToUnder $i`
   CAMEL=`underToCamel $UNDER`
-  echo "std::vector<$CAMEL> ${UNDER}s;" >> $TMP_FILE
+  echo "$CAMEL ${UNDER}s[MAX_ENTITIES]; int num_${UNDER}s;" >> $TMP_FILE
 done
 inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
@@ -77,18 +77,39 @@ ACTIVE_FILE="entity_pool.cpp"
 FLAG="ECS_CONSTRUCT_ADD_C_TO_E"
 touch $TMP_FILE
 for i in components/*.h; do
-  
   UNDER=`fileToUnder $i`
-  CAMEL=`underToCamel $UNDER`
-  echo ""                                             >> $TMP_FILE
-  echo "if(csig & component_signature_$UNDER)"        >> $TMP_FILE
-  echo "{"                                            >> $TMP_FILE
-  echo "  $CAMEL $UNDER;"                             >> $TMP_FILE
-  echo "  ${UNDER}s.push_back(std::move($UNDER));"    >> $TMP_FILE
-  echo "  e.$UNDER = &${UNDER}s[${UNDER}s.size()-1];" >> $TMP_FILE
-  echo "  ${UNDER}.entity = &e;"                      >> $TMP_FILE
-  echo "}"                                            >> $TMP_FILE
-  echo ""                                             >> $TMP_FILE
+  echo "if(csig & component_signature_$UNDER)"    >> $TMP_FILE
+  echo "{"                                        >> $TMP_FILE
+  echo "  e->$UNDER = &${UNDER}s[num_${UNDER}s];" >> $TMP_FILE
+  echo "  ${UNDER}s[num_${UNDER}s].entity = e;"   >> $TMP_FILE
+  echo "  num_${UNDER}s++;"                       >> $TMP_FILE
+  echo "}"                                        >> $TMP_FILE
+  echo ""                                         >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
+
+FLAG="ECS_CONSTRUCT_DELETE_C_FROM_E"
+touch $TMP_FILE
+for i in components/*.h; do
+  UNDER=`fileToUnder $i`
+  echo "if(e->${UNDER})"                                           >> $TMP_FILE
+  echo "{"                                                         >> $TMP_FILE
+  echo "  num_${UNDER}s--;"                                        >> $TMP_FILE
+  echo "  ${UNDER}s[num_${UNDER}s].entity.${UNDER} = e->${UNDER};" >> $TMP_FILE #tell entity of last placed component where it will be moved
+  echo "  *e->${UNDER} = ${UNDER}s[num_${UNDER}s];"                >> $TMP_FILE #move final component on top of now-deleted component
+  echo "}"                                                         >> $TMP_FILE
+  echo ""                                                          >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
+
+FLAG="ECS_CONSTRUCT_DELETE_E"
+touch $TMP_FILE
+for i in components/*.h; do
+  UNDER=`fileToUnder $i`
+  echo "if(entities[num_entities].${UNDER})"           >> $TMP_FILE
+  echo "  entities[num_entities].${UNDER}.entity = e;" >> $TMP_FILE
 done
 inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE

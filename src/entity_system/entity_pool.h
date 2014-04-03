@@ -18,6 +18,8 @@
 #include "components/velocity_component.h"
 //ECS_CONSTRUCT_C_INCLUDE_END
 
+#define MAX_ENTITIES = 100
+
 typedef long component_signature;
 //ECS_CONSTRUCT_C_SIGNATURE_DEF_START
 const component_signature component_signature_direction_component = 1;
@@ -38,28 +40,28 @@ class EntityPool
 {
   private:
   public:
-    std::vector<Entity> entities;
+Entity entities[MAX_ENTITIES]; int num_entities;
 
 //ECS_CONSTRUCT_PUBLIC_C_DECL_START
-std::vector<DirectionComponent> direction_components;
-std::vector<GeometryComponent> geometry_components;
-std::vector<HudComponent> hud_components;
-std::vector<InputComponent> input_components;
-std::vector<LightComponent> light_components;
-std::vector<PositionComponent> position_components;
-std::vector<RotationalVelocityComponent> rotational_velocity_components;
-std::vector<StartingDirectionComponent> starting_direction_components;
-std::vector<StartingPositionComponent> starting_position_components;
-std::vector<StartingRotationalVelocityComponent> starting_rotational_velocity_components;
-std::vector<StartingVelocityComponent> starting_velocity_components;
-std::vector<VelocityComponent> velocity_components;
+DirectionComponent direction_components[MAX_ENTITIES]; int num_direction_components;
+GeometryComponent geometry_components[MAX_ENTITIES]; int num_geometry_components;
+HudComponent hud_components[MAX_ENTITIES]; int num_hud_components;
+InputComponent input_components[MAX_ENTITIES]; int num_input_components;
+LightComponent light_components[MAX_ENTITIES]; int num_light_components;
+PositionComponent position_components[MAX_ENTITIES]; int num_position_components;
+RotationalVelocityComponent rotational_velocity_components[MAX_ENTITIES]; int num_rotational_velocity_components;
+StartingDirectionComponent starting_direction_components[MAX_ENTITIES]; int num_starting_direction_components;
+StartingPositionComponent starting_position_components[MAX_ENTITIES]; int num_starting_position_components;
+StartingRotationalVelocityComponent starting_rotational_velocity_components[MAX_ENTITIES]; int num_starting_rotational_velocity_components;
+StartingVelocityComponent starting_velocity_components[MAX_ENTITIES]; int num_starting_velocity_components;
+VelocityComponent velocity_components[MAX_ENTITIES]; int num_velocity_components;
 //ECS_CONSTRUCT_PUBLIC_C_DECL_END
 
     EntityPool();
     ~EntityPool();
 
-    Entity& createEntity(component_signature csig);
-    void deleteEntity(int index);
+    Entity* createEntity(component_signature csig);
+    void deleteEntity(Entity* e);
 };
 
 #endif
