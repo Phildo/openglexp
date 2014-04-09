@@ -7,15 +7,9 @@
 
 #define VERBOSE
 
-Renderer::Renderer(Graphics* g)
-{
-  graphics = g;
-}
+Renderer::Renderer() { }
 
-Renderer::~Renderer()
-{
-
-}
+Renderer::~Renderer() { }
 
 GLuint Renderer::loadShader(const char *vs_filename, const char *fs_filename)
 {

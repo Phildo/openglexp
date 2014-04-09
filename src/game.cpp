@@ -2,7 +2,6 @@
 
 #include "mygl.h"
 #include "input.h"
-#include "graphics.h"
 #include "entity_system.h"
 #include "scener.h"
 
@@ -23,8 +22,7 @@ Game::Game()
 {
   myGL = new MyGL();
   input = new Input(myGL);
-  graphics = new Graphics(myGL);
-  entitySystem = new EntitySystem(graphics);
+  entitySystem = new EntitySystem();
   scener = new Scener();
 
   BasicEntityFactory *bef     = new BasicEntityFactory();
@@ -95,7 +93,6 @@ Game::~Game()
 {
   delete scener;
   delete entitySystem;
-  delete graphics;
   delete input;
   delete myGL;
 }

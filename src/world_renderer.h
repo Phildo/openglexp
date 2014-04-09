@@ -74,7 +74,7 @@ class WorldRenderer : public Renderer
     glm::mat4 shadowViewMats[6];
 
   public:
-    WorldRenderer(Graphics* g);
+    WorldRenderer();
     ~WorldRenderer();
 
     void prepareForGeo(const CameraComponent* cam) const;

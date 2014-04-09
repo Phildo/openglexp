@@ -8,7 +8,6 @@ class PhysicsSolver;
 class WorldRenderer;
 class HudRenderer;
 
-class Graphics;
 class Input;
 
 class EntitySystem
@@ -26,7 +25,7 @@ class EntitySystem
     void produceEntityFromFactory(EntityFactory* ef);
 
     void update(Input& i);
-    void render(Graphics* g) const;
+    void render() const;
 };
 
 #endif

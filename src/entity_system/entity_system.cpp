@@ -6,8 +6,6 @@
 #include "world_renderer.h"
 #include "hud_renderer.h"
 
-#include "graphics.h"
-
 EntitySystem::EntitySystem()
 {
   pool = new EntityPool();
@@ -30,7 +28,7 @@ void EntitySystem::solve()
   }
 }
 
-void EntitySystem::render(Graphics* g) const
+void EntitySystem::render() const
 {
   world_renderer->prepareForGeo(cam);
   for(int i = 0; i < pool->geoComponents.size(); i++)
