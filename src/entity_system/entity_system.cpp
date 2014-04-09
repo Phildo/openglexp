@@ -1,26 +1,20 @@
 #include "entity_system.h"
-#include "graphics.h"
-#include "entity_factory.h"
 #include "entity_pool.h"
+#include "entity_factory.h"
+
 #include "physics_solver.h"
-#include "input_injector.h"
-#include "basic_reconciler.h"
 #include "world_renderer.h"
 #include "hud_renderer.h"
-#include "camera.h"
 
-EntitySystem::EntitySystem(Graphics* g)
+#include "graphics.h"
+
+EntitySystem::EntitySystem()
 {
-  graphics = g;
-
   pool = new EntityPool();
-  physics_solver = new PhysicsSolver();
-  input_injector = new InputInjector();
-  world_renderer = new WorldRenderer(graphics);
-  hud_renderer = new HUDRenderer(graphics);
-  b_reconciler = new BasicReconciler();
 
-  cam = new Camera();
+  physics_solver = new PhysicsSolver();
+  world_renderer = new WorldRenderer();
+  hud_renderer = new HUDRenderer();
 }
 
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
@@ -36,15 +30,7 @@ void EntitySystem::solve()
   }
 }
 
-void EntitySystem::input(Input& in)
-{
-  for(int i = 0; i < pool->inputPlanarComponents.size(); i++)
-  {
-    input_injector->inject(in, pool->inputPlanarComponents[i]);
-  }
-}
-
-void EntitySystem::render(GLFWwindow* window) const
+void EntitySystem::render(Graphics* g) const
 {
   world_renderer->prepareForGeo(cam);
   for(int i = 0; i < pool->geoComponents.size(); i++)
@@ -86,11 +72,9 @@ void EntitySystem::reconcile()
 
 EntitySystem::~EntitySystem()
 {
-  delete cam;
   delete b_reconciler;
   delete hud_renderer;
   delete world_renderer;
-  delete input_injector;
   delete physics_solver;
   delete pool;
 }

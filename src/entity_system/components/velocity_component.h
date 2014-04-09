@@ -2,12 +2,14 @@
 #define _VELOCITY_COMPONENT_H_
 
 #include <glm/glm.hpp>
+class Entity;
 
 class VelocityComponent
 {
   private:
   public:
-    int entityIndex;
+    Entity* entity;
+
     glm::vec3 vel;
 };
 

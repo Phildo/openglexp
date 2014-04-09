@@ -3,12 +3,13 @@
 
 #include <glm/glm.hpp>
 #define MAX_HUD_VERTS 20
+class Entity;
 
 class HudComponent
 {
   private:
   public:
-    int entityIndex;
+    Entity* entity;
 
     int numVerts;
     glm::vec3 pos[MAX_HUD_VERTS];

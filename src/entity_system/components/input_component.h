@@ -1,11 +1,13 @@
 #ifndef _INPUT_COMPONENT_H_
 #define _INPUT_COMPONENT_H_
 
+class Entity;
+
 class InputComponent
 {
   private:
   public:
-    int entityIndex;
+    Entity* entity;
 };
 
 #endif

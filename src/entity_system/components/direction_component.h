@@ -2,12 +2,14 @@
 #define _DIRECTION_COMPONENT_H_
 
 #include <glm/glm.hpp>
+class Entity;
 
 class DirectionComponent
 {
   private:
   public:
-    int entityIndex;
+    Entity* entity;
+
     glm::vec3 dir;
 };
 

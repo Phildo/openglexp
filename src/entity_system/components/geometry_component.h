@@ -3,12 +3,13 @@
 
 #include <glm/glm.hpp>
 #define MAX_GEO_VERTS 20
+class Entity;
 
 class GeometryComponent
 {
   private:
   public:
-    int entityIndex;
+    Entity* entity;
 
     int numVerts;
     glm::vec3 pos[MAX_GEO_VERTS];
