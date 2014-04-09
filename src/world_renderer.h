@@ -2,10 +2,10 @@
 #define _WORLD_RENDERER_H_
 
 #include "renderer.h"
-#include "geo_component.h"
-#include "light_component.h"
 
-class Camera;
+class GeoComponent;
+class CameraComponent;
+class LightComponent;
 
 class WorldRenderer : public Renderer
 {
@@ -77,7 +77,7 @@ class WorldRenderer : public Renderer
     WorldRenderer(Graphics* g);
     ~WorldRenderer();
 
-    void prepareForGeo(const Camera* cam) const;
+    void prepareForGeo(const CameraComponent* cam) const;
     void loadGeoVertData(const GeoComponent& gc) const;
     void renderGeo(const GeoComponent& gc) const;
 
@@ -86,7 +86,7 @@ class WorldRenderer : public Renderer
     void prepareForShadowOrientation(const GLuint orientation) const;
     void renderShadow(const GeoComponent& gc) const;
 
-    void prepareForLight(const Camera* cam) const;
+    void prepareForLight() const;
     void light(const LightComponent& lc) const;
 
     void blit() const;

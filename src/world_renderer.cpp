@@ -1,5 +1,7 @@
 #include "world_renderer.h"
-#include "Camera.h"
+#include "geo_component.h"
+#include "camera_component.h"
+#include "light_component.h"
 
 #define POT 8
 
@@ -146,8 +148,6 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   gl_a_shadow_tex_id     = glGetUniformLocation(gl_a_program_id, "shadow_tex");
   gl_a_tex_id            = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
   gl_a_light_pos_vec_id  = glGetUniformLocation(gl_a_program_id, "lightPosVec");
-  gl_a_light_view_mat_id = glGetUniformLocation(gl_a_program_id, "lightViewMat");
-  gl_a_light_proj_mat_id = glGetUniformLocation(gl_a_program_id, "lightProjMat");
     //attribs
   gl_a_pos_attrib_id = glGetAttribLocation(gl_a_program_id, "vpos");
 
@@ -199,7 +199,7 @@ WorldRenderer::WorldRenderer(Graphics* g) : Renderer(g)
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.pos, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::prepareForGeo(const Camera* cam) const
+void WorldRenderer::prepareForGeo(const CameraComponent* cam) const
 {
   glCullFace(GL_BACK);
 
@@ -273,7 +273,7 @@ void WorldRenderer::renderShadow(const GeoComponent& gc) const
   glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
 }
 
-void WorldRenderer::prepareForLight(const Camera* cam) const
+void WorldRenderer::prepareForLight() const
 {
   glCullFace(GL_BACK);
 
@@ -299,8 +299,6 @@ void WorldRenderer::light(const LightComponent& lc) const
   //duplicate cam info from shadow pass (i know, ridiculous)
   glm::mat4 projMat = glm::perspective(45.0f, 2.0f, 0.1f, 100.0f);
   glm::mat4 viewMat = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
-  glUniformMatrix4fv(gl_a_light_proj_mat_id, 1, GL_FALSE, &projMat[0][0]);
-  glUniformMatrix4fv(gl_a_light_view_mat_id, 1, GL_FALSE, &viewMat[0][0]);
 
   glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
 }
