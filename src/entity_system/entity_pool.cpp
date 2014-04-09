@@ -16,6 +16,13 @@ Entity* EntityPool::createEntity(component_signature csig)
   Entity* e = &entities[num_entities];
 
 //ECS_CONSTRUCT_ADD_C_TO_E_START
+if(csig & component_signature_camera_component)
+{
+  e->camera_component = &camera_components[num_camera_components];
+  camera_components[num_camera_components].entity = e;
+  num_camera_components++;
+}
+
 if(csig & component_signature_direction_component)
 {
   e->direction_component = &direction_components[num_direction_components];
@@ -112,6 +119,13 @@ void EntityPool::deleteEntity(Entity* e)
   num_entities--;
 
 //ECS_CONSTRUCT_DELETE_C_FROM_E_START
+if(e->camera_component)
+{
+  num_camera_components--;
+  camera_components[num_camera_components].entity.camera_component = e->camera_component;
+  *e->camera_component = camera_components[num_camera_components];
+}
+
 if(e->direction_component)
 {
   num_direction_components--;
@@ -199,6 +213,8 @@ if(e->velocity_component)
 //ECS_CONSTRUCT_DELETE_C_FROM_E_END
 
 //ECS_CONSTRUCT_DELETE_E_START
+if(entities[num_entities].camera_component)
+  entities[num_entities].camera_component.entity = e;
 if(entities[num_entities].direction_component)
   entities[num_entities].direction_component.entity = e;
 if(entities[num_entities].geometry_component)

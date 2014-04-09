@@ -2,6 +2,7 @@
 #define _ENTITY_H_
 
 //ECS_CONSTRUCT_C_FORWARD_DECLS_START
+class CameraComponent;
 class DirectionComponent;
 class GeometryComponent;
 class HudComponent;
@@ -21,6 +22,7 @@ class Entity
   private:
   public:
 //ECS_CONSTRUCT_PUBLIC_C_MEMBERS_START
+CameraComponent* camera_component;
 DirectionComponent* direction_component;
 GeometryComponent* geometry_component;
 HudComponent* hud_component;

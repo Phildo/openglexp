@@ -1,10 +1,10 @@
-#ifndef _PROJECTION_COMPONENT_H_
-#define _PROJECTION_COMPONENT_H_
+#ifndef _CAMERA_COMPONENT_H_
+#define _CAMERA_COMPONENT_H_
 
 #include "gl_include.h"
 class Entity;
 
-class ProjectionComponent
+class CameraComponent
 {
   private:
   public:
@@ -14,6 +14,7 @@ class ProjectionComponent
     float farPlane;
     float fov;
     glm::mat4 projMat();
+    glm::mat4 viewMat();
 };
 
 #endif

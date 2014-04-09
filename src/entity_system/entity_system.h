@@ -10,8 +10,6 @@ class HudRenderer;
 
 class Graphics;
 class Input;
-class Camera;
-
 
 class EntitySystem
 {
@@ -22,8 +20,6 @@ class EntitySystem
     WorldRenderer* world_renderer;
     HudRenderer* hud_renderer;
     BasicReconciler* b_reconciler;
-
-    Camera* cam;
   public:
     EntitySystem();
     ~EntitySystem();
