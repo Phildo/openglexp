@@ -3,6 +3,8 @@
 #include "camera_component.h"
 #include "light_component.h"
 
+#define WIDTH 512
+#define HEIGHT 256
 #define POT 8
 
 WorldRenderer::WorldRenderer()
@@ -60,7 +62,7 @@ WorldRenderer::WorldRenderer()
   glActiveTexture(GL_TEXTURE0 + 0);
   glGenTextures(1, &gl_g_fb_pos_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_g_fb_pos_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sWidth/POT, sHeight/POT, 0, GL_RGBA, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WIDTH/POT, HEIGHT/POT, 0, GL_RGBA, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -71,7 +73,7 @@ WorldRenderer::WorldRenderer()
   glActiveTexture(GL_TEXTURE0 + 1);
   glGenTextures(1, &gl_g_fb_col_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_g_fb_col_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth/POT, sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WIDTH/POT, HEIGHT/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -82,7 +84,7 @@ WorldRenderer::WorldRenderer()
   glActiveTexture(GL_TEXTURE0 + 2);
   glGenTextures(1, &gl_g_fb_norm_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_g_fb_norm_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth/POT, sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WIDTH/POT, HEIGHT/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -92,7 +94,7 @@ WorldRenderer::WorldRenderer()
     //Depth buff
   glGenRenderbuffers(1, &gl_g_fb_dep_buff_id);
   glBindRenderbuffer(GL_RENDERBUFFER, gl_g_fb_dep_buff_id);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, sWidth/POT, sHeight/POT);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WIDTH/POT, HEIGHT/POT);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl_g_fb_dep_buff_id);
 
 
@@ -125,12 +127,12 @@ WorldRenderer::WorldRenderer()
   glActiveTexture(GL_TEXTURE0 + 3);
   glGenTextures(1, &gl_s_fb_cube_dep_tex_id);
   glBindTexture(GL_TEXTURE_CUBE_MAP, gl_s_fb_cube_dep_tex_id);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT24, sWidth/POT, sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT24, sWidth/POT, sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT24, sWidth/POT, sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT24, sWidth/POT, sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT24, sWidth/POT, sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT24, sWidth/POT, sWidth/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
@@ -170,7 +172,7 @@ WorldRenderer::WorldRenderer()
   glActiveTexture(GL_TEXTURE0 + 4);
   glGenTextures(1, &gl_a_fb_tex_id);
   glBindTexture(GL_TEXTURE_2D, gl_a_fb_tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth/POT, sHeight/POT, 0, GL_RGB, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WIDTH/POT, HEIGHT/POT, 0, GL_RGB, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -205,7 +207,7 @@ void WorldRenderer::prepareForGeo(const CameraComponent* cam) const
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_g_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glViewport(0,0,sWidth/POT,sHeight/POT);
+  glViewport(0,0,WIDTH/POT,HEIGHT/POT);
   glUseProgram(gl_g_program_id);
   GLenum drawBuffers[3] = {GL_COLOR_ATTACHMENT0 + 0, GL_COLOR_ATTACHMENT0 + 1, GL_COLOR_ATTACHMENT0 + 2};
   glDrawBuffers(3, drawBuffers);
@@ -237,7 +239,7 @@ void WorldRenderer::prepareForShadow(const LightComponent& lc)
   glCullFace(GL_FRONT);
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
-  glViewport(0,0,sWidth/POT,sWidth/POT);
+  glViewport(0,0,WIDTH/POT,WIDTH/POT);
 
   glUseProgram(gl_s_program_id);
   GLenum drawBuffers[0] = {};
@@ -279,7 +281,7 @@ void WorldRenderer::prepareForLight() const
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_a_fb_id);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glViewport(0,0,sWidth/POT,sHeight/POT);
+  glViewport(0,0,WIDTH/POT,HEIGHT/POT);
   glUseProgram(gl_a_program_id);
   GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0 + 0};
   glDrawBuffers(1, drawBuffers);
@@ -307,7 +309,7 @@ void WorldRenderer::blit() const
 {
   glBindFramebuffer(GL_FRAMEBUFFER,0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glViewport(0,0,sWidth,sHeight);
+  glViewport(0,0,WIDTH,HEIGHT);
   glUseProgram(gl_b_program_id);
 
   glBindVertexArray(gl_b_vert_array_id);
