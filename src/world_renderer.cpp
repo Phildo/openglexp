@@ -217,14 +217,14 @@ void WorldRenderer::prepareForGeo(const CameraComponent* cam) const
   glUniformMatrix4fv(gl_g_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
 }
 
-void WorldRenderer::loadGeoVertData(const GeoComponent& gc) const
+void WorldRenderer::loadModelVertData(const Model& m) const
 {
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*m.numVerts, (GLfloat *)m.pos, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_col_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.color, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*m.numVerts, (GLfloat *)m.color, GL_STATIC_DRAW);
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_norm_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.norm, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*m.numVerts, (GLfloat *)m.norm, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::renderGeo(const GeoComponent& gc) const

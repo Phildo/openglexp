@@ -1,5 +1,6 @@
 #include "entity_system.h"
 #include "entity_pool.h"
+#include "models.h"
 #include "entity_factory.h"
 
 #include "physics_solver.h"
@@ -9,6 +10,7 @@
 EntitySystem::EntitySystem()
 {
   pool = new EntityPool();
+  models = new Models();
 
   physics_solver = new PhysicsSolver();
   world_renderer = new WorldRenderer();
@@ -22,40 +24,48 @@ void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
 
 void EntitySystem::solve()
 {
-  for(int i = 0; i < pool->physicsComponents.size(); i++)
+  for(int i = 0; i < pool->physics_components.size(); i++)
   {
-    physics_solver->solve(pool->physicsComponents[i]);
+    physics_solver->solve(pool->physics_components[i]);
   }
 }
 
 void EntitySystem::render() const
 {
-  world_renderer->prepareForGeo(cam);
-  for(int i = 0; i < pool->geoComponents.size(); i++)
+  for(int i = 0; i < pool->camera_components.size(); i++) //should only be 1. whatever.
+    world_renderer->prepareForGeo(pool->camera_components[i]);
+
+  world_renderer->loadGeoVertData(models->triangle);
+  for(int i = 0; i < pool->triangle_geometry_components.size(); i++)
+    world_renderer->renderGeo(pool->triangle_geometry_components[i]);
+  world_renderer->loadGeoVertData(models->bilboard);
+  for(int i = 0; i < pool->bilboard_geometry_components.size(); i++)
+    world_renderer->renderGeo(pool->bilboard_geometry_components[i]);
+
+  for(int i = 0; i < pool->light_components.size(); i++)
   {
-    world_renderer->loadGeoVertData(pool->geoComponents[i]);
-    world_renderer->renderGeo(pool->geoComponents[i]);
-  }
-  for(int i = 0; i < pool->lightComponents.size(); i++)
-  {
-    world_renderer->prepareForShadow(pool->lightComponents[i]);
-    for(int k = GL_TEXTURE_CUBE_MAP_POSITIVE_X; k < GL_TEXTURE_CUBE_MAP_POSITIVE_X + 6; k++) //0-5, I think...
+    world_renderer->prepareForShadow(pool->light_components[i]->entity->spacial_component);
+    for(int k = GL_TEXTURE_CUBE_MAP_POSITIVE_X; k < GL_TEXTURE_CUBE_MAP_POSITIVE_X + 6; k++)
     {
       world_renderer->prepareForShadowOrientation(k);
-      for(int j = 0; j < pool->geoComponents.size(); j++)
-      {
-        world_renderer->loadShadowVertData(pool->geoComponents[j]);
-        world_renderer->renderShadow(pool->geoComponents[j]);
-      }
+
+      world_renderer->loadShadowVertData(models->triangle);
+      for(int j = 0; j < pool->triangle_geometry_components.size(); j++)
+        world_renderer->renderShadow(pool->triangle_geometry_components[j]);
+      world_renderer->loadShadowVertData(models->bilboard);
+      for(int j = 0; j < pool->bilboard_geometry_components.size(); j++)
+        world_renderer->renderShadow(pool->bilboard_geometry_components[j]);
     }
-    world_renderer->prepareForLight(cam);
-    world_renderer->light(pool->lightComponents[i]);
+
+    for(int j = 0; j < pool->camera_components.size(); j++) //should only be 1. whatever.
+      world_renderer->prepareForLight(pool->camera_components[j]);
+    world_renderer->light(pool->light_components[i]->entity->spacial_component);
   }
   world_renderer->blit();
   
   hud_renderer->prepareForDraw();
-  for(int i = 0; i < pool->HUDComponents.size(); i++)
-    hud_renderer->render(pool->HUDComponents[i]);
+  for(int i = 0; i < pool->hud_components.size(); i++)
+    hud_renderer->render(pool->hud_components[i]);
 
   glfwSwapBuffers(window);
 }

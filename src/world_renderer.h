@@ -3,6 +3,7 @@
 
 #include "renderer.h"
 
+class Model;
 class GeoComponent;
 class CameraComponent;
 class LightComponent;
@@ -78,7 +79,7 @@ class WorldRenderer : public Renderer
     ~WorldRenderer();
 
     void prepareForGeo(const CameraComponent* cam) const;
-    void loadGeoVertData(const GeoComponent& gc) const;
+    void loadModelVertData(const Model& m) const
     void renderGeo(const GeoComponent& gc) const;
 
     void prepareForShadow(const LightComponent& lc);

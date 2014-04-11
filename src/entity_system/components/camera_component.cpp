@@ -1,6 +1,5 @@
 #include "camera_component.h"
-#include "position_component.h"
-#include "direction_component.h"
+#include "spacial_component.h"
 
 CameraComponent::CameraComponent()
 {
@@ -17,6 +16,6 @@ glm::mat4 CameraComponent::projectionMat()
 
 glm::mat4 CameraComponent::viewMat()
 {
-  return glm::lookAt(entity->position_component->pos,entity->direction_component->dir,glm::vec3(0,1,0));
+  return glm::lookAt(entity->spacial_component->pos,entity->spacial_component->dir,glm::vec3(0,1,0));
 }
 
