@@ -1,7 +1,7 @@
 #ifndef _PHYSICS_SOLVER_H_
 #define _PHYSICS_SOLVER_H_
 
-#include "physics_component.h"
+#include "entity_system/components/spacial_component.h"
 
 class PhysicsSolver
 {
@@ -10,7 +10,7 @@ class PhysicsSolver
     PhysicsSolver();
     ~PhysicsSolver();
 
-    void solve(PhysicsComponent& pc) const;
+    void solve(SpacialComponent& pc) const;
 };
 
 #endif

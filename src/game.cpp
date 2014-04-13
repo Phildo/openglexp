@@ -2,8 +2,7 @@
 
 #include "mygl.h"
 #include "input.h"
-#include "entity_system.h"
-#include "scener.h"
+#include "entity_system/entity_system.h"
 
 #include <ctime>
 #include <sys/time.h>
@@ -23,7 +22,6 @@ Game::Game()
   myGL = new MyGL();
   input = new Input(myGL);
   entitySystem = new EntitySystem();
-  scener = new Scener();
 
   BasicEntityFactory *bef     = new BasicEntityFactory();
   BilboardEntityFactory *bbef = new BilboardEntityFactory();
@@ -64,9 +62,7 @@ void Game::run()
       ms_til_tick += MS_PER_TICK;
       input->poll();
 
-      entitySystem->solve();
-      entitySystem->input(*input);
-      entitySystem->reconcile();
+      entitySystem->update(*input);
       render = true;
 
       gettimeofday(&tick_stamp, NULL);
@@ -80,10 +76,11 @@ void Game::run()
       gettimeofday(&now_stamp, NULL);
       if(msPassed(debug_stamp,now_stamp) > 0)
         std::cout << (int)(1/(double(msPassed(debug_stamp,now_stamp))/1000.0)) << std::endl;
-        gettimeofday(&debug_stamp, NULL);
+      gettimeofday(&debug_stamp, NULL);
       #endif
-     entitySystem->render(myGL->window);
-     render = false;
+      entitySystem->render();
+      glfwSwapBuffers(myGL->window);
+      render = false;
     }
     run = (!glfwWindowShouldClose(myGL->window) && (glfwGetKey(myGL->window, GLFW_KEY_ESCAPE) != GLFW_PRESS));
   }
@@ -91,7 +88,6 @@ void Game::run()
 
 Game::~Game()
 {
-  delete scener;
   delete entitySystem;
   delete input;
   delete myGL;

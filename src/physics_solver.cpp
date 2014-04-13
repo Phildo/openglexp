@@ -8,7 +8,7 @@ PhysicsSolver::~PhysicsSolver()
 {
 }
 
-void PhysicsSolver::solve(PhysicsComponent& pc) const
+void PhysicsSolver::solve(SpacialComponent& pc) const
 {
   pc.pos.x += pc.vel.x;
   pc.pos.y += pc.vel.y;

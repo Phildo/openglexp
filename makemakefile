@@ -15,7 +15,7 @@ LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEB
 #MAKEMAKE>
 
 makemake : 
-	makemake $(SRCDIR)/*.cpp
+	find $(SRCDIR) -iregex .*\.cpp | xargs makemake
 
 tags : 
 	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags

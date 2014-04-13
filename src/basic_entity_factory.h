@@ -1,7 +1,7 @@
 #ifndef _BASIC_ENTITY_FACTORY_H_
 #define _BASIC_ENTITY_FACTORY_H_
 
-#include "entity_factory.h"
+#include "entity_system/entity_factory.h"
 
 class EntityPool;
 

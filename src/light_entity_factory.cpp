@@ -1,8 +1,8 @@
 #include "light_entity_factory.h"
 
-#include "entity.h"
-#include "entity_pool.h"
-#include "light_component.h"
+#include "entity_system/entity.h"
+#include "entity_system/entity_pool.h"
+#include "entity_system/components/light_component.h"
 
 #include "gl_include.h"
 #include "FLAT_utils.h"
@@ -20,17 +20,12 @@ LightEntityFactory::~LightEntityFactory()
 
 void LightEntityFactory::produce(EntityPool* ep)
 {
-  Entity& e = ep->createEntity( ComponentSig_Light | ComponentSig_Physics | ComponentSig_InputPlanar );  
-  PhysicsComponent& pc = ep->physicsComponents[e.physicsComponentIndex];
-  pc.vel.x = 0;
-  pc.vel.y = 0;
-  pc.vel.z = 0;
-  pc.pos.x = 0;
-  pc.pos.y = 0;
-  pc.pos.z = 20;
-  LightComponent& lc = ep->lightComponents[e.lightComponentIndex]; //note- physics pos will override light pos given opportunity
-  lc.pos.x = 0;
-  lc.pos.y = 0;
-  lc.pos.z = 20;
+  Entity* e = ep->createEntity( component_signature_light_component | component_signature_spacial_component );  
+  e->spacial_component->vel.x = 0;
+  e->spacial_component->vel.y = 0;
+  e->spacial_component->vel.z = 0;
+  e->spacial_component->pos.x = 0;
+  e->spacial_component->pos.y = 0;
+  e->spacial_component->pos.z = 20;
 }
 

@@ -1,7 +1,11 @@
 #include "world_renderer.h"
-#include "geo_component.h"
-#include "camera_component.h"
-#include "light_component.h"
+#include "entity_system/entity.h"
+#include "entity_system/components/camera_component.h"
+#include "entity_system/components/light_component.h"
+#include "entity_system/components/geometry_component.h"
+#include "entity_system/components/spacial_component.h"
+#include "entity_system/models.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 #define WIDTH 512
 #define HEIGHT 256
@@ -9,15 +13,7 @@
 
 WorldRenderer::WorldRenderer()
 {
-  //init the quad
-  screen_quad.pos[0] = glm::vec3(-1.0,-1.0,0.0);
-  screen_quad.pos[1] = glm::vec3( 1.0,-1.0,0.0);
-  screen_quad.pos[2] = glm::vec3( 1.0, 1.0,0.0);
-  screen_quad.pos[3] = glm::vec3(-1.0,-1.0,0.0);
-  screen_quad.pos[4] = glm::vec3( 1.0, 1.0,0.0);
-  screen_quad.pos[5] = glm::vec3(-1.0, 1.0,0.0);
-  screen_quad.numVerts = 6;
-
+  models = new Models();
   //init shadow projection matrix
   shadowProjMat = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
 
@@ -162,7 +158,7 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(gl_a_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_a_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*models->models[0].numVerts, (GLfloat *)models->models[0].pos, GL_STATIC_DRAW);
 
   //Accumulation(light) FB
   glGenFramebuffers(1, &gl_a_fb_id);
@@ -198,10 +194,10 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(gl_b_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_b_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*screen_quad.numVerts, (GLfloat *)screen_quad.pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*models->models[0].numVerts, (GLfloat *)models->models[0].pos, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::prepareForGeo(const CameraComponent* cam) const
+void WorldRenderer::prepareForGeo(const CameraComponent& cam) const
 {
   glCullFace(GL_BACK);
 
@@ -213,8 +209,8 @@ void WorldRenderer::prepareForGeo(const CameraComponent* cam) const
   glDrawBuffers(3, drawBuffers);
 
   glBindVertexArray(gl_g_vert_array_id);
-  glUniformMatrix4fv(gl_g_proj_mat_id, 1, GL_FALSE, &cam->projMat[0][0]);
-  glUniformMatrix4fv(gl_g_view_mat_id, 1, GL_FALSE, &cam->viewMat[0][0]);
+  glUniformMatrix4fv(gl_g_proj_mat_id, 1, GL_FALSE, &cam.projectionMat()[0][0]);
+  glUniformMatrix4fv(gl_g_view_mat_id, 1, GL_FALSE, &cam.viewMat()[0][0]);
 }
 
 void WorldRenderer::loadModelVertData(const Model& m) const
@@ -227,11 +223,11 @@ void WorldRenderer::loadModelVertData(const Model& m) const
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*m.numVerts, (GLfloat *)m.norm, GL_STATIC_DRAW);
 }
 
-void WorldRenderer::renderGeo(const GeoComponent& gc) const
+void WorldRenderer::renderGeo(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
-  glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, 6); //NEEDS TO REFERENCE MODEL OH GOD NO
 }
 
 void WorldRenderer::prepareForShadow(const LightComponent& lc)
@@ -245,20 +241,20 @@ void WorldRenderer::prepareForShadow(const LightComponent& lc)
   GLenum drawBuffers[0] = {};
   glDrawBuffers(0, drawBuffers);
 
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3( 1,0,0),glm::vec3(0,-1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(-1,0,0),glm::vec3(0,-1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0, 1),glm::vec3(0,-1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,-1,0));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Y-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0, 1,0),glm::vec3(0,0, 1));
-  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Y-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,-1,0),glm::vec3(0,0,-1));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.entity->spacial_component->pos,lc.entity->spacial_component->pos+glm::vec3( 1,0,0),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_X-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.entity->spacial_component->pos,lc.entity->spacial_component->pos+glm::vec3(-1,0,0),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.entity->spacial_component->pos,lc.entity->spacial_component->pos+glm::vec3(0,0, 1),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Z-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.entity->spacial_component->pos,lc.entity->spacial_component->pos+glm::vec3(0,0,-1),glm::vec3(0,-1,0));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_POSITIVE_Y-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.entity->spacial_component->pos,lc.entity->spacial_component->pos+glm::vec3(0, 1,0),glm::vec3(0,0, 1));
+  shadowViewMats[GL_TEXTURE_CUBE_MAP_NEGATIVE_Y-GL_TEXTURE_CUBE_MAP_POSITIVE_X] = glm::lookAt(lc.entity->spacial_component->pos,lc.entity->spacial_component->pos+glm::vec3(0,-1,0),glm::vec3(0,0,-1));
   glBindVertexArray(gl_s_vert_array_id);
   glUniformMatrix4fv(gl_s_proj_mat_id, 1, GL_FALSE, &shadowProjMat[0][0]);
 }
 
-void WorldRenderer::loadShadowVertData(const GeoComponent& gc) const
+void WorldRenderer::loadShadowVertData(const Model& m) const
 {
   glBindBuffer(GL_ARRAY_BUFFER, gl_s_pos_buff_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*gc.numVerts, (GLfloat *)gc.pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*m.numVerts, (GLfloat *)m.pos, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::prepareForShadowOrientation(const GLuint orientation) const
@@ -268,11 +264,11 @@ void WorldRenderer::prepareForShadowOrientation(const GLuint orientation) const
   glUniformMatrix4fv(gl_s_view_mat_id, 1, GL_FALSE, &shadowViewMats[orientation-GL_TEXTURE_CUBE_MAP_POSITIVE_X][0][0]);
 }
 
-void WorldRenderer::renderShadow(const GeoComponent& gc) const
+void WorldRenderer::renderShadow(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_s_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_s_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
-  glDrawArrays(GL_TRIANGLES, 0, gc.numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, 6);//NEEDS TO REFERENCE MODEL OH GOD NO
 }
 
 void WorldRenderer::prepareForLight() const
@@ -296,13 +292,8 @@ void WorldRenderer::prepareForLight() const
 
 void WorldRenderer::light(const LightComponent& lc) const
 {
-  glUniform3fv(gl_a_light_pos_vec_id, 1, &lc.pos[0]);
-
-  //duplicate cam info from shadow pass (i know, ridiculous)
-  glm::mat4 projMat = glm::perspective(45.0f, 2.0f, 0.1f, 100.0f);
-  glm::mat4 viewMat = glm::lookAt(lc.pos,lc.pos+glm::vec3(0,0,-1),glm::vec3(0,1,0));
-
-  glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
+  glUniform3fv(gl_a_light_pos_vec_id, 1, &lc.entity->spacial_component->pos[0]);
+  glDrawArrays(GL_TRIANGLES, 0, models->models[0].numVerts);
 }
 
 void WorldRenderer::blit() const
@@ -314,7 +305,7 @@ void WorldRenderer::blit() const
 
   glBindVertexArray(gl_b_vert_array_id);
   glUniform1i(gl_b_tex_id, 4);
-  glDrawArrays(GL_TRIANGLES, 0, screen_quad.numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, models->models[0].numVerts);
 }
 
 WorldRenderer::~WorldRenderer()

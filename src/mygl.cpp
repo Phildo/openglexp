@@ -1,5 +1,7 @@
 #include "mygl.h"
 #include <stdlib.h>
+#include <errno.h>
+#include <iostream>
 #include <cmath>
 
 #define SCREEN_WIDTH 512

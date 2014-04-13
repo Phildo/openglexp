@@ -1,12 +1,12 @@
-#ifndef _MODELS_H_
-#define _MODELS_H_
+#ifndef _MODEL_H_
+#define _MODEL_H_
 
 #define MAX_VERTS 20
 
 #include <glm/glm.hpp>
 class Entity;
 
-class Models
+class Model
 {
   private:
   public:

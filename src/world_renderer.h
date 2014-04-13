@@ -2,11 +2,13 @@
 #define _WORLD_RENDERER_H_
 
 #include "renderer.h"
+#include <glm/glm.hpp>
 
-class Model;
-class GeoComponent;
 class CameraComponent;
+class GeometryComponent;
 class LightComponent;
+class Models;
+class Model;
 
 class WorldRenderer : public Renderer
 {
@@ -55,8 +57,6 @@ class WorldRenderer : public Renderer
     GLuint gl_a_shadow_tex_id;
     GLuint gl_a_tex_id;
     GLuint gl_a_light_pos_vec_id;
-    GLuint gl_a_light_proj_mat_id;
-    GLuint gl_a_light_view_mat_id;
 
     GLuint gl_a_fb_id;
     GLuint gl_a_fb_tex_id;
@@ -68,8 +68,8 @@ class WorldRenderer : public Renderer
     GLuint gl_b_pos_attrib_id;
     GLuint gl_b_tex_id;
 
-    GeoComponent screen_quad; //really just a quad- outside of entity_system
-
+    //bad :(
+    Models* models;
     //Projections for 6 sided shadow cube
     glm::mat4 shadowProjMat; 
     glm::mat4 shadowViewMats[6];
@@ -78,14 +78,14 @@ class WorldRenderer : public Renderer
     WorldRenderer();
     ~WorldRenderer();
 
-    void prepareForGeo(const CameraComponent* cam) const;
-    void loadModelVertData(const Model& m) const
-    void renderGeo(const GeoComponent& gc) const;
+    void prepareForGeo(const CameraComponent& cam) const;
+    void loadModelVertData(const Model& m) const;
+    void renderGeo(const GeometryComponent& gc) const;
 
     void prepareForShadow(const LightComponent& lc);
-    void loadShadowVertData(const GeoComponent& gc) const;
+    void loadShadowVertData(const Model& m) const;
     void prepareForShadowOrientation(const GLuint orientation) const;
-    void renderShadow(const GeoComponent& gc) const;
+    void renderShadow(const GeometryComponent& gc) const;
 
     void prepareForLight() const;
     void light(const LightComponent& lc) const;

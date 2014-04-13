@@ -7,7 +7,6 @@ class EntityFactory;
 
 class PhysicsSolver;
 class WorldRenderer;
-class HudRenderer;
 
 class Input;
 
@@ -19,7 +18,9 @@ class EntitySystem
 
     PhysicsSolver* physics_solver;
     WorldRenderer* world_renderer;
-    HudRenderer* hud_renderer;
+
+    void solve();
+    void reconcile();
   public:
     EntitySystem();
     ~EntitySystem();

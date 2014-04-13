@@ -4,7 +4,6 @@
 class MyGL;
 class Input;
 class EntitySystem;
-class Scener;
 
 class Game
 {
@@ -13,7 +12,6 @@ class Game
     Input* input;
 
     EntitySystem* entitySystem;
-    Scener* scener;
   public:
     Game();
     ~Game();

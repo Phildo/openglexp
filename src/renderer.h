@@ -1,6 +1,8 @@
 #ifndef _RENDERER_H_
 #define _RENDERER_H_
 
+#include "gl_include.h"
+
 class Renderer
 {
   private:

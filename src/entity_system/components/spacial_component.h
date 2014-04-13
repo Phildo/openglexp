@@ -12,7 +12,7 @@ class SpacialComponent
 
     glm::vec3 pos;
     glm::vec3 vel;
-    glm::vec3 dir;
+    glm::vec3 rot;
     glm::vec3 rotVel;
 };
 
