@@ -18,9 +18,6 @@ GeometryComponent* geometry_component;
 LightComponent* light_component;
 SpacialComponent* spacial_component;
 //ECS_CONSTRUCT_PUBLIC_C_MEMBERS_END
-
-    Entity();
-    ~Entity();
 };
 
 #endif
