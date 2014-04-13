@@ -59,28 +59,28 @@ void EntityPool::deleteEntity(Entity* e)
 if(e->camera_component)
 {
   num_camera_components--;
-  camera_components[num_camera_components].entity.camera_component = e->camera_component;
+  camera_components[num_camera_components].entity->camera_component = e->camera_component;
   *e->camera_component = camera_components[num_camera_components];
 }
 
 if(e->geometry_component)
 {
   num_geometry_components--;
-  geometry_components[num_geometry_components].entity.geometry_component = e->geometry_component;
+  geometry_components[num_geometry_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_components[num_geometry_components];
 }
 
 if(e->light_component)
 {
   num_light_components--;
-  light_components[num_light_components].entity.light_component = e->light_component;
+  light_components[num_light_components].entity->light_component = e->light_component;
   *e->light_component = light_components[num_light_components];
 }
 
 if(e->spacial_component)
 {
   num_spacial_components--;
-  spacial_components[num_spacial_components].entity.spacial_component = e->spacial_component;
+  spacial_components[num_spacial_components].entity->spacial_component = e->spacial_component;
   *e->spacial_component = spacial_components[num_spacial_components];
 }
 
@@ -88,13 +88,13 @@ if(e->spacial_component)
 
 //ECS_CONSTRUCT_DELETE_E_START
 if(entities[num_entities].camera_component)
-  entities[num_entities].camera_component.entity = e;
+  entities[num_entities].camera_component->entity = e;
 if(entities[num_entities].geometry_component)
-  entities[num_entities].geometry_component.entity = e;
+  entities[num_entities].geometry_component->entity = e;
 if(entities[num_entities].light_component)
-  entities[num_entities].light_component.entity = e;
+  entities[num_entities].light_component->entity = e;
 if(entities[num_entities].spacial_component)
-  entities[num_entities].spacial_component.entity = e;
+  entities[num_entities].spacial_component->entity = e;
 //ECS_CONSTRUCT_DELETE_E_END
 
   *e = entities[num_entities];
