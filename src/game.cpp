@@ -11,6 +11,7 @@
 
 #include "basic_entity_factory.h"
 #include "light_entity_factory.h"
+#include "camera_entity_factory.h"
 
 //#define DEBUG
 #define MS_PER_TICK 1000/60
@@ -24,10 +25,14 @@ Game::Game()
 
   BasicEntityFactory *bef     = new BasicEntityFactory();
   LightEntityFactory *lef     = new LightEntityFactory();
+  CameraEntityFactory *cef    = new CameraEntityFactory();
   for(int i = 0; i < 2; i++)
     entitySystem->produceEntityFromFactory(bef);
   for(int i = 0; i < 1; i++)
     entitySystem->produceEntityFromFactory(lef);
+  for(int i = 0; i < 1; i++)
+    entitySystem->produceEntityFromFactory(cef);
+  delete cef;
   delete lef;
   delete bef;
 }
