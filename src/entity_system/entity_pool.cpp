@@ -2,7 +2,13 @@
 
 EntityPool::EntityPool()
 {
-
+num_entities = 0;
+//ECS_CONSTRUCT_ZERO_COMPONENT_COUNTS_START
+num_camera_components = 0;
+num_geometry_components = 0;
+num_light_components = 0;
+num_spacial_components = 0;
+//ECS_CONSTRUCT_ZERO_COMPONENT_COUNTS_END
 }
 
 EntityPool::~EntityPool()

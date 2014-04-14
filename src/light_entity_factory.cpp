@@ -9,8 +9,8 @@ void LightEntityFactory::produce(EntityPool* ep)
   e->spacial_component->vel.x = 0;
   e->spacial_component->vel.y = 0;
   e->spacial_component->vel.z = 0;
-  e->spacial_component->pos.x = 0;
-  e->spacial_component->pos.y = 0;
-  e->spacial_component->pos.z = 20;
+  e->spacial_component->pos.x = (FLAT_Utils::randf()-0.5f)*5;
+  e->spacial_component->pos.y =(FLAT_Utils::randf()-0.5f)*5;
+  e->spacial_component->pos.z = (FLAT_Utils::randf())*20;
 }
 

@@ -11,7 +11,7 @@
 #include "light_entity_factory.h"
 #include "camera_entity_factory.h"
 
-#define DEBUG
+//#define DEBUG
 #define MS_PER_TICK (1000/60)
 #define MAX_CATCH_UP_TICKS 100
 
@@ -22,7 +22,7 @@ Game::Game()
   entitySystem = new EntitySystem();
 
   BasicEntityFactory *bef  = new BasicEntityFactory();  for(int i = 0; i < 2; i++) entitySystem->produceEntityFromFactory(bef); delete bef;
-  LightEntityFactory *lef  = new LightEntityFactory();  for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(lef); delete lef;
+  LightEntityFactory *lef  = new LightEntityFactory();  for(int i = 0; i < 20; i++) entitySystem->produceEntityFromFactory(lef); delete lef;
   CameraEntityFactory *cef = new CameraEntityFactory(); for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(cef); delete cef;
 }
 

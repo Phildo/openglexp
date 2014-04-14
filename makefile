@@ -38,7 +38,7 @@ $(ODIR)/models.o: src/entity_system/models.cpp src/entity_system/models.h src/en
 $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
 
-$(ODIR)/game.o: src/game.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/entity_system/entity_system.h src/basic_entity_factory.h src/entity_system/entity_factory.h src/light_entity_factory.h
+$(ODIR)/game.o: src/game.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/entity_system/entity_system.h src/basic_entity_factory.h src/entity_system/entity_factory.h src/light_entity_factory.h src/camera_entity_factory.h
 	$(CC) $(CFLAGS) src/game.cpp -o $(ODIR)/game.o
 
 $(ODIR)/input.o: src/input.cpp src/input.h src/mygl.h src/gl_include.h

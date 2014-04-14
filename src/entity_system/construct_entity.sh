@@ -74,6 +74,15 @@ rm $TMP_FILE
 
 ACTIVE_FILE="entity_pool.cpp"
 
+FLAG="ECS_CONSTRUCT_ZERO_COMPONENT_COUNTS"
+touch $TMP_FILE
+for i in components/*.h; do
+  UNDER=`fileToUnder $i`
+  echo "num_${UNDER}s = 0;" >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
+
 FLAG="ECS_CONSTRUCT_ADD_C_TO_E"
 touch $TMP_FILE
 for i in components/*.h; do
