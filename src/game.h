@@ -10,7 +10,6 @@ class Game
   private:
     MyGL* myGL;
     Input* input;
-
     EntitySystem* entitySystem;
   public:
     Game();

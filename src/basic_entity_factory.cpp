@@ -9,9 +9,9 @@ void BasicEntityFactory::produce(EntityPool* ep)
 
   e->geometry_component->model = 1; //TRIANGLE_MODEL
 
-  e->spacial_component->rotVel.y = (FLAT_Utils::randf()-0.5f)*2;
-  e->spacial_component->rotVel.x = (FLAT_Utils::randf()-0.5f)*2;
-  e->spacial_component->rotVel.z = (FLAT_Utils::randf()-0.5f)*2;
+  e->spacial_component->rotVel.y = (FLAT_Utils::randf()-0.5f)*0.02;
+  e->spacial_component->rotVel.x = (FLAT_Utils::randf()-0.5f)*0.02;
+  e->spacial_component->rotVel.z = (FLAT_Utils::randf()-0.5f)*0.02;
 
   e->spacial_component->rot.y = (FLAT_Utils::randf())*200;
   e->spacial_component->rot.x = (FLAT_Utils::randf())*200;

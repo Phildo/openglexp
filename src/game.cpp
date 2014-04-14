@@ -4,8 +4,6 @@
 #include "input.h"
 #include "entity_system/entity_system.h"
 
-#include <ctime>
-#include <sys/time.h>
 #include <stdio.h>
 #include <iostream>
 
@@ -13,8 +11,8 @@
 #include "light_entity_factory.h"
 #include "camera_entity_factory.h"
 
-//#define DEBUG
-#define MS_PER_TICK 1000/60
+#define DEBUG
+#define MS_PER_TICK (1000/60)
 #define MAX_CATCH_UP_TICKS 100
 
 Game::Game()
@@ -23,30 +21,21 @@ Game::Game()
   input = new Input(myGL);
   entitySystem = new EntitySystem();
 
-  BasicEntityFactory *bef     = new BasicEntityFactory();
-  LightEntityFactory *lef     = new LightEntityFactory();
-  CameraEntityFactory *cef    = new CameraEntityFactory();
-  for(int i = 0; i < 2; i++)
-    entitySystem->produceEntityFromFactory(bef);
-  for(int i = 0; i < 1; i++)
-    entitySystem->produceEntityFromFactory(lef);
-  for(int i = 0; i < 1; i++)
-    entitySystem->produceEntityFromFactory(cef);
-  delete cef;
-  delete lef;
-  delete bef;
+  BasicEntityFactory *bef  = new BasicEntityFactory();  for(int i = 0; i < 2; i++) entitySystem->produceEntityFromFactory(bef); delete bef;
+  LightEntityFactory *lef  = new LightEntityFactory();  for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(lef); delete lef;
+  CameraEntityFactory *cef = new CameraEntityFactory(); for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(cef); delete cef;
 }
 
-#define msPassed(f,t) ((t.tv_sec-f.tv_sec)*1000+(t.tv_usec-f.tv_usec)/1000)
+#define msPassed(f,t) ((t-f)*1000)
 void Game::run()
 {
   bool run = true;
   bool render = false;
 
-  timeval now_stamp; gettimeofday(&now_stamp, NULL);
-  timeval tick_stamp = now_stamp;
+  double now_stamp = glfwGetTime();
+  double tick_stamp = now_stamp;
   #ifdef DEBUG
-  timeval debug_stamp = now_stamp;
+  double debug_stamp = now_stamp;
   #endif
 
   int ms_til_tick = 0;
@@ -54,7 +43,7 @@ void Game::run()
 
   while(run)
   {
-    gettimeofday(&now_stamp, NULL);
+    now_stamp = glfwGetTime();
     if(msPassed(tick_stamp,now_stamp) > ms_til_tick)
       ms_til_tick -= msPassed(tick_stamp,now_stamp);
 
@@ -66,7 +55,7 @@ void Game::run()
       entitySystem->update(*input);
       render = true;
 
-      gettimeofday(&tick_stamp, NULL);
+      tick_stamp = glfwGetTime();
       catch_up_count++;
     }
     catch_up_count = 0;
@@ -74,10 +63,9 @@ void Game::run()
     if(render)
     {
       #ifdef DEBUG
-      gettimeofday(&now_stamp, NULL);
-      if(msPassed(debug_stamp,now_stamp) > 0)
-        std::cout << (int)(1/(double(msPassed(debug_stamp,now_stamp))/1000.0)) << std::endl;
-      gettimeofday(&debug_stamp, NULL);
+      now_stamp = glfwGetTime();
+      std::cout << (int)(1/((msPassed(debug_stamp,now_stamp)+0.00001)/1000.0)) << std::endl;
+      debug_stamp = glfwGetTime();
       #endif
       entitySystem->render();
       glfwSwapBuffers(myGL->window);

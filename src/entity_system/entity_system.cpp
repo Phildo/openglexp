@@ -21,7 +21,6 @@ void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
   ef->produce(pool);
 }
 
-
 void EntitySystem::update(Input& i)
 {
   this->solve();
@@ -34,15 +33,29 @@ void EntitySystem::solve()
     physics_solver->solve(pool->spacial_components[i]);
 }
 
+void EntitySystem::reconcile()
+{
+  for(int i = 0; i < pool->num_spacial_components; i++)
+  {
+    SpacialComponent* sc = &pool->spacial_components[i];
+    GeometryComponent* gc = sc->entity->geometry_component;
+    if(gc)
+    {
+      gc->modelMatA = glm::translate(glm::mat4(), glm::vec3(sc->pos.x, sc->pos.y, sc->pos.z));
+
+      gc->modelMatR = glm::rotate(glm::mat4(),   sc->rot.y, glm::vec3(0.0,1.0,0.0)); //yaw
+      gc->modelMatR = glm::rotate(gc->modelMatR, sc->rot.x, glm::vec3(1.0,0.0,0.0)); //pitch
+      gc->modelMatR = glm::rotate(gc->modelMatR, sc->rot.z, glm::vec3(0.0,0.0,1.0)); //roll
+    }
+  }
+}
+
 void EntitySystem::render() const
 {
   for(int i = 0; i < pool->num_camera_components; i++) //should only be 1. whatever.
     world_renderer->prepareForGeo(pool->camera_components[i]);
 
   world_renderer->loadModelVertData(models->models[1]);//TRIANGLE_MODEL
-  for(int i = 0; i < pool->num_geometry_components; i++)
-    world_renderer->renderGeo(pool->geometry_components[i]);
-  world_renderer->loadModelVertData(models->models[2]);//BILBOARD_MODEL
   for(int i = 0; i < pool->num_geometry_components; i++)
     world_renderer->renderGeo(pool->geometry_components[i]);
 
@@ -56,9 +69,6 @@ void EntitySystem::render() const
       world_renderer->loadShadowVertData(models->models[1]);//TRIANGLE_MODEL
       for(int j = 0; j < pool->num_geometry_components; j++)
         world_renderer->renderShadow(pool->geometry_components[j]);
-      world_renderer->loadShadowVertData(models->models[2]);//BILBOARD_MODEL
-      for(int j = 0; j < pool->num_geometry_components; j++)
-        world_renderer->renderShadow(pool->geometry_components[j]);
     }
 
     world_renderer->prepareForLight();
@@ -67,27 +77,11 @@ void EntitySystem::render() const
   world_renderer->blit();
 }
 
-void EntitySystem::reconcile()
-{
-  for(int i = 0; i < pool->num_spacial_components; i++)
-  {
-    SpacialComponent* sc = &pool->spacial_components[i];
-    GeometryComponent* gc = sc->entity->geometry_component;
-    if(gc)
-    {
-      gc->modelMatA = glm::translate(glm::mat4(), glm::vec3(sc->pos.x, sc->pos.y, sc->pos.z));
-
-      gc->modelMatR = glm::rotate(glm::mat4(),  sc->rot.y, glm::vec3(0.0,1.0,0.0)); //yaw
-      gc->modelMatR = glm::rotate(gc->modelMatR, sc->rot.x, glm::vec3(1.0,0.0,0.0)); //pitch
-      gc->modelMatR = glm::rotate(gc->modelMatR, sc->rot.z, glm::vec3(0.0,0.0,1.0)); //roll
-    }
-  }
-}
-
 EntitySystem::~EntitySystem()
 {
   delete world_renderer;
   delete physics_solver;
+  delete models;
   delete pool;
 }
 

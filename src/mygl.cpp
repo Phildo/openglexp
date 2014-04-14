@@ -18,7 +18,6 @@ void resize(GLFWwindow* window, int width, int height)
   int w; for(w = 2; (std::abs(width-(w*2))  <= std::abs(width-w));  w *= 2) ;
   int h; for(h = 2; (std::abs(height-(h*2)) <= std::abs(height-h)); h *= 2) ;
 
-  //Not static- how to communicate change to Graphics:: ?
   //sWidth  = w;
   //sHeight = h;
   glViewport(0, 0, w*2, h*2); 
