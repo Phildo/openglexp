@@ -1,19 +1,7 @@
 #include "basic_entity_factory.h"
-
-#include "entity_system/entity.h"
 #include "entity_system/entity_pool.h"
-#include "entity_system/components/geometry_component.h"
 
 #include "FLAT_utils.h"
-#include "gl_include.h"
-
-BasicEntityFactory::BasicEntityFactory()
-{
-}
-
-BasicEntityFactory::~BasicEntityFactory()
-{
-}
 
 void BasicEntityFactory::produce(EntityPool* ep)
 {

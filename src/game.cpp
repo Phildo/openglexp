@@ -10,7 +10,6 @@
 #include <iostream>
 
 #include "basic_entity_factory.h"
-#include "bilboard_entity_factory.h"
 #include "light_entity_factory.h"
 
 //#define DEBUG
@@ -24,15 +23,12 @@ Game::Game()
   entitySystem = new EntitySystem();
 
   BasicEntityFactory *bef     = new BasicEntityFactory();
-  BilboardEntityFactory *bbef = new BilboardEntityFactory();
   LightEntityFactory *lef     = new LightEntityFactory();
   for(int i = 0; i < 2; i++)
     entitySystem->produceEntityFromFactory(bef);
-  entitySystem->produceEntityFromFactory(bbef);
   for(int i = 0; i < 1; i++)
     entitySystem->produceEntityFromFactory(lef);
   delete lef;
-  delete bbef;
   delete bef;
 }
 

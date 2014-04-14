@@ -9,8 +9,6 @@ class BasicEntityFactory : public EntityFactory
 {
   private:
   public:
-    BasicEntityFactory();
-    ~BasicEntityFactory();
     void produce(EntityPool* ep);
 };
 
