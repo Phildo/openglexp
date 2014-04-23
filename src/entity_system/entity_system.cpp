@@ -16,6 +16,17 @@ EntitySystem::EntitySystem()
   world_renderer = new WorldRenderer();
 }
 
+void EntitySystem::debug()
+{
+  pool->light_components[0].entity->spacial_component->pos.x = 5;
+  pool->light_components[0].entity->spacial_component->pos.y = 5;
+  pool->light_components[0].entity->spacial_component->pos.z = 10;
+
+  pool->light_components[1].entity->spacial_component->pos.x = -5;
+  pool->light_components[1].entity->spacial_component->pos.y = 5;
+  pool->light_components[1].entity->spacial_component->pos.z = 10;
+}
+
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
 {
   ef->produce(pool);
@@ -52,6 +63,8 @@ void EntitySystem::reconcile()
 
 void EntitySystem::render() const
 {
+  world_renderer->clear();
+
   for(int i = 0; i < pool->num_camera_components; i++) //should only be 1. whatever.
     world_renderer->prepareForGeo(pool->camera_components[i]);
 

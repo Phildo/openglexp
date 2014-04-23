@@ -24,6 +24,8 @@ class EntitySystem
   public:
     EntitySystem();
     ~EntitySystem();
+    void debug();
+
     void produceEntityFromFactory(EntityFactory* ef);
 
     void update(Input& i);

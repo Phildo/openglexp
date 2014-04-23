@@ -7,9 +7,10 @@
 #include "entity_system/models.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-#define WIDTH 512
-#define HEIGHT 256
+#define WIDTH 1024
+#define HEIGHT 512
 #define POT 8
+#define SHADOWPOT 1
 
 WorldRenderer::WorldRenderer()
 {
@@ -123,12 +124,12 @@ WorldRenderer::WorldRenderer()
   glActiveTexture(GL_TEXTURE0 + 3);
   glGenTextures(1, &gl_s_fb_cube_dep_tex_id);
   glBindTexture(GL_TEXTURE_CUBE_MAP, gl_s_fb_cube_dep_tex_id);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT24, WIDTH/POT, WIDTH/POT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 0, 0, GL_DEPTH_COMPONENT24, WIDTH/SHADOWPOT, WIDTH/SHADOWPOT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_DEPTH_COMPONENT24, WIDTH/SHADOWPOT, WIDTH/SHADOWPOT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_DEPTH_COMPONENT24, WIDTH/SHADOWPOT, WIDTH/SHADOWPOT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_DEPTH_COMPONENT24, WIDTH/SHADOWPOT, WIDTH/SHADOWPOT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_DEPTH_COMPONENT24, WIDTH/SHADOWPOT, WIDTH/SHADOWPOT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_DEPTH_COMPONENT24, WIDTH/SHADOWPOT, WIDTH/SHADOWPOT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
@@ -197,6 +198,12 @@ WorldRenderer::WorldRenderer()
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*models->models[0].numVerts, (GLfloat *)models->models[0].pos, GL_STATIC_DRAW);
 }
 
+void WorldRenderer::clear()
+{
+  glBindFramebuffer(GL_FRAMEBUFFER,gl_a_fb_id);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void WorldRenderer::prepareForGeo(const CameraComponent& cam) const
 {
   glCullFace(GL_BACK);
@@ -235,7 +242,7 @@ void WorldRenderer::prepareForShadow(const LightComponent& lc)
   glCullFace(GL_FRONT);
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_s_fb_id);
-  glViewport(0,0,WIDTH/POT,WIDTH/POT);
+  glViewport(0,0,WIDTH/SHADOWPOT,WIDTH/SHADOWPOT);
 
   glUseProgram(gl_s_program_id);
   GLenum drawBuffers[0] = {};
@@ -276,7 +283,7 @@ void WorldRenderer::prepareForLight() const
   glCullFace(GL_BACK);
 
   glBindFramebuffer(GL_FRAMEBUFFER,gl_a_fb_id);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,WIDTH/POT,HEIGHT/POT);
   glUseProgram(gl_a_program_id);
   GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0 + 0};

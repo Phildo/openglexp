@@ -28,6 +28,7 @@ if(csig & component_signature_camera_component)
   camera_components[num_camera_components].entity = e;
   num_camera_components++;
 }
+else e->camera_component = NULL;
 
 if(csig & component_signature_geometry_component)
 {
@@ -35,6 +36,7 @@ if(csig & component_signature_geometry_component)
   geometry_components[num_geometry_components].entity = e;
   num_geometry_components++;
 }
+else e->geometry_component = NULL;
 
 if(csig & component_signature_light_component)
 {
@@ -42,6 +44,7 @@ if(csig & component_signature_light_component)
   light_components[num_light_components].entity = e;
   num_light_components++;
 }
+else e->light_component = NULL;
 
 if(csig & component_signature_spacial_component)
 {
@@ -49,6 +52,7 @@ if(csig & component_signature_spacial_component)
   spacial_components[num_spacial_components].entity = e;
   num_spacial_components++;
 }
+else e->spacial_component = NULL;
 
 //ECS_CONSTRUCT_ADD_C_TO_E_END
 

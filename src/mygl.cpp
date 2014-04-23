@@ -20,7 +20,7 @@ void resize(GLFWwindow* window, int width, int height)
 
   //sWidth  = w;
   //sHeight = h;
-  glViewport(0, 0, w*2, h*2); 
+  glViewport(0, 0, w, h); 
   //glfwSetWindowSize(window, w, h); //can't call this every time- need to find a way to wait until drag stopped
 }
 

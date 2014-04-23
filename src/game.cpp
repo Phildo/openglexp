@@ -22,8 +22,9 @@ Game::Game()
   entitySystem = new EntitySystem();
 
   BasicEntityFactory *bef  = new BasicEntityFactory();  for(int i = 0; i < 2; i++) entitySystem->produceEntityFromFactory(bef); delete bef;
-  LightEntityFactory *lef  = new LightEntityFactory();  for(int i = 0; i < 20; i++) entitySystem->produceEntityFromFactory(lef); delete lef;
+  LightEntityFactory *lef  = new LightEntityFactory();  for(int i = 0; i < 2; i++) entitySystem->produceEntityFromFactory(lef); delete lef;
   CameraEntityFactory *cef = new CameraEntityFactory(); for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(cef); delete cef;
+  entitySystem->debug();
 }
 
 #define msPassed(f,t) ((t-f)*1000)

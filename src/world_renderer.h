@@ -78,6 +78,8 @@ class WorldRenderer : public Renderer
     WorldRenderer();
     ~WorldRenderer();
 
+    void clear();
+
     void prepareForGeo(const CameraComponent& cam) const;
     void loadModelVertData(const Model& m) const;
     void renderGeo(const GeometryComponent& gc) const;

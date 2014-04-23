@@ -93,6 +93,7 @@ for i in components/*.h; do
   echo "  ${UNDER}s[num_${UNDER}s].entity = e;"   >> $TMP_FILE
   echo "  num_${UNDER}s++;"                       >> $TMP_FILE
   echo "}"                                        >> $TMP_FILE
+  echo "else e->$UNDER = NULL;"                   >> $TMP_FILE
   echo ""                                         >> $TMP_FILE
 done
 inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
