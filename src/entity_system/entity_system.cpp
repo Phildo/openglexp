@@ -22,7 +22,7 @@ void EntitySystem::debug()
   pool->light_components[0].entity->spacial_component->pos.y = 5;
   pool->light_components[0].entity->spacial_component->pos.z = 10;
 
-  pool->light_components[1].entity->spacial_component->pos.x = -5;
+  pool->light_components[1].entity->spacial_component->pos.x = 0;
   pool->light_components[1].entity->spacial_component->pos.y = 5;
   pool->light_components[1].entity->spacial_component->pos.z = 10;
 }

@@ -17,15 +17,15 @@ void main()
   vec3 l2fabs = abs(lightToFragVec);
   float greatestMagnitudeOfLightToFragVec = max(l2fabs.x, max(l2fabs.y, l2fabs.z));
   float lightToFragDepth = ((100.0+0.1) / (100.0-0.1) - (2*100.0*0.1)/(100.0-0.1)/greatestMagnitudeOfLightToFragVec + 1.0) * 0.5;
-  float shadowed = texture(shadow_tex, vec4(normalize(lightToFragVec),lightToFragDepth));
+  float directlight = texture(shadow_tex, vec4(normalize(lightToFragVec),lightToFragDepth));
 
   color = 
   texture(accum_tex, UV).xyz+                                        //current value
+  (
   texture(col_tex, UV).xyz                                           //frag color
   *dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz) //dot product of angle of incidence of light to normal
-  *(4+15*shadowed)                                                   //shadow amplification
-  /max(0.000001,dot(lightToFragVec,lightToFragVec));                 //distance cutoff
-
-  //color = (texture(shadow_tex, normalize(lightToFragVec)).xyz-0.999)*1000;
+  *(4+8*directlight)                                                 //shadow dampening/light amplification
+  /max(0.000001,dot(lightToFragVec,lightToFragVec))                  //distance cutoff
+  );
 }
 
