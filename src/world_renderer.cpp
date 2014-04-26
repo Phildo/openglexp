@@ -14,7 +14,6 @@
 
 WorldRenderer::WorldRenderer()
 {
-  models = new Models();
   //init shadow projection matrix
   shadowProjMat = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
 
@@ -159,7 +158,7 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(gl_a_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_a_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*models->models[0].numVerts, (GLfloat *)models->models[0].pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*Models::models[0].numVerts, (GLfloat *)Models::models[0].pos, GL_STATIC_DRAW);
 
   //Accumulation(light) FB
   glGenFramebuffers(1, &gl_a_fb_id);
@@ -195,7 +194,7 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(gl_b_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_b_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*models->models[0].numVerts, (GLfloat *)models->models[0].pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*Models::models[0].numVerts, (GLfloat *)Models::models[0].pos, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::clear()
@@ -300,7 +299,7 @@ void WorldRenderer::prepareForLight() const
 void WorldRenderer::light(const LightComponent& lc) const
 {
   glUniform3fv(gl_a_light_pos_vec_id, 1, &lc.entity->spacial_component->pos[0]);
-  glDrawArrays(GL_TRIANGLES, 0, models->models[0].numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, Models::models[0].numVerts);
 }
 
 void WorldRenderer::blit() const
@@ -312,7 +311,7 @@ void WorldRenderer::blit() const
 
   glBindVertexArray(gl_b_vert_array_id);
   glUniform1i(gl_b_tex_id, 4);
-  glDrawArrays(GL_TRIANGLES, 0, models->models[0].numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, Models::models[0].numVerts);
 }
 
 WorldRenderer::~WorldRenderer()

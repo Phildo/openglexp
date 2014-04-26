@@ -2,7 +2,6 @@
 #define _ENTITY_SYSTEM_H_
 
 class EntityPool;
-class Models;
 class EntityFactory;
 
 class PhysicsSolver;
@@ -14,7 +13,6 @@ class EntitySystem
 {
   private:
     EntityPool* pool;
-    Models* models; //this is dumb
 
     PhysicsSolver* physics_solver;
     WorldRenderer* world_renderer;

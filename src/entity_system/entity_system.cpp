@@ -9,8 +9,8 @@
 
 EntitySystem::EntitySystem()
 {
+  Models::defineModels();
   pool = new EntityPool();
-  models = new Models();
 
   physics_solver = new PhysicsSolver();
   world_renderer = new WorldRenderer();
@@ -68,7 +68,7 @@ void EntitySystem::render() const
   for(int i = 0; i < pool->num_camera_components; i++) //should only be 1. whatever.
     world_renderer->prepareForGeo(pool->camera_components[i]);
 
-  world_renderer->loadModelVertData(models->models[1]);//TRIANGLE_MODEL
+  world_renderer->loadModelVertData(Models::models[1]);//TRIANGLE_MODEL
   for(int i = 0; i < pool->num_geometry_components; i++)
     world_renderer->renderGeo(pool->geometry_components[i]);
 
@@ -79,7 +79,7 @@ void EntitySystem::render() const
     {
       world_renderer->prepareForShadowOrientation(k);
 
-      world_renderer->loadShadowVertData(models->models[1]);//TRIANGLE_MODEL
+      world_renderer->loadShadowVertData(Models::models[1]);//TRIANGLE_MODEL
       for(int j = 0; j < pool->num_geometry_components; j++)
         world_renderer->renderShadow(pool->geometry_components[j]);
     }
@@ -94,7 +94,6 @@ EntitySystem::~EntitySystem()
 {
   delete world_renderer;
   delete physics_solver;
-  delete models;
   delete pool;
 }
 

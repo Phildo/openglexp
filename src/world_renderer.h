@@ -7,7 +7,6 @@
 class CameraComponent;
 class GeometryComponent;
 class LightComponent;
-class Models;
 class Model;
 
 class WorldRenderer : public Renderer
@@ -68,8 +67,6 @@ class WorldRenderer : public Renderer
     GLuint gl_b_pos_attrib_id;
     GLuint gl_b_tex_id;
 
-    //bad :(
-    Models* models;
     //Projections for 6 sided shadow cube
     glm::mat4 shadowProjMat; 
     glm::mat4 shadowViewMats[6];
