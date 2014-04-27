@@ -1,7 +1,7 @@
 #include "entity_system.h"
 #include "entity_pool.h"
-#include "models.h"
 #include "entity_factory.h"
+#include "models/models.h"
 
 #include "../physics_solver.h"
 #include "../world_renderer.h"
@@ -68,7 +68,7 @@ void EntitySystem::render() const
   for(int i = 0; i < pool->num_camera_components; i++) //should only be 1. whatever.
     world_renderer->prepareForGeo(pool->camera_components[i]);
 
-  world_renderer->loadModelVertData(Models::models[1]);//TRIANGLE_MODEL
+  world_renderer->loadModelVertData(Models::models[TRIANGLE_MODEL]);
   for(int i = 0; i < pool->num_geometry_components; i++)
     world_renderer->renderGeo(pool->geometry_components[i]);
 
@@ -79,7 +79,7 @@ void EntitySystem::render() const
     {
       world_renderer->prepareForShadowOrientation(k);
 
-      world_renderer->loadShadowVertData(Models::models[1]);//TRIANGLE_MODEL
+      world_renderer->loadShadowVertData(Models::models[TRIANGLE_MODEL]);
       for(int j = 0; j < pool->num_geometry_components; j++)
         world_renderer->renderShadow(pool->geometry_components[j]);
     }

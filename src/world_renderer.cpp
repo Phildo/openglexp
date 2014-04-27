@@ -4,7 +4,7 @@
 #include "entity_system/components/light_component.h"
 #include "entity_system/components/geometry_component.h"
 #include "entity_system/components/spacial_component.h"
-#include "entity_system/models.h"
+#include "entity_system/models/models.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 #define WIDTH 1024
@@ -158,7 +158,7 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(gl_a_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_a_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*Models::models[0].numVerts, (GLfloat *)Models::models[0].pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*Models::models[SCREEN_QUAD_MODEL].numVerts, (GLfloat *)Models::models[SCREEN_QUAD_MODEL].pos, GL_STATIC_DRAW);
 
   //Accumulation(light) FB
   glGenFramebuffers(1, &gl_a_fb_id);
@@ -194,7 +194,7 @@ WorldRenderer::WorldRenderer()
   glVertexAttribPointer(gl_b_pos_attrib_id,3,GL_FLOAT,GL_FALSE,0,(void*)0);
   glEnableVertexAttribArray(gl_b_pos_attrib_id);
     //just upload the data now- won't change
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*Models::models[0].numVerts, (GLfloat *)Models::models[0].pos, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*Models::models[SCREEN_QUAD_MODEL].numVerts, (GLfloat *)Models::models[SCREEN_QUAD_MODEL].pos, GL_STATIC_DRAW);
 }
 
 void WorldRenderer::clear()
@@ -233,7 +233,7 @@ void WorldRenderer::renderGeo(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
-  glDrawArrays(GL_TRIANGLES, 0, 6); //NEEDS TO REFERENCE MODEL OH GOD NO
+  glDrawArrays(GL_TRIANGLES, 0, Models::models[gc.model].numVerts);
 }
 
 void WorldRenderer::prepareForShadow(const LightComponent& lc)
@@ -274,7 +274,7 @@ void WorldRenderer::renderShadow(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_s_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_s_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
-  glDrawArrays(GL_TRIANGLES, 0, 6);//NEEDS TO REFERENCE MODEL OH GOD NO
+  glDrawArrays(GL_TRIANGLES, 0, Models::models[gc.model].numVerts);
 }
 
 void WorldRenderer::prepareForLight() const
@@ -299,7 +299,7 @@ void WorldRenderer::prepareForLight() const
 void WorldRenderer::light(const LightComponent& lc) const
 {
   glUniform3fv(gl_a_light_pos_vec_id, 1, &lc.entity->spacial_component->pos[0]);
-  glDrawArrays(GL_TRIANGLES, 0, Models::models[0].numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, Models::models[SCREEN_QUAD_MODEL].numVerts);
 }
 
 void WorldRenderer::blit() const
@@ -311,7 +311,7 @@ void WorldRenderer::blit() const
 
   glBindVertexArray(gl_b_vert_array_id);
   glUniform1i(gl_b_tex_id, 4);
-  glDrawArrays(GL_TRIANGLES, 0, Models::models[0].numVerts);
+  glDrawArrays(GL_TRIANGLES, 0, Models::models[SCREEN_QUAD_MODEL].numVerts);
 }
 
 WorldRenderer::~WorldRenderer()
