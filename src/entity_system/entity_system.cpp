@@ -20,11 +20,11 @@ void EntitySystem::debug()
 {
   pool->light_components[0].entity->spacial_component->pos.x = 5;
   pool->light_components[0].entity->spacial_component->pos.y = 5;
-  pool->light_components[0].entity->spacial_component->pos.z = 10;
+  pool->light_components[0].entity->spacial_component->pos.z = -10;
 
   pool->light_components[1].entity->spacial_component->pos.x = 0;
   pool->light_components[1].entity->spacial_component->pos.y = 5;
-  pool->light_components[1].entity->spacial_component->pos.z = 10;
+  pool->light_components[1].entity->spacial_component->pos.z = -10;
 }
 
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
@@ -68,7 +68,7 @@ void EntitySystem::render() const
   for(int i = 0; i < pool->num_camera_components; i++) //should only be 1. whatever.
     world_renderer->prepareForGeo(pool->camera_components[i]);
 
-  world_renderer->loadModelVertData(Models::models[TRIANGLE_MODEL]);
+  world_renderer->loadModelVertData(CUBE_MODEL);
   for(int i = 0; i < pool->num_geometry_components; i++)
     world_renderer->renderGeo(pool->geometry_components[i]);
 
@@ -79,7 +79,7 @@ void EntitySystem::render() const
     {
       world_renderer->prepareForShadowOrientation(k);
 
-      world_renderer->loadShadowVertData(Models::models[TRIANGLE_MODEL]);
+      world_renderer->loadShadowVertData(CUBE_MODEL);
       for(int j = 0; j < pool->num_geometry_components; j++)
         world_renderer->renderShadow(pool->geometry_components[j]);
     }

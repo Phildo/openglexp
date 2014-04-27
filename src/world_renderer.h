@@ -78,11 +78,11 @@ class WorldRenderer : public Renderer
     void clear();
 
     void prepareForGeo(const CameraComponent& cam) const;
-    void loadModelVertData(const Model& m) const;
+    void loadModelVertData(int model) const;
     void renderGeo(const GeometryComponent& gc) const;
 
     void prepareForShadow(const LightComponent& lc);
-    void loadShadowVertData(const Model& m) const;
+    void loadShadowVertData(int model) const;
     void prepareForShadowOrientation(const GLuint orientation) const;
     void renderShadow(const GeometryComponent& gc) const;
 
