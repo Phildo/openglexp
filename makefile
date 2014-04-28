@@ -32,7 +32,7 @@ $(ODIR)/entity_pool.o: src/entity_system/entity_pool.cpp src/entity_system/entit
 $(ODIR)/entity_system.o: src/entity_system/entity_system.cpp src/entity_system/entity_system.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/entity_factory.h src/entity_system/models/models.h src/entity_system/models/model.h src/entity_system/../physics_solver.h src/entity_system/../world_renderer.h src/entity_system/../renderer.h src/entity_system/../gl_include.h
 	$(CC) $(CFLAGS) src/entity_system/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/models.o: src/entity_system/models/models.cpp src/entity_system/models/models.h src/entity_system/models/model.h src/entity_system/models/screen_quad_model.h src/entity_system/models/triangle_model.h src/entity_system/models/bilboard_model.h src/entity_system/models/cube_model.h
+$(ODIR)/models.o: src/entity_system/models/models.cpp src/entity_system/models/models.h src/entity_system/models/model.h src/entity_system/models/screen_quad_model.h src/entity_system/models/triangle_model.h src/entity_system/models/bilboard_model.h src/entity_system/models/cube_model.h src/entity_system/models/inv_cube_model.h
 	$(CC) $(CFLAGS) src/entity_system/models/models.cpp -o $(ODIR)/models.o
 
 $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h

@@ -9,6 +9,7 @@
 #define TRIANGLE_MODEL 1
 #define BILBOARD_MODEL 2
 #define CUBE_MODEL 3
+#define INV_CUBE_MODEL 4
 
 namespace Models
 {

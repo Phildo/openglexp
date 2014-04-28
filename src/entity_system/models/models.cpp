@@ -8,5 +8,6 @@ void Models::defineModels()
   #include "triangle_model.h"
   #include "bilboard_model.h"
   #include "cube_model.h"
+  #include "inv_cube_model.h"
 }
 
