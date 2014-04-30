@@ -1,7 +1,7 @@
 #include "entity_system.h"
 #include "entity_pool.h"
 #include "entity_factory.h"
-#include "models/models.h"
+#include "models.h"
 
 #include "../physics_solver.h"
 #include "../world_renderer.h"

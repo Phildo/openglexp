@@ -5,9 +5,13 @@ EntityPool::EntityPool()
 num_entities = 0;
 //ECS_CONSTRUCT_ZERO_COMPONENT_COUNTS_START
 num_camera_components = 0;
-num_geometry_components = 0;
 num_light_components = 0;
 num_spacial_components = 0;
+num_geometry_bilboard_model_components = 0;
+num_geometry_cube_model_components = 0;
+num_geometry_inv_cube_model_components = 0;
+num_geometry_screen_quad_model_components = 0;
+num_geometry_triangle_model_components = 0;
 //ECS_CONSTRUCT_ZERO_COMPONENT_COUNTS_END
 }
 
@@ -30,14 +34,6 @@ if(csig & component_signature_camera_component)
 }
 else e->camera_component = NULL;
 
-if(csig & component_signature_geometry_component)
-{
-  e->geometry_component = &geometry_components[num_geometry_components];
-  geometry_components[num_geometry_components].entity = e;
-  num_geometry_components++;
-}
-else e->geometry_component = NULL;
-
 if(csig & component_signature_light_component)
 {
   e->light_component = &light_components[num_light_components];
@@ -54,6 +50,37 @@ if(csig & component_signature_spacial_component)
 }
 else e->spacial_component = NULL;
 
+if(csig & component_signature_geometry_bilboard_model)
+{
+  e->geometry_component = &geometry_bilboard_model_components[num_geometry_s];
+  geometry_bilboard_model_components[num_geometry_bilboard_model_components].entity = e;
+  num_geometry_bilboard_model_components++;
+}
+else if(csig & component_signature_geometry_cube_model)
+{
+  e->geometry_component = &geometry_cube_model_components[num_geometry_s];
+  geometry_cube_model_components[num_geometry_cube_model_components].entity = e;
+  num_geometry_cube_model_components++;
+}
+else if(csig & component_signature_geometry_inv_cube_model)
+{
+  e->geometry_component = &geometry_inv_cube_model_components[num_geometry_s];
+  geometry_inv_cube_model_components[num_geometry_inv_cube_model_components].entity = e;
+  num_geometry_inv_cube_model_components++;
+}
+else if(csig & component_signature_geometry_screen_quad_model)
+{
+  e->geometry_component = &geometry_screen_quad_model_components[num_geometry_s];
+  geometry_screen_quad_model_components[num_geometry_screen_quad_model_components].entity = e;
+  num_geometry_screen_quad_model_components++;
+}
+else if(csig & component_signature_geometry_triangle_model)
+{
+  e->geometry_component = &geometry_triangle_model_components[num_geometry_s];
+  geometry_triangle_model_components[num_geometry_triangle_model_components].entity = e;
+  num_geometry_triangle_model_components++;
+}
+else e->geometry_component = NULL;
 //ECS_CONSTRUCT_ADD_C_TO_E_END
 
   num_entities++;
@@ -73,13 +100,6 @@ if(e->camera_component)
   *e->camera_component = camera_components[num_camera_components];
 }
 
-if(e->geometry_component)
-{
-  num_geometry_components--;
-  geometry_components[num_geometry_components].entity->geometry_component = e->geometry_component;
-  *e->geometry_component = geometry_components[num_geometry_components];
-}
-
 if(e->light_component)
 {
   num_light_components--;
@@ -92,6 +112,45 @@ if(e->spacial_component)
   num_spacial_components--;
   spacial_components[num_spacial_components].entity->spacial_component = e->spacial_component;
   *e->spacial_component = spacial_components[num_spacial_components];
+}
+
+if(e->geometry_component)
+{
+if(e->geometry_component > &geometry_bilboard_model_components && e->geometry_component < (&geometry_bilboard_model_components+MAX_ENTITIES))
+{
+  num_geometry_bilboard_model_components--;
+  geometry_bilboard_model_components[num_geometry_bilboard_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_bilboard_model_components[num_geometry_bilboard_model_components];
+}
+
+if(e->geometry_component > &geometry_cube_model_components && e->geometry_component < (&geometry_cube_model_components+MAX_ENTITIES))
+{
+  num_geometry_cube_model_components--;
+  geometry_cube_model_components[num_geometry_cube_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_cube_model_components[num_geometry_cube_model_components];
+}
+
+if(e->geometry_component > &geometry_inv_cube_model_components && e->geometry_component < (&geometry_inv_cube_model_components+MAX_ENTITIES))
+{
+  num_geometry_inv_cube_model_components--;
+  geometry_inv_cube_model_components[num_geometry_inv_cube_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_inv_cube_model_components[num_geometry_inv_cube_model_components];
+}
+
+if(e->geometry_component > &geometry_screen_quad_model_components && e->geometry_component < (&geometry_screen_quad_model_components+MAX_ENTITIES))
+{
+  num_geometry_screen_quad_model_components--;
+  geometry_screen_quad_model_components[num_geometry_screen_quad_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_screen_quad_model_components[num_geometry_screen_quad_model_components];
+}
+
+if(e->geometry_component > &geometry_triangle_model_components && e->geometry_component < (&geometry_triangle_model_components+MAX_ENTITIES))
+{
+  num_geometry_triangle_model_components--;
+  geometry_triangle_model_components[num_geometry_triangle_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_triangle_model_components[num_geometry_triangle_model_components];
+}
+
 }
 
 //ECS_CONSTRUCT_DELETE_C_FROM_E_END
