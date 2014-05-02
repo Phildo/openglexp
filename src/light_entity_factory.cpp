@@ -5,7 +5,7 @@
 
 void LightEntityFactory::produce(EntityPool* ep)
 {
-  Entity* e = ep->createEntity( component_signature_light_component | component_signature_spacial_component );  
+  Entity* e = ep->createEntity( component_signature_light_component | component_signature_spacial_component | component_signature_geometry_inv_cube_model );  
   e->spacial_component->vel.x = 0;
   e->spacial_component->vel.y = 0;
   e->spacial_component->vel.z = 0;

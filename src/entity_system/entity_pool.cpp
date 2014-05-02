@@ -52,31 +52,31 @@ else e->spacial_component = NULL;
 
 if(csig & component_signature_geometry_bilboard_model)
 {
-  e->geometry_component = &geometry_bilboard_model_components[num_geometry_s];
+  e->geometry_component = &geometry_bilboard_model_components[num_geometry_bilboard_model_components];
   geometry_bilboard_model_components[num_geometry_bilboard_model_components].entity = e;
   num_geometry_bilboard_model_components++;
 }
 else if(csig & component_signature_geometry_cube_model)
 {
-  e->geometry_component = &geometry_cube_model_components[num_geometry_s];
+  e->geometry_component = &geometry_cube_model_components[num_geometry_cube_model_components];
   geometry_cube_model_components[num_geometry_cube_model_components].entity = e;
   num_geometry_cube_model_components++;
 }
 else if(csig & component_signature_geometry_inv_cube_model)
 {
-  e->geometry_component = &geometry_inv_cube_model_components[num_geometry_s];
+  e->geometry_component = &geometry_inv_cube_model_components[num_geometry_inv_cube_model_components];
   geometry_inv_cube_model_components[num_geometry_inv_cube_model_components].entity = e;
   num_geometry_inv_cube_model_components++;
 }
 else if(csig & component_signature_geometry_screen_quad_model)
 {
-  e->geometry_component = &geometry_screen_quad_model_components[num_geometry_s];
+  e->geometry_component = &geometry_screen_quad_model_components[num_geometry_screen_quad_model_components];
   geometry_screen_quad_model_components[num_geometry_screen_quad_model_components].entity = e;
   num_geometry_screen_quad_model_components++;
 }
 else if(csig & component_signature_geometry_triangle_model)
 {
-  e->geometry_component = &geometry_triangle_model_components[num_geometry_s];
+  e->geometry_component = &geometry_triangle_model_components[num_geometry_triangle_model_components];
   geometry_triangle_model_components[num_geometry_triangle_model_components].entity = e;
   num_geometry_triangle_model_components++;
 }
@@ -116,35 +116,35 @@ if(e->spacial_component)
 
 if(e->geometry_component)
 {
-if(e->geometry_component > &geometry_bilboard_model_components && e->geometry_component < (&geometry_bilboard_model_components+MAX_ENTITIES))
+if(e->geometry_component > &geometry_bilboard_model_components[0] && e->geometry_component < (&geometry_bilboard_model_components[0]+MAX_ENTITIES))
 {
   num_geometry_bilboard_model_components--;
   geometry_bilboard_model_components[num_geometry_bilboard_model_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_bilboard_model_components[num_geometry_bilboard_model_components];
 }
 
-if(e->geometry_component > &geometry_cube_model_components && e->geometry_component < (&geometry_cube_model_components+MAX_ENTITIES))
+if(e->geometry_component > &geometry_cube_model_components[0] && e->geometry_component < (&geometry_cube_model_components[0]+MAX_ENTITIES))
 {
   num_geometry_cube_model_components--;
   geometry_cube_model_components[num_geometry_cube_model_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_cube_model_components[num_geometry_cube_model_components];
 }
 
-if(e->geometry_component > &geometry_inv_cube_model_components && e->geometry_component < (&geometry_inv_cube_model_components+MAX_ENTITIES))
+if(e->geometry_component > &geometry_inv_cube_model_components[0] && e->geometry_component < (&geometry_inv_cube_model_components[0]+MAX_ENTITIES))
 {
   num_geometry_inv_cube_model_components--;
   geometry_inv_cube_model_components[num_geometry_inv_cube_model_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_inv_cube_model_components[num_geometry_inv_cube_model_components];
 }
 
-if(e->geometry_component > &geometry_screen_quad_model_components && e->geometry_component < (&geometry_screen_quad_model_components+MAX_ENTITIES))
+if(e->geometry_component > &geometry_screen_quad_model_components[0] && e->geometry_component < (&geometry_screen_quad_model_components[0]+MAX_ENTITIES))
 {
   num_geometry_screen_quad_model_components--;
   geometry_screen_quad_model_components[num_geometry_screen_quad_model_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_screen_quad_model_components[num_geometry_screen_quad_model_components];
 }
 
-if(e->geometry_component > &geometry_triangle_model_components && e->geometry_component < (&geometry_triangle_model_components+MAX_ENTITIES))
+if(e->geometry_component > &geometry_triangle_model_components[0] && e->geometry_component < (&geometry_triangle_model_components[0]+MAX_ENTITIES))
 {
   num_geometry_triangle_model_components--;
   geometry_triangle_model_components[num_geometry_triangle_model_components].entity->geometry_component = e->geometry_component;

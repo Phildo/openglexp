@@ -17,7 +17,7 @@ OBJS=$(ODIR)/basic_entity_factory.o $(ODIR)/camera_entity_factory.o $(ODIR)/came
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)
 
-$(ODIR)/basic_entity_factory.o: src/basic_entity_factory.cpp src/basic_entity_factory.h src/entity_system/entity_factory.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/FLAT_utils.h
+$(ODIR)/basic_entity_factory.o: src/basic_entity_factory.cpp src/basic_entity_factory.h src/entity_system/entity_factory.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/models.h src/entity_system/model.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/basic_entity_factory.cpp -o $(ODIR)/basic_entity_factory.o
 
 $(ODIR)/camera_entity_factory.o: src/camera_entity_factory.cpp src/camera_entity_factory.h src/entity_system/entity_factory.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h
@@ -29,11 +29,11 @@ $(ODIR)/camera_component.o: src/entity_system/components/camera_component.cpp sr
 $(ODIR)/entity_pool.o: src/entity_system/entity_pool.cpp src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h
 	$(CC) $(CFLAGS) src/entity_system/entity_pool.cpp -o $(ODIR)/entity_pool.o
 
-$(ODIR)/entity_system.o: src/entity_system/entity_system.cpp src/entity_system/entity_system.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/entity_factory.h src/entity_system/models/models.h src/entity_system/models/model.h src/entity_system/../physics_solver.h src/entity_system/../world_renderer.h src/entity_system/../renderer.h src/entity_system/../gl_include.h
+$(ODIR)/entity_system.o: src/entity_system/entity_system.cpp src/entity_system/entity_system.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/entity_factory.h src/entity_system/models.h src/entity_system/model.h src/entity_system/../physics_solver.h src/entity_system/../world_renderer.h src/entity_system/../renderer.h src/entity_system/../gl_include.h
 	$(CC) $(CFLAGS) src/entity_system/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/models.o: src/entity_system/models/models.cpp src/entity_system/models/models.h src/entity_system/models/model.h src/entity_system/models/screen_quad_model.h src/entity_system/models/triangle_model.h src/entity_system/models/bilboard_model.h src/entity_system/models/cube_model.h src/entity_system/models/inv_cube_model.h
-	$(CC) $(CFLAGS) src/entity_system/models/models.cpp -o $(ODIR)/models.o
+$(ODIR)/models.o: src/entity_system/models.cpp src/entity_system/models.h src/entity_system/model.h src/entity_system/models/screen_quad_model.h src/entity_system/models/triangle_model.h src/entity_system/models/bilboard_model.h src/entity_system/models/cube_model.h src/entity_system/models/inv_cube_model.h
+	$(CC) $(CFLAGS) src/entity_system/models.cpp -o $(ODIR)/models.o
 
 $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
@@ -59,7 +59,7 @@ $(ODIR)/physics_solver.o: src/physics_solver.cpp src/physics_solver.h src/entity
 $(ODIR)/renderer.o: src/renderer.cpp src/renderer.h src/gl_include.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/renderer.cpp -o $(ODIR)/renderer.o
 
-$(ODIR)/world_renderer.o: src/world_renderer.cpp src/world_renderer.h src/renderer.h src/gl_include.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/light_component.h src/entity_system/components/geometry_component.h src/entity_system/components/spacial_component.h src/entity_system/models/models.h src/entity_system/models/model.h
+$(ODIR)/world_renderer.o: src/world_renderer.cpp src/world_renderer.h src/renderer.h src/gl_include.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/light_component.h src/entity_system/components/geometry_component.h src/entity_system/components/spacial_component.h src/entity_system/models.h src/entity_system/model.h
 	$(CC) $(CFLAGS) src/world_renderer.cpp -o $(ODIR)/world_renderer.o
 
 #MAKEMAKE>

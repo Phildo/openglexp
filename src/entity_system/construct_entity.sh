@@ -115,13 +115,13 @@ for i in components/*.h; do
 done
 for i in models/*.h; do
   UNDER=`fileToUnder $i`
-  echo "if(csig & component_signature_geometry_${UNDER})"                                   >> $TMP_FILE
-  echo "{"                                                                                  >> $TMP_FILE
-  echo "  e->geometry_component = &geometry_${UNDER}_components[num_geometry_${UNDERl}s];"  >> $TMP_FILE
-  echo "  geometry_${UNDER}_components[num_geometry_${UNDER}_components].entity = e;"       >> $TMP_FILE
-  echo "  num_geometry_${UNDER}_components++;"                                              >> $TMP_FILE
-  echo "}"                                                                                  >> $TMP_FILE
-  echo -n "else "                                                                           >> $TMP_FILE #clever
+  echo "if(csig & component_signature_geometry_${UNDER})"                                           >> $TMP_FILE
+  echo "{"                                                                                          >> $TMP_FILE
+  echo "  e->geometry_component = &geometry_${UNDER}_components[num_geometry_${UNDER}_components];" >> $TMP_FILE
+  echo "  geometry_${UNDER}_components[num_geometry_${UNDER}_components].entity = e;"               >> $TMP_FILE
+  echo "  num_geometry_${UNDER}_components++;"                                                      >> $TMP_FILE
+  echo "}"                                                                                          >> $TMP_FILE
+  echo -n "else "                                                                                   >> $TMP_FILE #clever
 done
 echo "e->geometry_component = NULL;" >> $TMP_FILE
 
@@ -145,13 +145,13 @@ echo "if(e->geometry_component)" >> $TMP_FILE
 echo "{"                         >> $TMP_FILE
 for i in models/*.h; do
   UNDER=`fileToUnder $i`
-  echo "if(e->geometry_component > &geometry_${UNDER}_components && e->geometry_component < (&geometry_${UNDER}_components+MAX_ENTITIES))" >> $TMP_FILE
-  echo "{"                                                                                                                                 >> $TMP_FILE
-  echo "  num_geometry_${UNDER}_components--;"                                                                                             >> $TMP_FILE
-  echo "  geometry_${UNDER}_components[num_geometry_${UNDER}_components].entity->geometry_component = e->geometry_component;"              >> $TMP_FILE #tell entity of last placed component where it will be moved
-  echo "  *e->geometry_component = geometry_${UNDER}_components[num_geometry_${UNDER}_components];"                                        >> $TMP_FILE #move final component on top of now-deleted component
-  echo "}"                                                                                                                                 >> $TMP_FILE
-  echo ""                                                                                                                                  >> $TMP_FILE
+  echo "if(e->geometry_component > &geometry_${UNDER}_components[0] && e->geometry_component < (&geometry_${UNDER}_components[0]+MAX_ENTITIES))" >> $TMP_FILE
+  echo "{"                                                                                                                                       >> $TMP_FILE
+  echo "  num_geometry_${UNDER}_components--;"                                                                                                   >> $TMP_FILE
+  echo "  geometry_${UNDER}_components[num_geometry_${UNDER}_components].entity->geometry_component = e->geometry_component;"                    >> $TMP_FILE #tell entity of last placed component where it will be moved
+  echo "  *e->geometry_component = geometry_${UNDER}_components[num_geometry_${UNDER}_components];"                                              >> $TMP_FILE #move final component on top of now-deleted component
+  echo "}"                                                                                                                                       >> $TMP_FILE
+  echo ""                                                                                                                                        >> $TMP_FILE
 done
 echo "}"                         >> $TMP_FILE
 echo ""                          >> $TMP_FILE

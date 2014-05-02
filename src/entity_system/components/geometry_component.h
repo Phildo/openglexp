@@ -10,8 +10,6 @@ class GeometryComponent
   public:
     Entity* entity;
 
-    int model;
-
     glm::mat4 modelMatR;
     glm::mat4 modelMatA;
 };

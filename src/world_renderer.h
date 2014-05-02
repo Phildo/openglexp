@@ -71,6 +71,7 @@ class WorldRenderer : public Renderer
     glm::mat4 shadowProjMat; 
     glm::mat4 shadowViewMats[6];
 
+    int currentModelNumVerts; //this is dumb
   public:
     WorldRenderer();
     ~WorldRenderer();
@@ -78,11 +79,11 @@ class WorldRenderer : public Renderer
     void clear();
 
     void prepareForGeo(const CameraComponent& cam) const;
-    void loadModelVertData(int model) const;
+    void loadModelVertData(int model);
     void renderGeo(const GeometryComponent& gc) const;
 
     void prepareForShadow(const LightComponent& lc);
-    void loadShadowVertData(int model) const;
+    void loadShadowVertData(int model);
     void prepareForShadowOrientation(const GLuint orientation) const;
     void renderShadow(const GeometryComponent& gc) const;
 
