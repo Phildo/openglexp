@@ -12,6 +12,10 @@ function underToCamel()
 {
   echo $1 | gsed -e 's/_\(.\)/\U\1/g' -e 's/^\(.\)/\U\1/'
 }
+function underToCaps()
+{
+  echo $1 | tr '[:lower:]' '[:upper:]'
+}
 
 
 #
@@ -167,6 +171,37 @@ for i in components/*.h; do
 done
 inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
+
+
+#
+#CONSTRUCT ENTITY_SYSTEM
+#
+ACTIVE_FILE="entity_system.cpp"
+
+FLAG="ECS_CONSTRUCT_MODELS_G_RENDER"
+touch $TMP_FILE
+for i in models/*.h; do
+  UNDER=`fileToUnder $i`
+  CAPS=`underToCaps $UNDER`
+  echo "world_renderer->loadModelVertData(${CAPS});" >> $TMP_FILE
+  echo "for(int i = 0; i < pool->num_geometry_${UNDER}_components; i++)" >> $TMP_FILE
+  echo "  world_renderer->renderGeo(pool->geometry_${UNDER}_components[i]);" >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
+
+FLAG="ECS_CONSTRUCT_MODELS_SHADOW_RENDER"
+touch $TMP_FILE
+for i in models/*.h; do
+  UNDER=`fileToUnder $i`
+  CAPS=`underToCaps $UNDER`
+  echo "world_renderer->loadShadowVertData(${CAPS});" >> $TMP_FILE
+  echo "for(int i = 0; i < pool->num_geometry_${UNDER}_components; i++)" >> $TMP_FILE
+  echo "  world_renderer->renderShadow(pool->geometry_${UNDER}_components[i]);" >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
+
 
 exit 0
 

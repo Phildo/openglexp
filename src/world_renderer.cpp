@@ -9,7 +9,7 @@
 
 #define WIDTH 1024
 #define HEIGHT 512
-#define POT 1
+#define POT 16
 #define SHADOWPOT 2
 
 WorldRenderer::WorldRenderer()

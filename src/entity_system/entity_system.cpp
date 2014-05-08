@@ -19,8 +19,8 @@ EntitySystem::EntitySystem()
 void EntitySystem::debug()
 {
   pool->light_components[0].entity->spacial_component->pos.x = 5;
-  pool->light_components[0].entity->spacial_component->pos.y = 5;
-  pool->light_components[0].entity->spacial_component->pos.z = -5;
+  pool->light_components[0].entity->spacial_component->pos.y = 0;
+  pool->light_components[0].entity->spacial_component->pos.z = 0;
 
   pool->light_components[1].entity->spacial_component->pos.x = -5;
   pool->light_components[1].entity->spacial_component->pos.y = 0;
@@ -68,12 +68,14 @@ void EntitySystem::render() const
   for(int i = 0; i < pool->num_camera_components; i++) //should only be 1. whatever.
     world_renderer->prepareForGeo(pool->camera_components[i]);
 
+  //ECS_CONSTRUCT_MODELS_G_RENDER_START
   world_renderer->loadModelVertData(CUBE_MODEL);
   for(int i = 0; i < pool->num_geometry_cube_model_components; i++)
     world_renderer->renderGeo(pool->geometry_cube_model_components[i]);
   world_renderer->loadModelVertData(INV_CUBE_MODEL);
   for(int i = 0; i < pool->num_geometry_inv_cube_model_components; i++)
     world_renderer->renderGeo(pool->geometry_inv_cube_model_components[i]);
+  //ECS_CONSTRUCT_MODELS_G_RENDER_END
 
   for(int i = 0; i < pool->num_light_components; i++)
   {
@@ -82,12 +84,14 @@ void EntitySystem::render() const
     {
       world_renderer->prepareForShadowOrientation(k);
 
+      //ECS_CONSTRUCT_MODELS_SHADOW_RENDER_START
       world_renderer->loadShadowVertData(CUBE_MODEL);
       for(int j = 0; j < pool->num_geometry_cube_model_components; j++)
         world_renderer->renderShadow(pool->geometry_cube_model_components[j]);
       world_renderer->loadShadowVertData(INV_CUBE_MODEL);
       for(int j = 0; j < pool->num_geometry_inv_cube_model_components; j++)
         world_renderer->renderShadow(pool->geometry_inv_cube_model_components[j]);
+      //ECS_CONSTRUCT_MODELS_SHADOW_RENDER_END
     }
 
     world_renderer->prepareForLight();
