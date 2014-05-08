@@ -12,13 +12,16 @@ CFLAGS = -Wall -c `pkg-config --cflags glfw3` $(DEBUG)
 LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEBUG)
 
 #MAKEMAKE<
-OBJS=$(ODIR)/basic_entity_factory.o $(ODIR)/camera_entity_factory.o $(ODIR)/camera_component.o $(ODIR)/entity_pool.o $(ODIR)/entity_system.o $(ODIR)/models.o $(ODIR)/FLAT_utils.o $(ODIR)/game.o $(ODIR)/input.o $(ODIR)/light_entity_factory.o $(ODIR)/main.o $(ODIR)/mygl.o $(ODIR)/physics_solver.o $(ODIR)/renderer.o $(ODIR)/world_renderer.o 
+OBJS=$(ODIR)/basic_entity_factory.o $(ODIR)/bilboard_entity_factory.o $(ODIR)/camera_entity_factory.o $(ODIR)/camera_component.o $(ODIR)/entity_pool.o $(ODIR)/entity_system.o $(ODIR)/models.o $(ODIR)/FLAT_utils.o $(ODIR)/game.o $(ODIR)/input.o $(ODIR)/light_entity_factory.o $(ODIR)/main.o $(ODIR)/mygl.o $(ODIR)/physics_solver.o $(ODIR)/renderer.o $(ODIR)/world_renderer.o 
 
 $(OUT) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(OUT)
 
 $(ODIR)/basic_entity_factory.o: src/basic_entity_factory.cpp src/basic_entity_factory.h src/entity_system/entity_factory.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/models.h src/entity_system/model.h src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/basic_entity_factory.cpp -o $(ODIR)/basic_entity_factory.o
+
+$(ODIR)/bilboard_entity_factory.o: src/bilboard_entity_factory.cpp src/bilboard_entity_factory.h src/entity_system/entity_factory.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/models.h src/entity_system/model.h src/FLAT_utils.h
+	$(CC) $(CFLAGS) src/bilboard_entity_factory.cpp -o $(ODIR)/bilboard_entity_factory.o
 
 $(ODIR)/camera_entity_factory.o: src/camera_entity_factory.cpp src/camera_entity_factory.h src/entity_system/entity_factory.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h
 	$(CC) $(CFLAGS) src/camera_entity_factory.cpp -o $(ODIR)/camera_entity_factory.o
@@ -38,7 +41,7 @@ $(ODIR)/models.o: src/entity_system/models.cpp src/entity_system/models.h src/en
 $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h
 	$(CC) $(CFLAGS) src/FLAT_utils.cpp -o $(ODIR)/FLAT_utils.o
 
-$(ODIR)/game.o: src/game.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/entity_system/entity_system.h src/basic_entity_factory.h src/entity_system/entity_factory.h src/light_entity_factory.h src/camera_entity_factory.h
+$(ODIR)/game.o: src/game.cpp src/game.h src/mygl.h src/gl_include.h src/input.h src/entity_system/entity_system.h src/basic_entity_factory.h src/entity_system/entity_factory.h src/bilboard_entity_factory.h src/light_entity_factory.h src/camera_entity_factory.h
 	$(CC) $(CFLAGS) src/game.cpp -o $(ODIR)/game.o
 
 $(ODIR)/input.o: src/input.cpp src/input.h src/mygl.h src/gl_include.h

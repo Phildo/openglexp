@@ -193,6 +193,7 @@ rm $TMP_FILE
 FLAG="ECS_CONSTRUCT_MODELS_SHADOW_RENDER"
 touch $TMP_FILE
 for i in models/*.h; do
+  if [ $i = "models/inv_cube_model.h" ]; then continue; fi
   UNDER=`fileToUnder $i`
   CAPS=`underToCaps $UNDER`
   echo "world_renderer->loadShadowVertData(${CAPS});" >> $TMP_FILE

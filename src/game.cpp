@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "basic_entity_factory.h"
+#include "bilboard_entity_factory.h"
 #include "light_entity_factory.h"
 #include "camera_entity_factory.h"
 
@@ -21,9 +22,10 @@ Game::Game()
   input = new Input(myGL);
   entitySystem = new EntitySystem();
 
-  BasicEntityFactory *bef  = new BasicEntityFactory();  for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(bef); delete bef;
-  LightEntityFactory *lef  = new LightEntityFactory();  for(int i = 0; i < 2; i++) entitySystem->produceEntityFromFactory(lef); delete lef;
-  CameraEntityFactory *cef = new CameraEntityFactory(); for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(cef); delete cef;
+  BasicEntityFactory *bef     = new BasicEntityFactory();    for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(bef);  delete bef;
+  BilboardEntityFactory *bbef = new BilboardEntityFactory(); for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(bbef); delete bbef;
+  LightEntityFactory *lef     = new LightEntityFactory();    for(int i = 0; i < 2; i++) entitySystem->produceEntityFromFactory(lef);  delete lef;
+  CameraEntityFactory *cef    = new CameraEntityFactory();   for(int i = 0; i < 1; i++) entitySystem->produceEntityFromFactory(cef);  delete cef;
   entitySystem->debug();
 }
 
