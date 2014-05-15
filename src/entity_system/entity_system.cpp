@@ -29,6 +29,10 @@ void EntitySystem::debug()
   pool->light_components[1].entity->spacial_component->pos.x = -3;
   pool->light_components[1].entity->spacial_component->pos.y = 0;
   pool->light_components[1].entity->spacial_component->pos.z = 3;
+
+  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.x = 0.46f;
+  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.y = 0.19f;
+  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.z = 0.27f;
 }
 
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
