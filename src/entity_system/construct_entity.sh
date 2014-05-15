@@ -221,5 +221,15 @@ done
 inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
+ACTIVE_FILE="models.cpp"
+
+FLAG="ECS_CONSTRUCT_MODEL_INCLUDE"
+touch $TMP_FILE
+for i in models/*.h; do
+  echo "#include \"$i\"" >> $TMP_FILE
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
+
 exit 0
 
