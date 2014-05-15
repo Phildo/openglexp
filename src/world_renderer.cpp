@@ -9,7 +9,7 @@
 
 #define WIDTH 1024
 #define HEIGHT 512
-#define POT 1
+#define POT 8
 #define SHADOWPOT 1
 
 #define NEARPLANE 1.0f
