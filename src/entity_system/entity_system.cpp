@@ -78,6 +78,9 @@ for(int i = 0; i < pool->num_geometry_cube_model_components; i++)
 world_renderer->loadModelVertData(INV_CUBE_MODEL);
 for(int i = 0; i < pool->num_geometry_inv_cube_model_components; i++)
   world_renderer->renderGeo(pool->geometry_inv_cube_model_components[i]);
+world_renderer->loadModelVertData(LIGHT_CUBE_MODEL);
+for(int i = 0; i < pool->num_geometry_light_cube_model_components; i++)
+  world_renderer->renderGeo(pool->geometry_light_cube_model_components[i]);
 world_renderer->loadModelVertData(SCREEN_QUAD_MODEL);
 for(int i = 0; i < pool->num_geometry_screen_quad_model_components; i++)
   world_renderer->renderGeo(pool->geometry_screen_quad_model_components[i]);
@@ -100,6 +103,9 @@ for(int i = 0; i < pool->num_geometry_bilboard_model_components; i++)
 world_renderer->loadShadowVertData(CUBE_MODEL);
 for(int i = 0; i < pool->num_geometry_cube_model_components; i++)
   world_renderer->renderShadow(pool->geometry_cube_model_components[i]);
+world_renderer->loadShadowVertData(INV_CUBE_MODEL);
+for(int i = 0; i < pool->num_geometry_inv_cube_model_components; i++)
+  world_renderer->renderShadow(pool->geometry_inv_cube_model_components[i]);
 world_renderer->loadShadowVertData(SCREEN_QUAD_MODEL);
 for(int i = 0; i < pool->num_geometry_screen_quad_model_components; i++)
   world_renderer->renderShadow(pool->geometry_screen_quad_model_components[i]);

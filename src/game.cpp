@@ -12,7 +12,7 @@
 #include "light_entity_factory.h"
 #include "camera_entity_factory.h"
 
-//#define DEBUG
+#define DEBUG
 #define MS_PER_TICK (1000/60)
 #define MAX_CATCH_UP_TICKS 100
 

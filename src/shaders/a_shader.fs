@@ -16,7 +16,7 @@ void main()
   vec3 lightToFragVec = texture(pos_tex, UV).xyz-lightPosVec;
   vec3 l2fabs = abs(lightToFragVec);
   float greatestMagnitudeOfLightToFragVec = max(l2fabs.x, max(l2fabs.y, l2fabs.z));
-  float lightToFragDepth = ((100.0+0.1) / (100.0-0.1) - (2*100.0*0.1)/(100.0-0.1)/greatestMagnitudeOfLightToFragVec + 1.0) * 0.5;
+  float lightToFragDepth = ((100.0+1.0) / (100.0-1.0) - (2*100.0*1.0)/(100.0-1.0)/greatestMagnitudeOfLightToFragVec + 1.0) * 0.5;
   float directlight = texture(shadow_tex, vec4(normalize(lightToFragVec),lightToFragDepth));
 
   color = 

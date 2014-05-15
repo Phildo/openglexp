@@ -9,13 +9,16 @@
 
 #define WIDTH 1024
 #define HEIGHT 512
-#define POT 8
+#define POT 1
 #define SHADOWPOT 1
+
+#define NEARPLANE 1.0f
+#define FARPLANE 100.0f
 
 WorldRenderer::WorldRenderer()
 {
   //init shadow projection matrix
-  shadowProjMat = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
+  shadowProjMat = glm::perspective(90.0f, 1.0f, NEARPLANE, FARPLANE);
 
   //Geometry Pass
   gl_g_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/g_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/g_shader.fs");

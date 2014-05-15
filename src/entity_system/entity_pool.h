@@ -20,8 +20,9 @@ const component_signature component_signature_spacial_component = 4;
 const component_signature component_signature_geometry_bilboard_model = 8;
 const component_signature component_signature_geometry_cube_model = 16;
 const component_signature component_signature_geometry_inv_cube_model = 32;
-const component_signature component_signature_geometry_screen_quad_model = 64;
-const component_signature component_signature_geometry_triangle_model = 128;
+const component_signature component_signature_geometry_light_cube_model = 64;
+const component_signature component_signature_geometry_screen_quad_model = 128;
+const component_signature component_signature_geometry_triangle_model = 256;
 //ECS_CONSTRUCT_C_SIGNATURE_DEF_END
 
 class EntityPool
@@ -37,6 +38,7 @@ SpacialComponent spacial_components[MAX_ENTITIES]; int num_spacial_components;
 GeometryComponent geometry_bilboard_model_components[MAX_ENTITIES]; int num_geometry_bilboard_model_components;
 GeometryComponent geometry_cube_model_components[MAX_ENTITIES]; int num_geometry_cube_model_components;
 GeometryComponent geometry_inv_cube_model_components[MAX_ENTITIES]; int num_geometry_inv_cube_model_components;
+GeometryComponent geometry_light_cube_model_components[MAX_ENTITIES]; int num_geometry_light_cube_model_components;
 GeometryComponent geometry_screen_quad_model_components[MAX_ENTITIES]; int num_geometry_screen_quad_model_components;
 GeometryComponent geometry_triangle_model_components[MAX_ENTITIES]; int num_geometry_triangle_model_components;
 //ECS_CONSTRUCT_PUBLIC_C_DECL_END

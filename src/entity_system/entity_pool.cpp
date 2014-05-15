@@ -10,6 +10,7 @@ num_spacial_components = 0;
 num_geometry_bilboard_model_components = 0;
 num_geometry_cube_model_components = 0;
 num_geometry_inv_cube_model_components = 0;
+num_geometry_light_cube_model_components = 0;
 num_geometry_screen_quad_model_components = 0;
 num_geometry_triangle_model_components = 0;
 //ECS_CONSTRUCT_ZERO_COMPONENT_COUNTS_END
@@ -67,6 +68,12 @@ else if(csig & component_signature_geometry_inv_cube_model)
   e->geometry_component = &geometry_inv_cube_model_components[num_geometry_inv_cube_model_components];
   geometry_inv_cube_model_components[num_geometry_inv_cube_model_components].entity = e;
   num_geometry_inv_cube_model_components++;
+}
+else if(csig & component_signature_geometry_light_cube_model)
+{
+  e->geometry_component = &geometry_light_cube_model_components[num_geometry_light_cube_model_components];
+  geometry_light_cube_model_components[num_geometry_light_cube_model_components].entity = e;
+  num_geometry_light_cube_model_components++;
 }
 else if(csig & component_signature_geometry_screen_quad_model)
 {
@@ -135,6 +142,13 @@ if(e->geometry_component > &geometry_inv_cube_model_components[0] && e->geometry
   num_geometry_inv_cube_model_components--;
   geometry_inv_cube_model_components[num_geometry_inv_cube_model_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_inv_cube_model_components[num_geometry_inv_cube_model_components];
+}
+
+if(e->geometry_component > &geometry_light_cube_model_components[0] && e->geometry_component < (&geometry_light_cube_model_components[0]+MAX_ENTITIES))
+{
+  num_geometry_light_cube_model_components--;
+  geometry_light_cube_model_components[num_geometry_light_cube_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_light_cube_model_components[num_geometry_light_cube_model_components];
 }
 
 if(e->geometry_component > &geometry_screen_quad_model_components[0] && e->geometry_component < (&geometry_screen_quad_model_components[0]+MAX_ENTITIES))

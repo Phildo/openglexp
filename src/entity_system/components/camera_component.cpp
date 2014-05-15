@@ -6,7 +6,7 @@
 
 CameraComponent::CameraComponent()
 {
-  nearPlane = 0.1f;
+  nearPlane = 1.0f;
   farPlane = 100.0f;
   fov = 45.0f;
   aspect = 2.0f;

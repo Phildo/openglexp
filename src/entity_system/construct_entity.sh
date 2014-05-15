@@ -193,7 +193,7 @@ rm $TMP_FILE
 FLAG="ECS_CONSTRUCT_MODELS_SHADOW_RENDER"
 touch $TMP_FILE
 for i in models/*.h; do
-  if [ $i = "models/inv_cube_model.h" ]; then continue; fi
+  if [ $i = "models/light_cube_model.h" ]; then continue; fi
   UNDER=`fileToUnder $i`
   CAPS=`underToCaps $UNDER`
   echo "world_renderer->loadShadowVertData(${CAPS});" >> $TMP_FILE
@@ -203,6 +203,23 @@ done
 inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
 rm $TMP_FILE
 
+
+#
+#CONSTRUCT MODELS
+#
+ACTIVE_FILE="models.h"
+
+FLAG="ECS_CONSTRUCT_MODEL_SIGNATURE_DEF"
+touch $TMP_FILE
+MODEL_NUM=0
+for i in models/*.h; do
+  UNDER=`fileToUnder $i`
+  CAPS=`underToCaps $UNDER`
+  echo "#define ${CAPS} $MODEL_NUM" >> $TMP_FILE
+  MODEL_NUM=$(($MODEL_NUM + 1))
+done
+inject ${FLAG}_START ${FLAG}_END $TMP_FILE $ACTIVE_FILE
+rm $TMP_FILE
 
 exit 0
 
