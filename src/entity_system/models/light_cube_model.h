@@ -84,7 +84,6 @@ Models::models[LIGHT_CUBE_MODEL].norm[33] = glm::vec3(0.0f,1.0f,0.0f);
 Models::models[LIGHT_CUBE_MODEL].norm[34] = glm::vec3(0.0f,1.0f,0.0f);
 Models::models[LIGHT_CUBE_MODEL].norm[35] = glm::vec3(0.0f,1.0f,0.0f);
 
-/*
 Models::models[LIGHT_CUBE_MODEL].color[ 0] = glm::vec3(0.0f,1.0f,1.0f);
 Models::models[LIGHT_CUBE_MODEL].color[ 1] = glm::vec3(0.0f,1.0f,1.0f);
 Models::models[LIGHT_CUBE_MODEL].color[ 2] = glm::vec3(0.0f,1.0f,1.0f);
@@ -121,5 +120,4 @@ Models::models[LIGHT_CUBE_MODEL].color[32] = glm::vec3(1.0f,1.0f,1.0f);
 Models::models[LIGHT_CUBE_MODEL].color[33] = glm::vec3(1.0f,1.0f,1.0f);
 Models::models[LIGHT_CUBE_MODEL].color[34] = glm::vec3(1.0f,1.0f,1.0f);
 Models::models[LIGHT_CUBE_MODEL].color[35] = glm::vec3(1.0f,1.0f,1.0f);
-*/
 
