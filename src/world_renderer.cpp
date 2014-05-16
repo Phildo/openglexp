@@ -10,7 +10,7 @@
 #define WIDTH 1024
 #define HEIGHT 512
 #define POT 8
-#define SHADOWPOT 8
+#define SHADOWPOT 1
 
 #define NEARPLANE 1.0f
 #define FARPLANE 100.0f
@@ -19,6 +19,7 @@ WorldRenderer::WorldRenderer()
 {
   //init shadow projection matrix
   shadowProjMat = glm::perspective(90.0f, 1.0f, NEARPLANE, FARPLANE);
+  time = 0.0f;
 
   //Geometry Pass
   gl_g_program_id = loadShader("/Users/pdougherty/Desktop/flat/src/shaders/g_shader.vs","/Users/pdougherty/Desktop/flat/src/shaders/g_shader.fs");
@@ -29,6 +30,7 @@ WorldRenderer::WorldRenderer()
   gl_g_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
   gl_g_model_mat_a_id = glGetUniformLocation(gl_g_program_id, "modelMatA");
   gl_g_model_mat_r_id = glGetUniformLocation(gl_g_program_id, "modelMatR");
+  gl_g_time_id        = glGetUniformLocation(gl_g_program_id, "time");
     //attribs
   gl_g_pos_attrib_id  = glGetAttribLocation(gl_g_program_id, "vpos");
   gl_g_col_attrib_id  = glGetAttribLocation(gl_g_program_id, "vcol");
@@ -106,6 +108,7 @@ WorldRenderer::WorldRenderer()
   gl_s_proj_mat_id  = glGetUniformLocation(gl_s_program_id, "projMat");
   gl_s_model_mat_a_id = glGetUniformLocation(gl_s_program_id, "modelMatA");
   gl_s_model_mat_r_id = glGetUniformLocation(gl_s_program_id, "modelMatR");
+  gl_s_time_id        = glGetUniformLocation(gl_s_program_id, "time");
     //attribs
   gl_s_pos_attrib_id  = glGetAttribLocation(gl_s_program_id, "vpos");
 
@@ -237,6 +240,7 @@ void WorldRenderer::renderGeo(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
+  glUniform1f(gl_g_time_id, time);
   glDrawArrays(GL_TRIANGLES, 0, currentModelNumVerts);
 }
 
@@ -279,6 +283,7 @@ void WorldRenderer::renderShadow(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_s_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_s_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
+  glUniform1f(gl_s_time_id, time);
   glDrawArrays(GL_TRIANGLES, 0, currentModelNumVerts);
 }
 
@@ -307,8 +312,10 @@ void WorldRenderer::light(const LightComponent& lc) const
   glDrawArrays(GL_TRIANGLES, 0, Models::models[SCREEN_QUAD_MODEL].numVerts);
 }
 
-void WorldRenderer::blit() const
+void WorldRenderer::blit()
 {
+  time += 0.1f;
+
   glBindFramebuffer(GL_FRAMEBUFFER,0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,WIDTH,HEIGHT);

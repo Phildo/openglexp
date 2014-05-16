@@ -25,6 +25,7 @@ class WorldRenderer : public Renderer
     GLuint gl_g_view_mat_id;
     GLuint gl_g_model_mat_a_id;
     GLuint gl_g_model_mat_r_id;
+    GLuint gl_g_time_id;
 
     GLuint gl_g_fb_id;
     GLuint gl_g_fb_pos_tex_id;
@@ -41,6 +42,7 @@ class WorldRenderer : public Renderer
     GLuint gl_s_view_mat_id;
     GLuint gl_s_model_mat_a_id;
     GLuint gl_s_model_mat_r_id;
+    GLuint gl_s_time_id;
 
     GLuint gl_s_fb_id;
     GLuint gl_s_fb_cube_dep_tex_id;
@@ -72,6 +74,7 @@ class WorldRenderer : public Renderer
     glm::mat4 shadowViewMats[6];
 
     int currentModelNumVerts; //this is dumb
+    float time;
   public:
     WorldRenderer();
     ~WorldRenderer();
@@ -90,7 +93,7 @@ class WorldRenderer : public Renderer
     void prepareForLight() const;
     void light(const LightComponent& lc) const;
 
-    void blit() const;
+    void blit();
 };
 
 #endif
