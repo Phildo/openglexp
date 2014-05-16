@@ -12,7 +12,7 @@
 #include "light_entity_factory.h"
 #include "camera_entity_factory.h"
 
-//#define DEBUG
+#define DEBUG
 #define MS_PER_TICK (1000/60)
 #define MAX_CATCH_UP_TICKS 100
 
@@ -67,7 +67,9 @@ void Game::run()
     {
       #ifdef DEBUG
       now_stamp = glfwGetTime();
-      std::cout << (int)(1/((msPassed(debug_stamp,now_stamp)+0.00001)/1000.0)) << std::endl;
+      int fps =  (int)(1/((msPassed(debug_stamp,now_stamp)+0.00001)/1000.0));
+      if(fps < 58 || fps > 64)
+        std::cout << (int)(1/((msPassed(debug_stamp,now_stamp)+0.00001)/1000.0)) << std::endl;
       debug_stamp = glfwGetTime();
       #endif
       entitySystem->render();
