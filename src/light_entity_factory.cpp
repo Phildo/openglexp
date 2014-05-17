@@ -12,5 +12,6 @@ void LightEntityFactory::produce(EntityPool* ep)
   e->spacial_component->pos.x = (FLAT_Utils::randf()-0.5f)*30;
   e->spacial_component->pos.y = (FLAT_Utils::randf()-0.5f)*30;
   e->spacial_component->pos.z = (FLAT_Utils::randf())*20;
+  e->light_component->intensity = 8.0f;
 }
 

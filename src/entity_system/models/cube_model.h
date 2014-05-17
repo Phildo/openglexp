@@ -1,4 +1,5 @@
 Models::models[CUBE_MODEL].numVerts = 36;
+Models::models[CUBE_MODEL].wiggle = 1.0f;
 
 //front
 Models::models[CUBE_MODEL].pos[ 0] = glm::vec3( 1.0f,-1.0f, 1.0f);

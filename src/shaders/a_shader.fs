@@ -4,6 +4,7 @@ in vec2 UV;
 out vec3 color;
 
 uniform vec3 lightPosVec;
+uniform float lightIntensity;
 
 uniform sampler2D pos_tex;
 uniform sampler2D col_tex;
@@ -24,7 +25,7 @@ void main()
   vec3 contribution =
     texture(col_tex, UV).xyz                                           //frag color
     *dot(lightPosVec-texture(pos_tex,UV).xyz,texture(norm_tex,UV).xyz) //dot product of angle of incidence of light to normal
-    *(2+8*directlight)                                                 //shadow dampening/light amplification
+    *(2+lightIntensity*directlight)                                    //shadow dampening/light amplification
     /max(0.000001,dot(lightToFragVec,lightToFragVec))                  //distance cutoff
   ;
 

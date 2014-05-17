@@ -11,6 +11,7 @@ class Model
   private:
   public:
     int numVerts;
+    float wiggle;
     glm::vec3 pos[MAX_VERTS];
     glm::vec3 color[MAX_VERTS];
     glm::vec3 norm[MAX_VERTS];

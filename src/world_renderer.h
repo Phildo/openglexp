@@ -25,6 +25,7 @@ class WorldRenderer : public Renderer
     GLuint gl_g_view_mat_id;
     GLuint gl_g_model_mat_a_id;
     GLuint gl_g_model_mat_r_id;
+    GLuint gl_g_wiggle_id;
     GLuint gl_g_time_id;
 
     GLuint gl_g_fb_id;
@@ -42,6 +43,7 @@ class WorldRenderer : public Renderer
     GLuint gl_s_view_mat_id;
     GLuint gl_s_model_mat_a_id;
     GLuint gl_s_model_mat_r_id;
+    GLuint gl_s_wiggle_id;
     GLuint gl_s_time_id;
 
     GLuint gl_s_fb_id;
@@ -58,6 +60,7 @@ class WorldRenderer : public Renderer
     GLuint gl_a_shadow_tex_id;
     GLuint gl_a_tex_id;
     GLuint gl_a_light_pos_vec_id;
+    GLuint gl_a_light_intensity_id;
 
     GLuint gl_a_fb_id;
     GLuint gl_a_fb_tex_id;
@@ -73,6 +76,7 @@ class WorldRenderer : public Renderer
     glm::mat4 shadowProjMat; 
     glm::mat4 shadowViewMats[6];
 
+    int currentModelWiggle; //this is dumb
     int currentModelNumVerts; //this is dumb
     float time;
   public:

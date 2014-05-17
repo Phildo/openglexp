@@ -21,6 +21,7 @@ void EntitySystem::debug()
   pool->light_components[0].entity->spacial_component->pos.x = 1;
   pool->light_components[0].entity->spacial_component->pos.y = 1;
   pool->light_components[0].entity->spacial_component->pos.z = 0;
+  pool->light_components[0].intensity = 20.0f;
 
   pool->light_components[0].entity->spacial_component->vel.x = -0.01;
   pool->light_components[0].entity->spacial_component->vel.y = 0.0;

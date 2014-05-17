@@ -1,4 +1,6 @@
 Models::models[BILBOARD_MODEL].numVerts = 6;
+Models::models[BILBOARD_MODEL].wiggle = 10.0f;
+
 Models::models[BILBOARD_MODEL].pos[0] = glm::vec3( 15.0, 10.0,-8.0);
 Models::models[BILBOARD_MODEL].pos[1] = glm::vec3(-15.0, 10.0,-8.0);
 Models::models[BILBOARD_MODEL].pos[2] = glm::vec3(-15.0,-10.0,-8.0);

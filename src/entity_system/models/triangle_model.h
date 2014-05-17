@@ -1,4 +1,6 @@
 Models::models[TRIANGLE_MODEL].numVerts = 6;
+Models::models[TRIANGLE_MODEL].wiggle = 5.0f;
+
 Models::models[TRIANGLE_MODEL].pos[0] = glm::vec3( 5.0f,-5.0f,-1.9f);
 Models::models[TRIANGLE_MODEL].pos[1] = glm::vec3( 0.0f, 5.0f,-1.9f);
 Models::models[TRIANGLE_MODEL].pos[2] = glm::vec3(-5.0f,-5.0f,-1.9f);

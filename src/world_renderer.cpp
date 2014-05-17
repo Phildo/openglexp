@@ -30,6 +30,7 @@ WorldRenderer::WorldRenderer()
   gl_g_proj_mat_id  = glGetUniformLocation(gl_g_program_id, "projMat");
   gl_g_model_mat_a_id = glGetUniformLocation(gl_g_program_id, "modelMatA");
   gl_g_model_mat_r_id = glGetUniformLocation(gl_g_program_id, "modelMatR");
+  gl_g_wiggle_id      = glGetUniformLocation(gl_g_program_id, "wiggle");
   gl_g_time_id        = glGetUniformLocation(gl_g_program_id, "time");
     //attribs
   gl_g_pos_attrib_id  = glGetAttribLocation(gl_g_program_id, "vpos");
@@ -108,6 +109,7 @@ WorldRenderer::WorldRenderer()
   gl_s_proj_mat_id  = glGetUniformLocation(gl_s_program_id, "projMat");
   gl_s_model_mat_a_id = glGetUniformLocation(gl_s_program_id, "modelMatA");
   gl_s_model_mat_r_id = glGetUniformLocation(gl_s_program_id, "modelMatR");
+  gl_s_wiggle_id      = glGetUniformLocation(gl_s_program_id, "wiggle");
   gl_s_time_id        = glGetUniformLocation(gl_s_program_id, "time");
     //attribs
   gl_s_pos_attrib_id  = glGetAttribLocation(gl_s_program_id, "vpos");
@@ -146,12 +148,13 @@ WorldRenderer::WorldRenderer()
   glUseProgram(gl_a_program_id);
 
     //uniforms
-  gl_a_pos_tex_id        = glGetUniformLocation(gl_a_program_id, "pos_tex");
-  gl_a_col_tex_id        = glGetUniformLocation(gl_a_program_id, "col_tex");
-  gl_a_norm_tex_id       = glGetUniformLocation(gl_a_program_id, "norm_tex");
-  gl_a_shadow_tex_id     = glGetUniformLocation(gl_a_program_id, "shadow_tex");
-  gl_a_tex_id            = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
-  gl_a_light_pos_vec_id  = glGetUniformLocation(gl_a_program_id, "lightPosVec");
+  gl_a_pos_tex_id         = glGetUniformLocation(gl_a_program_id, "pos_tex");
+  gl_a_col_tex_id         = glGetUniformLocation(gl_a_program_id, "col_tex");
+  gl_a_norm_tex_id        = glGetUniformLocation(gl_a_program_id, "norm_tex");
+  gl_a_shadow_tex_id      = glGetUniformLocation(gl_a_program_id, "shadow_tex");
+  gl_a_tex_id             = glGetUniformLocation(gl_a_program_id, "accum_tex"); //same tex being drawn to
+  gl_a_light_pos_vec_id   = glGetUniformLocation(gl_a_program_id, "lightPosVec");
+  gl_a_light_intensity_id = glGetUniformLocation(gl_a_program_id, "lightIntensity");
     //attribs
   gl_a_pos_attrib_id = glGetAttribLocation(gl_a_program_id, "vpos");
 
@@ -227,6 +230,7 @@ void WorldRenderer::prepareForGeo(const CameraComponent& cam) const
 
 void WorldRenderer::loadModelVertData(int model)
 {
+  currentModelWiggle   = Models::models[model].wiggle;
   currentModelNumVerts = Models::models[model].numVerts;
   glBindBuffer(GL_ARRAY_BUFFER, gl_g_pos_buff_id);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*currentModelNumVerts, (GLfloat *)Models::models[model].pos, GL_STATIC_DRAW);
@@ -240,6 +244,7 @@ void WorldRenderer::renderGeo(const GeometryComponent& gc) const
 {
   glUniformMatrix4fv(gl_g_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_g_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
+  glUniform1f(gl_g_wiggle_id, currentModelWiggle);
   glUniform1f(gl_g_time_id, time);
   glDrawArrays(GL_TRIANGLES, 0, currentModelNumVerts);
 }
@@ -267,6 +272,7 @@ void WorldRenderer::prepareForShadow(const LightComponent& lc)
 
 void WorldRenderer::loadShadowVertData(int model)
 {
+  currentModelWiggle   = Models::models[model].wiggle;
   currentModelNumVerts = Models::models[model].numVerts;
   glBindBuffer(GL_ARRAY_BUFFER, gl_s_pos_buff_id);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*currentModelNumVerts, (GLfloat *)Models::models[model].pos, GL_STATIC_DRAW);
@@ -284,6 +290,7 @@ void WorldRenderer::renderShadow(const GeometryComponent& gc) const
   glUniformMatrix4fv(gl_s_model_mat_a_id, 1, GL_FALSE, &gc.modelMatA[0][0]);
   glUniformMatrix4fv(gl_s_model_mat_r_id, 1, GL_FALSE, &gc.modelMatR[0][0]);
   glUniform1f(gl_s_time_id, time);
+  glUniform1f(gl_s_wiggle_id, currentModelWiggle);
   glDrawArrays(GL_TRIANGLES, 0, currentModelNumVerts);
 }
 
@@ -309,6 +316,7 @@ void WorldRenderer::prepareForLight() const
 void WorldRenderer::light(const LightComponent& lc) const
 {
   glUniform3fv(gl_a_light_pos_vec_id, 1, &lc.entity->spacial_component->pos[0]);
+  glUniform1f(gl_a_light_intensity_id, lc.intensity);
   glDrawArrays(GL_TRIANGLES, 0, Models::models[SCREEN_QUAD_MODEL].numVerts);
 }
 
