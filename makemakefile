@@ -14,16 +14,34 @@ LFLAGS = -Wall `pkg-config --static --libs glfw3` -framework OpenGL -lGLEW $(DEB
 #MAKEMAKE<
 #MAKEMAKE>
 
-makemake : 
+$(SRCDIR)/entity_system/entity.h: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/entity_pool.h: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/entity_pool.cpp: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/entity_system.cpp: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/models.h: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/models.cpp: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+makemake :
 	find $(SRCDIR) -iregex .*\.cpp | xargs makemake
 
-tags : 
+tags :
 	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)
 
-clean : 
+clean :
 	\rm -rf $(ODIR)/*.o $(OUT)
 
 go : $(OUT)

@@ -35,7 +35,7 @@ $(ODIR)/entity_pool.o: src/entity_system/entity_pool.cpp src/entity_system/entit
 $(ODIR)/entity_system.o: src/entity_system/entity_system.cpp src/entity_system/entity_system.h src/entity_system/entity_pool.h src/entity_system/entity.h src/entity_system/components/camera_component.h src/entity_system/components/geometry_component.h src/entity_system/components/light_component.h src/entity_system/components/spacial_component.h src/entity_system/entity_factory.h src/entity_system/models.h src/entity_system/model.h src/entity_system/../physics_solver.h src/entity_system/../world_renderer.h src/entity_system/../renderer.h src/entity_system/../gl_include.h
 	$(CC) $(CFLAGS) src/entity_system/entity_system.cpp -o $(ODIR)/entity_system.o
 
-$(ODIR)/models.o: src/entity_system/models.cpp src/entity_system/models.h src/entity_system/model.h src/entity_system/models/screen_quad_model.h src/entity_system/models/triangle_model.h src/entity_system/models/bilboard_model.h src/entity_system/models/cube_model.h src/entity_system/models/inv_cube_model.h
+$(ODIR)/models.o: src/entity_system/models.cpp src/entity_system/models.h src/entity_system/model.h src/entity_system/models/bilboard_model.h src/entity_system/models/cube_model.h src/entity_system/models/inv_cube_model.h src/entity_system/models/light_cube_model.h src/entity_system/models/screen_quad_model.h src/entity_system/models/triangle_model.h
 	$(CC) $(CFLAGS) src/entity_system/models.cpp -o $(ODIR)/models.o
 
 $(ODIR)/FLAT_utils.o: src/FLAT_utils.cpp src/FLAT_utils.h
@@ -67,16 +67,34 @@ $(ODIR)/world_renderer.o: src/world_renderer.cpp src/world_renderer.h src/render
 
 #MAKEMAKE>
 
-makemake : 
+$(SRCDIR)/entity_system/entity.h: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/entity_pool.h: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/entity_pool.cpp: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/entity_system.cpp: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/models.h: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+$(SRCDIR)/entity_system/models.cpp: $(SRCDIR)/entity_system/construct_entity.sh
+	$(cd $(SRCDIR)/entity_system && $(SRCDIR)/entity_system/construct_entity.sh)
+
+makemake :
 	find $(SRCDIR) -iregex .*\.cpp | xargs makemake
 
-tags : 
+tags :
 	ctags $(SRCDIR)/*.cpp -f $(SRCDIR)/tags
 
 debug : $(OUT)
 	$(DEBUGGER) $(OUT)
 
-clean : 
+clean :
 	\rm -rf $(ODIR)/*.o $(OUT)
 
 go : $(OUT)
