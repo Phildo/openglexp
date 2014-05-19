@@ -1,7 +1,7 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-#define MAX_VERTS 72
+#define MAX_VERTS 240
 
 #include <glm/glm.hpp>
 class Entity;

@@ -7,6 +7,7 @@ void Models::defineModels()
 //ECS_CONSTRUCT_MODEL_INCLUDE_START
 #include "models/bilboard_model.h"
 #include "models/cube_model.h"
+#include "models/gear_model.h"
 #include "models/inv_cube_model.h"
 #include "models/light_cube_model.h"
 #include "models/screen_quad_model.h"

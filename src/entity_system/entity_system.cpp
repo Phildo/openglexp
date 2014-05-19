@@ -31,7 +31,7 @@ void EntitySystem::debug()
   pool->light_components[0].entity->spacial_component->rotVel.y = 0.9;
   pool->light_components[0].entity->spacial_component->rotVel.z = 0.4;
 
-  pool->light_components[1].entity->spacial_component->pos.x = -3;
+  pool->light_components[1].entity->spacial_component->pos.x = -1;
   pool->light_components[1].entity->spacial_component->pos.y = 0;
   pool->light_components[1].entity->spacial_component->pos.z = 3;
 
@@ -43,7 +43,7 @@ void EntitySystem::debug()
   pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.y = 0.2f;
   pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.z = 0.4f;
 
-  pool->camera_components[0].entity->spacial_component->pos.z = 10;
+  pool->camera_components[0].entity->spacial_component->pos.z = 15;
 }
 
 void EntitySystem::produceEntityFromFactory(EntityFactory* ef)
@@ -94,6 +94,9 @@ for(int i = 0; i < pool->num_geometry_bilboard_model_components; i++)
 world_renderer->loadModelVertData(CUBE_MODEL);
 for(int i = 0; i < pool->num_geometry_cube_model_components; i++)
   world_renderer->renderGeo(pool->geometry_cube_model_components[i]);
+world_renderer->loadModelVertData(GEAR_MODEL);
+for(int i = 0; i < pool->num_geometry_gear_model_components; i++)
+  world_renderer->renderGeo(pool->geometry_gear_model_components[i]);
 world_renderer->loadModelVertData(INV_CUBE_MODEL);
 for(int i = 0; i < pool->num_geometry_inv_cube_model_components; i++)
   world_renderer->renderGeo(pool->geometry_inv_cube_model_components[i]);
@@ -122,6 +125,9 @@ for(int i = 0; i < pool->num_geometry_bilboard_model_components; i++)
 world_renderer->loadShadowVertData(CUBE_MODEL);
 for(int i = 0; i < pool->num_geometry_cube_model_components; i++)
   world_renderer->renderShadow(pool->geometry_cube_model_components[i]);
+world_renderer->loadShadowVertData(GEAR_MODEL);
+for(int i = 0; i < pool->num_geometry_gear_model_components; i++)
+  world_renderer->renderShadow(pool->geometry_gear_model_components[i]);
 world_renderer->loadShadowVertData(INV_CUBE_MODEL);
 for(int i = 0; i < pool->num_geometry_inv_cube_model_components; i++)
   world_renderer->renderShadow(pool->geometry_inv_cube_model_components[i]);

@@ -9,6 +9,7 @@ num_light_components = 0;
 num_spacial_components = 0;
 num_geometry_bilboard_model_components = 0;
 num_geometry_cube_model_components = 0;
+num_geometry_gear_model_components = 0;
 num_geometry_inv_cube_model_components = 0;
 num_geometry_light_cube_model_components = 0;
 num_geometry_screen_quad_model_components = 0;
@@ -62,6 +63,12 @@ else if(csig & component_signature_geometry_cube_model)
   e->geometry_component = &geometry_cube_model_components[num_geometry_cube_model_components];
   geometry_cube_model_components[num_geometry_cube_model_components].entity = e;
   num_geometry_cube_model_components++;
+}
+else if(csig & component_signature_geometry_gear_model)
+{
+  e->geometry_component = &geometry_gear_model_components[num_geometry_gear_model_components];
+  geometry_gear_model_components[num_geometry_gear_model_components].entity = e;
+  num_geometry_gear_model_components++;
 }
 else if(csig & component_signature_geometry_inv_cube_model)
 {
@@ -135,6 +142,13 @@ if(e->geometry_component > &geometry_cube_model_components[0] && e->geometry_com
   num_geometry_cube_model_components--;
   geometry_cube_model_components[num_geometry_cube_model_components].entity->geometry_component = e->geometry_component;
   *e->geometry_component = geometry_cube_model_components[num_geometry_cube_model_components];
+}
+
+if(e->geometry_component > &geometry_gear_model_components[0] && e->geometry_component < (&geometry_gear_model_components[0]+MAX_ENTITIES))
+{
+  num_geometry_gear_model_components--;
+  geometry_gear_model_components[num_geometry_gear_model_components].entity->geometry_component = e->geometry_component;
+  *e->geometry_component = geometry_gear_model_components[num_geometry_gear_model_components];
 }
 
 if(e->geometry_component > &geometry_inv_cube_model_components[0] && e->geometry_component < (&geometry_inv_cube_model_components[0]+MAX_ENTITIES))
