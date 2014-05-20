@@ -18,6 +18,10 @@ EntitySystem::EntitySystem()
 
 void EntitySystem::debug()
 {
+  pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.x = 0.0f;
+  pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.y = 0.0f;
+  pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.z = 0.4f;
+
   pool->light_components[0].entity->spacial_component->pos.x = 1;
   pool->light_components[0].entity->spacial_component->pos.y = 1;
   pool->light_components[0].entity->spacial_component->pos.z = 0;
