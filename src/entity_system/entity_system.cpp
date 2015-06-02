@@ -20,7 +20,7 @@ void EntitySystem::debug()
 {
   pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.x = 0.0f;
   pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.y = 0.0f;
-  pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.z = 0.4f;
+  pool->geometry_gear_model_components[0].entity->spacial_component->rotVel.z = 0.04f;
 
   pool->light_components[0].entity->spacial_component->pos.x = 1;
   pool->light_components[0].entity->spacial_component->pos.y = 1;
@@ -31,21 +31,21 @@ void EntitySystem::debug()
   pool->light_components[0].entity->spacial_component->vel.y = 0.0;
   pool->light_components[0].entity->spacial_component->vel.z = 0.0;
 
-  pool->light_components[0].entity->spacial_component->rotVel.x = -0.2;
-  pool->light_components[0].entity->spacial_component->rotVel.y = 0.9;
-  pool->light_components[0].entity->spacial_component->rotVel.z = 0.4;
+  pool->light_components[0].entity->spacial_component->rotVel.x = -0.02;
+  pool->light_components[0].entity->spacial_component->rotVel.y = 0.09;
+  pool->light_components[0].entity->spacial_component->rotVel.z = 0.04;
 
   pool->light_components[1].entity->spacial_component->pos.x = -1;
   pool->light_components[1].entity->spacial_component->pos.y = 0;
-  pool->light_components[1].entity->spacial_component->pos.z = 3;
+  pool->light_components[1].entity->spacial_component->pos.z = 4;
 
-  pool->light_components[1].entity->spacial_component->rotVel.x = 0.3;
-  pool->light_components[1].entity->spacial_component->rotVel.y = 0.3;
-  pool->light_components[1].entity->spacial_component->rotVel.z = 0.9;
+  pool->light_components[1].entity->spacial_component->rotVel.x = 0.03;
+  pool->light_components[1].entity->spacial_component->rotVel.y = 0.03;
+  pool->light_components[1].entity->spacial_component->rotVel.z = 0.09;
 
-  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.x = 0.8f;
-  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.y = 0.2f;
-  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.z = 0.4f;
+  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.x = 0.008f;
+  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.y = 0.002f;
+  pool->geometry_inv_cube_model_components[0].entity->spacial_component->rotVel.z = 0.004f;
 
   pool->camera_components[0].entity->spacial_component->pos.z = 15;
 }
